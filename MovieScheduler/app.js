@@ -6,6 +6,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(express.json());
+app.use('/api', movieSchedulerRoute);
 // app.use(moviescheduler);
 
 const port = process.env.PORT;
