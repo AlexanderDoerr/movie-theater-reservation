@@ -11,7 +11,7 @@ from firebase_functions import firestore_fn, https_fn
 from firebase_admin import initialize_app, firestore, credentials
 import google.cloud.firestore
 
-cred = credentials.Certificate("testproject-3ef55-firebase-adminsdk-faisi-95d260ef38.json")
+cred = credentials.Certificate("authToken.json")
 app = firebase_admin.initialize_app(cred)
 db = firestore.client()
 
