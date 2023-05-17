@@ -16,7 +16,6 @@ app = firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
-
 def get_current_timestamp():
     now = datetime.now()
     return int(time.mktime(now.timetuple()))
@@ -24,25 +23,22 @@ def get_current_timestamp():
 
 class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
     def GetOrder(self, request, context):
-        uuid = "1234"
-        userid = "usrid1234"
-        ticket_uuids = ["tcktid1234"]
-        payment_method = order_pb2.PaymentMethod(
-            ccNum="1234",
-            expDate="1234",
-            cvv="1234",
-            name="1234"
-        )
-        now = datetime.now()
-        seconds = int(time.mktime(now.timetuple()))
-        date_created = timestamp_pb2.Timestamp(seconds=seconds)
-        return order_pb2.OrderIn(
-            uuid=uuid,
-            userid=userid,
-            ticket_uuid=ticket_uuids,
-            payment_method=payment_method,
-            date_created=date_created
-        )
+        doc_ref = db.collection('orders').document(request.uuid)
+        doc = doc_ref.get()
+        if doc.exists:
+            print(doc.to_dict())
+            return order_pb2.OrderIn(
+                uuid=doc.to_dict()['uuid'],
+                userid=doc.to_dict()['userid'],
+                ticket_uuid=doc.to_dict()['ticket_uuid'],
+                payment_method=order_pb2.PaymentMethod(
+                    ccNum=doc.to_dict()['payment_method']['ccNum'],
+                    expDate=doc.to_dict()['payment_method']['expDate'],
+                    cvv=doc.to_dict()['payment_method']['cvv'],
+                    name=doc.to_dict()['payment_method']['name']
+                ),
+                date_created=timestamp_pb2.Timestamp(seconds=doc.to_dict()['date_created'])
+            )
 
 
     def CreateOrder(self, request, context):
@@ -70,6 +66,24 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
             payment_method=request.payment_method,
             date_created=date_created
         )
+
+    def GetOrdersForUser(self, request, context):
+        docs = db.collection('orders').where('userid', '==', request.uuid).stream()
+        for doc in docs:
+            print(doc.to_dict())
+            yield order_pb2.OrderIn(
+                uuid=doc.to_dict()['uuid'],
+                userid=doc.to_dict()['userid'],
+                ticket_uuid=doc.to_dict()['ticket_uuid'],
+                payment_method=order_pb2.PaymentMethod(
+                    ccNum=doc.to_dict()['payment_method']['ccNum'],
+                    expDate=doc.to_dict()['payment_method']['expDate'],
+                    cvv=doc.to_dict()['payment_method']['cvv'],
+                    name=doc.to_dict()['payment_method']['name']
+                ),
+                date_created=timestamp_pb2.Timestamp(seconds=doc.to_dict()['date_created'])
+            )
+
 
 
 def serve():
