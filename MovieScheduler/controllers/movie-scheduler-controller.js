@@ -23,7 +23,7 @@ const movieListProto = grpc.loadPackageDefinition(packageDefinition).movielist;
 
 // Define GRPC client for Movie List service
 function createGrpcClient() {
-  movieListService = new movieListProto.MovieList('localhost:50051', grpc.credentials.createInsecure());
+  movieListService = new notes.NoteService('localhost:50051', grpc.credentials.createInsecure());
 }
 
 // Fetch movie info from Movie List service
