@@ -1,15 +1,15 @@
-import firebase_admin
-import grpc
+import time
 import uuid
 from concurrent import futures
+from datetime import datetime
+
+import firebase_admin
+import grpc
+from firebase_admin import firestore, credentials
+from google.protobuf import timestamp_pb2
+
 import order_pb2
 import order_pb2_grpc
-from google.protobuf import timestamp_pb2
-from datetime import datetime
-import time
-from firebase_functions import firestore_fn, https_fn
-from firebase_admin import initialize_app, firestore, credentials
-import google.cloud.firestore
 
 cred = credentials.Certificate("authToken.json")
 app = firebase_admin.initialize_app(cred)
