@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package movielist;
+
+// The movie list service definition.
+service MovieList {
+  // Gets movie info
+  rpc GetMovieInfo(MovieIdRequest) returns (MovieInfoResponse) {}
+}
+
+// The request message containing the movie's ID.
+message MovieIdRequest {
+  string id = 1;
+}
+
+// The response message containing the movie's info.
+message MovieInfoResponse {
+  string title = 1;
+  string description = 2;
+  // Add other fields as required
+}
