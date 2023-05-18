@@ -1,0 +1,123 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\UserServiceClientAPI\\UserServiceClientAPI.csproj": {}
+  },
+  "projects": {
+    "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\UserServiceClientAPI\\UserServiceClientAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\UserServiceClientAPI\\UserServiceClientAPI.csproj",
+        "projectName": "UserServiceClientAPI",
+        "projectPath": "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\UserServiceClientAPI\\UserServiceClientAPI.csproj",
+        "packagesPath": "C:\\Users\\choffman\\.nuget\\packages\\",
+        "outputPath": "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\UserServiceClientAPI\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\choffman\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Google.Apis": {
+              "target": "Package",
+              "version": "[1.60.0, )"
+            },
+            "Google.Apis.Core": {
+              "target": "Package",
+              "version": "[1.60.0, )"
+            },
+            "Google.Protobuf": {
+              "target": "Package",
+              "version": "[3.23.1, )"
+            },
+            "Google.Protobuf.Tools": {
+              "target": "Package",
+              "version": "[3.23.0, )"
+            },
+            "Grpc": {
+              "target": "Package",
+              "version": "[2.46.6, )"
+            },
+            "Grpc.Net.Client": {
+              "target": "Package",
+              "version": "[2.53.0, )"
+            },
+            "Grpc.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.54.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Steeltoe.Discovery.ClientCore": {
+              "target": "Package",
+              "version": "[3.2.3, )"
+            },
+            "Steeltoe.Discovery.Eureka": {
+              "target": "Package",
+              "version": "[3.2.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

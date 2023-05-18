@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Dev\\PRO300\\Projects\\OrderServiceClientAPI\\OrderServiceClientAPI.csproj": {}
+    "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\OrderServiceClientAPI\\OrderServiceClientAPI.csproj": {}
   },
   "projects": {
-    "C:\\Dev\\PRO300\\Projects\\OrderServiceClientAPI\\OrderServiceClientAPI.csproj": {
+    "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\OrderServiceClientAPI\\OrderServiceClientAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Dev\\PRO300\\Projects\\OrderServiceClientAPI\\OrderServiceClientAPI.csproj",
+        "projectUniqueName": "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\OrderServiceClientAPI\\OrderServiceClientAPI.csproj",
         "projectName": "OrderServiceClientAPI",
-        "projectPath": "C:\\Dev\\PRO300\\Projects\\OrderServiceClientAPI\\OrderServiceClientAPI.csproj",
+        "projectPath": "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\OrderServiceClientAPI\\OrderServiceClientAPI.csproj",
         "packagesPath": "C:\\Users\\choffman\\.nuget\\packages\\",
-        "outputPath": "C:\\Dev\\PRO300\\Projects\\OrderServiceClientAPI\\obj\\",
+        "outputPath": "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\OrderServiceClientAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

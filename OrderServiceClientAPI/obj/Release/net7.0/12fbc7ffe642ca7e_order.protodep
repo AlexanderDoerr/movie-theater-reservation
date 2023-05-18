@@ -1,0 +1,4 @@
+obj\Release\net7.0\Protos/Order.cs \
+obj\Release\net7.0\Protos/OrderGrpc.cs: C:/Users/choffman/.nuget/packages/grpc.tools/2.54.0/build/native/include/google/protobuf/timestamp.proto\
+ C:/Users/choffman/.nuget/packages/grpc.tools/2.54.0/build/native/include/google/protobuf/empty.proto\
+ Protos/order.proto
