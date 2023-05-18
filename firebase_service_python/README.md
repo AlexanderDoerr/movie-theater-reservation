@@ -28,7 +28,7 @@ This script assumes the Firestore database has a collection called 'orders'. Eac
 To run the service, simply execute the Python script via the command line:
 
 ```bash
-python <filename>.py
+python main.py
 ```
 Once the service starts, it listens for incoming gRPC connections on port 50051.
 
@@ -54,3 +54,9 @@ This is a basic implementation of an Order Management Service. For production sc
 * Performing input validation and implementing error handling comprehensively. 
 * Implementing remaining CRUD operations like update and delete. 
 * Providing a secure connection using SSL/TLS instead of the current insecure connection.
+
+
+## References
+* This `README.md` document was created using ChatGPT
+* [gRPC Python Quickstart](https://grpc.io/docs/languages/python/quickstart/)
+* [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup#python)
