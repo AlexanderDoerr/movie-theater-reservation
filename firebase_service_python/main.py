@@ -39,36 +39,48 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
                 ),
                 date_created=timestamp_pb2.Timestamp(seconds=doc.to_dict()['date_created'])
             )
-
+        else:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('Order not found!')
+            return order_pb2.OrderIn()
 
     def CreateOrder(self, request, context):
-        seconds = get_current_timestamp()
-        date_created = timestamp_pb2.Timestamp(seconds=seconds)
-        orderid = uuid.uuid4().hex
-        doc_ref = db.collection('orders').document(orderid)
-        doc_ref.set({
-            'uuid': orderid,
-            'userid': request.userid,
-            'ticket_uuid': [x for x in request.ticket_uuid],
-            'payment_method': {
-                'ccNum': request.payment_method.ccNum,
-                'expDate': request.payment_method.expDate,
-                'cvv': request.payment_method.cvv,
-                'name': request.payment_method.name
-            },
-            'date_created': seconds
-        })
-        print(request)
-        return order_pb2.OrderIn(
-            uuid=orderid,
-            userid=request.userid,
-            ticket_uuid=request.ticket_uuid,
-            payment_method=request.payment_method,
-            date_created=date_created
-        )
+        try:
+            seconds = get_current_timestamp()
+            date_created = timestamp_pb2.Timestamp(seconds=seconds)
+            orderid = uuid.uuid4().hex
+            doc_ref = db.collection('orders').document(orderid)
+            doc_ref.set({
+                'uuid': orderid,
+                'userid': request.userid,
+                'ticket_uuid': [x for x in request.ticket_uuid],
+                'payment_method': {
+                    'ccNum': request.payment_method.ccNum,
+                    'expDate': request.payment_method.expDate,
+                    'cvv': request.payment_method.cvv,
+                    'name': request.payment_method.name
+                },
+                'date_created': seconds
+            })
+            print(request)
+            return order_pb2.OrderIn(
+                uuid=orderid,
+                userid=request.userid,
+                ticket_uuid=request.ticket_uuid,
+                payment_method=request.payment_method,
+                date_created=date_created
+            )
+        except Exception as e:
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details('Error! ' + str(e))
+            return order_pb2.OrderIn()
 
     def GetOrdersForUser(self, request, context):
         docs = db.collection('orders').where('userid', '==', request.uuid).stream()
+        if docs is None:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('No orders found for user!')
+            return order_pb2.OrderIn()
         for doc in docs:
             print(doc.to_dict())
             yield order_pb2.OrderIn(
@@ -83,7 +95,6 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
                 ),
                 date_created=timestamp_pb2.Timestamp(seconds=doc.to_dict()['date_created'])
             )
-
 
 
 def serve():
