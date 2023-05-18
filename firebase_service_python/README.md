@@ -24,10 +24,11 @@ This service uses Firebase for data persistence. As such, it is necessary to pro
 This script assumes the Firestore database has a collection called 'orders'. Each document in 'orders' represents an order, which includes fields such as 'uuid', 'userid', 'ticket_uuid', 'payment_method', and 'date_created'.
 
 ## Running the Service
-To run the service, simply execute the Python script via the command line:
+To run the service, simply install `requirements.py` execute the Python script via the command line:
 
 ```bash
-python3 <filename>.py
+pip install -r requirements.txt
+python <filename>.py
 ```
 Once the service starts, it listens for incoming gRPC connections on port 50051.
 
