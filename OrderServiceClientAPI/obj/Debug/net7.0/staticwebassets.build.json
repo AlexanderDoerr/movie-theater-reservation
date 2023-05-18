@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "LIDkxPG9GH7TzM29JuUmQcoOR3xbSyfkDZP89jmxpgA=",
+  "Source": "OrderServiceClientAPI",
+  "BasePath": "_content/OrderServiceClientAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
