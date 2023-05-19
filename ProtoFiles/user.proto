@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserServiceClient";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+package users;
+
+service UserService
+{
+    rpc getUserById(userRequest) returns (User){}
+    rpc getUserByEmail(UserEmail) returns (User){}
+    rpc validateUser(UserValidationRequest) returns (User){}
+    rpc getAllUsers(google.protobuf.Empty) returns (userList){}
+    rpc createUser(UserCreate) returns (userRequest){}
+    rpc deleteUser(userRequest) returns (google.protobuf.Empty){}
+}
+
+message Empty {}
+
+message User {
+    string userGuid = 1;
+    string firstname = 2;
+    string lastname = 3;
+    string email = 4;
+    string password = 5;
+    google.protobuf.Timestamp createdDate = 6;
+}
+
+message UserCreate {
+    string firstname = 1;
+    string lastname = 2;
+    string email = 3;
+    string password = 4;
+}
+
+message UserValidationRequest
+{
+	string email = 1;
+	string password = 2;
+}
+
+message UserEmail
+{
+	string email = 1;
+}
+
+message userRequest
+{
+    string UUID = 1;
+}
+
+message userList
+{
+    repeated User users = 1;
+}
+
+message status 
+{
+    int32 code = 1;
+    string message = 2;
+}
