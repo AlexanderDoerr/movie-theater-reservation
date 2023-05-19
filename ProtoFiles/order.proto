@@ -7,6 +7,7 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
 // Define the message types
+message TicketStub {
 	string Movieuuid = 1;
 	int32 theater_room = 2;
 	string MovieTime = 3;
