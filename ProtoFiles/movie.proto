@@ -8,9 +8,10 @@ import "google/protobuf/empty.proto";
 service MovieList {
   // Gets movie info
   rpc GetMovieInfo(MovieId) returns (Movie) {} //this is the get by id, single movie return
-  rpc GetAllMovies(google.protobuf.Empty) returns (Movies) {} //this is the get all, list of movies return
-  rpc SearchByName(SearchRequest) returns (Movies) {} //this is the search by name, list of movies return
-  rpc CreateMovie(MovieCreate) returns (MovieId) {} //this is the create, single movieId return
+  rpc GetAllMovies(google.protobuf.Empty) returns (stream Movie) {} //this is the get all, list of movies return
+  rpc GetAllShowingMovies(google.protobuf.Empty) returns (stream MovieTitle) {} //return a list of movies titles that are showing
+  rpc ScheduleMovie(Movie) returns (Movie) {} //this is the update, single movie return
+  rpc UpdateMovie(MovieUpdate) returns (Movie) {} //this is the update, single movie return
 }
 
 //This is a what a movie should look like when being returned from the server
@@ -18,6 +19,8 @@ message Movie {
   string uuid = 1;
   string title = 2;
   string description = 3;
+  string runtime = 4;
+  bool is_showing = 5;
   //any other fields you need like year, rating, etc
 }
 
@@ -32,19 +35,18 @@ message SearchRequest {
   string search = 1;
 }
 
-//This is what a response should look like when searching for a movie by name or get all, 
-//this will be the list of movies that match the search
-message Movies {
-  repeated Movie movies = 1;
-}
-
 // The request message containing the movie's ID for a getbyid request
 message MovieId {
   string id = 1;
 }
 
-// message Status 
-// {
-//     int32 code = 1;
-//     string message = 2;
-// }
+message MovieUpdate {
+  string uuid = 1;
+  bool is_showing = 2;
+}
+
+message MovieTitle {
+  string uuid = 1;
+  string title = 2;
+  //string picture = 3; //?
+}

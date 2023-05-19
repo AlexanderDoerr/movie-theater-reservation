@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+// package seatavailability;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+// The movie list service definition.
+service MovieScheduleService {
+    // Gets movie info
+    rpc AddMovieToSchedule(ScheduleMovie) returns (Schedule) {} //this is the get by id, single movie return update isShowing to true/ admin only
+    rpc GetAudSchedulesByDate(Date) returns (stream AuditoriumSchedule) {} //this is the get by id, single movie return
+    rpc ReserveSeat(Seat) returns (Seat) {}
+    rpc GetShowtimesByDateAndMovieUuid(MovieShowtimesIn) returns (stream Time) {} //this is the get all, list of movies return
+    rpc GetSeats(GetSeatsIn) returns (stream Seat) {}
+}
+
+//This is a what a movie should look like when being returned from the server
+message Auditorium {
+    string uuid = 1;
+    string auditorium_num = 2;
+    repeated Seat seats = 3;
+    // if you think it needs a schedule block, add it here
+}
+
+message Seat {
+    string uuid = 1;
+    string auditorium_uuid = 2;
+    string seat_num = 3;
+    Status status = 4; //enum
+}
+
+// Seat status enum
+enum Status {
+    Available = 0;
+    Reserved = 1;
+    Unavailable = 2;
+}
+
+message Movie {
+    string uuid = 1;
+    string name = 2;
+    string description = 3;
+    string rating = 4;
+}
+
+message ScheduleMovie {
+    Movie movie = 1;
+    Auditorium auditorium_num = 2;
+    google.protobuf.Timestamp time = 3;
+}
+
+message Schedule {
+    Movie movie = 1;
+    string auditorium_num = 2;
+    google.protobuf.Timestamp start_time = 3;
+    google.protobuf.Timestamp end_time = 4;
+}
+
+message AuditoriumSchedule {
+    string auditorium_num = 1;
+    repeated Schedule schedules = 2;
+}
+
+message Date {
+    string date = 1;
+}
+
+message MovieShowtimesIn {
+    string movie_uuid = 1;
+    string date = 2;
+}
+
+message Time {
+    string start_time = 1;
+}
+
+message GetSeatsIn {
+    string auditorium_uuid = 1;
+    google.protobuf.Timestamp date = 2;
+    string time = 3;
+}
+
+// message Schedule {
+//
+// }
