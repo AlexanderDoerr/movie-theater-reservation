@@ -63,6 +63,7 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
                 'date_created': seconds
             })
             print(request)
+            context.set_code(grpc.StatusCode.OK)
             return order_pb2.OrderIn(
                 uuid=orderid,
                 userid=request.userid,
