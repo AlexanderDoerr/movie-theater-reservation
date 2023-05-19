@@ -12,9 +12,9 @@ service UserService
     rpc getUserById(Userid) returns (User){}
     rpc getUserByEmail(UserEmail) returns (User){}
     rpc validateUser(UserValidationRequest) returns (Userid){}
-    rpc getAllUsers(google.protobuf.Empty) returns (UserList){}
+    rpc getAllUsers(google.protobuf.Empty) returns (stream User){}
     rpc createUser(UserCreate) returns (Userid){}
-    rpc deleteUser(Userid) returns (google.protobuf.Empty){}
+    rpc deleteUser(Userid) returns (google.protobuf.Empty){} //use kafka instead
 }
 
 // User return object
@@ -51,12 +51,6 @@ message UserEmail
 message Userid
 {
     string UUID = 1;
-}
-
-// User list object
-message UserList
-{
-    repeated User users = 1;
 }
 
 // message Status 
