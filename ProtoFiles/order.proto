@@ -7,7 +7,6 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
 // Define the message types
-message Ticket {
 	string Movieuuid = 1;
 	int32 theater_room = 2;
 	string MovieTime = 3;
@@ -33,14 +32,13 @@ message PaymentType {
 	string type = 1;
 }
 
-message OrderOut {
+message OrderCreate {
 	string userid = 1;
 	repeated string ticket_uuid = 2;
 	PaymentMethod payment_method = 3;
-	google.protobuf.Timestamp date_created = 4;
 }
 
-message OrderIn {
+message Order {
 	string uuid = 1;
 	string userid = 2;
 	repeated string ticket_uuid = 3;
@@ -49,8 +47,8 @@ message OrderIn {
 }
 
 service OrderService {
-	rpc CreateOrder(OrderOut) returns (OrderIn) {}
+	rpc CreateOrder(OrderCreate) returns (Order) {}
 	rpc DeleteOrder(Orderid) returns (google.protobuf.Empty) {}
-	rpc GetOrder(Orderid) returns (OrderIn) {}
-	rpc GetOrdersByUserId(Userid) returns (stream OrderIn) {}
+	rpc GetOrder(Orderid) returns (Order) {}
+	rpc GetOrdersByUserId(Userid) returns (stream Order) {}
 }
