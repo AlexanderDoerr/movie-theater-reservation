@@ -8,9 +8,8 @@ import "google/protobuf/empty.proto";
 service MovieList {
   // Gets movie info
   rpc GetMovieInfo(MovieId) returns (Movie) {} //this is the get by id, single movie return
-  rpc GetAllMovies(google.protobuf.Empty) returns (stream Movie) {} //this is the get all, list of movies return
-  rpc GetAllShowingMovies(google.protobuf.Empty) returns (stream MovieTitle) {} //return a list of movies titles that are showing
-  rpc ScheduleMovie(Movie) returns (Movie) {} //this is the update, single movie return
+  rpc GetAllMovies(google.protobuf.Empty) returns (stream Movie) {} //this is the get all, list of movies return, admin
+  rpc GetAllShowingMovies(google.protobuf.Empty) returns (stream MovieTitle) {} //user endpoint, returns a list of movies titles that are showing
   rpc UpdateMovie(MovieUpdate) returns (Movie) {} //this is the update, single movie return
 }
 
@@ -28,6 +27,9 @@ message Movie {
 message MovieCreate {
   string title = 1;
   string description = 2;
+  string runtime = 3;
+  bool is_showing = 4;
+  //whateever else you need
 }
 
 //This is what a request should look like when searching for a movie by name, this will be the string that is searched for
