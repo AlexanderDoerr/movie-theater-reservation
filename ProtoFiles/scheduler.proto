@@ -11,7 +11,7 @@ service MovieScheduleService {
     rpc AddMovieToSchedule(ScheduleMovie) returns (Schedule) {} //this is the get by id, single movie return update isShowing to true/ admin only
     rpc GetAudSchedulesByDate(Date) returns (stream AuditoriumSchedule) {} //this is the get by id, single movie return
     rpc ReserveSeat(Seat) returns (Seat) {}
-    rpc GetShowtimesByDateAndMovieUuid(MovieShowtimesIn) returns (stream Time) {} //this is the get all, list of movies return
+    rpc GetShowtimesByDateAndMovieUuid(MovieShowtimesIn) returns (stream MovieEvent) {} //this is the get all, list of movies return
     rpc ScheduleMovieEvent(Movie) returns (Movie) {} //this is the update, single movie return
     rpc GetSeats(GetSeatsIn) returns (stream Seat) {}
 }
@@ -25,7 +25,7 @@ message Auditorium {
 }
 
 message Seat {
-    string uuid = 1;
+    string uuid = 1;//Don't need this
     string auditorium_uuid = 2;
     string seat_num = 3;
     Status status = 4; //enum
@@ -72,8 +72,10 @@ message MovieShowtimesIn {
     string date = 2;
 }
 
-message Time {
+message MovieEvent {
     string start_time = 1;
+    string auditorium_uuid = 2; 
+    google.protobuf.Timestamp date = 3;
 }
 
 message GetSeatsIn {
