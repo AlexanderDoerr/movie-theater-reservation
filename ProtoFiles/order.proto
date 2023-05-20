@@ -29,14 +29,16 @@ message PaymentMethod {
 	string name = 4;
 }
 
-message PaymentType {
-	string type = 1;
+message IsPaid {
+	bool IsPaid = 1;
 }
 
 message OrderCreate {
 	string userid = 1;
-	repeated string ticket_uuid = 2;
-	PaymentMethod payment_method = 3;
+	repeated string seat_num = 2;
+	int32 theater_room = 3;
+	string MovieTime = 4;
+	IsPaid Is_paid = 5;
 }
 
 message Order {
