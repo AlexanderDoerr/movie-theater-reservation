@@ -2,18 +2,18 @@ syntax = "proto3";
 
 // package seatavailability;
 
-import "google/protobuf/empty.proto";
+// import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
 // The movie list service definition.
 service MovieScheduleService {
     // Gets movie info
     rpc AddMovieToSchedule(ScheduleMovie) returns (Schedule) {} //this is the get by id, single movie return update isShowing to true/ admin only
-    rpc GetAudSchedulesByDate(Date) returns (stream AuditoriumSchedule) {} //this is the get by id, single movie return
+    rpc GetAudSchedulesByDate(Date) returns (AuditoriumSchedules) {} //this is the get by id, single movie return
     rpc ReserveSeat(Seat) returns (Seat) {}
-    rpc GetShowtimesByDateAndMovieUuid(MovieShowtimesIn) returns (stream MovieShowing) {} //this is the get all, list of movie times return
+    rpc GetShowtimesByDateAndMovieUuid(MovieShowtimesIn) returns (MovieShowings) {} //this is the get all, list of movie times return
     rpc ScheduleMovieEvent(Movie) returns (Movie) {} //this is the update, single movie return
-    rpc GetSeats(GetSeatsIn) returns (stream Seat) {}// when user hits time button on UI, this will return all seats for that time
+    rpc GetSeats(GetSeatsIn) returns (Seats) {}// when user hits time button on UI, this will return all seats for that time
 }
 
 message Seat {
@@ -39,7 +39,7 @@ message Movie {
 
 message ScheduleMovie {
     Movie movie = 1;
-    Auditorium auditorium_num = 2;
+    string auditorium_num = 2;
     google.protobuf.Timestamp time = 3;
 }
 
@@ -78,4 +78,16 @@ message GetSeatsIn {
 
 message MovieShowingId {
     string Uuid = 1;
+}
+
+message Seats {
+    repeated Seat seats = 1;
+}
+
+message AuditoriumSchedules {
+    repeated AuditoriumSchedule auditorium_schedules = 1;
+}
+
+message MovieShowings {
+    repeated MovieShowing movie_showings = 1;
 }

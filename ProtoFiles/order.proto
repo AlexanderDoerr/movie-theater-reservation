@@ -53,5 +53,9 @@ service OrderService {
 	rpc CreateOrder(OrderCreate) returns (Order) {}
 	rpc DeleteOrder(Orderid) returns (google.protobuf.Empty) {}
 	rpc GetOrder(Orderid) returns (Order) {}
-	rpc GetOrdersByUserId(Userid) returns (stream Order) {}
+	rpc GetOrdersByUserId(Userid) returns (Orders) {}
+}
+
+message Orders {
+	repeated Order orders = 1;
 }

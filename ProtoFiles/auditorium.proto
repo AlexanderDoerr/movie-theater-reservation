@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-option csharp_namespace = "AuditoriumService";
-
-package AuditoriumService;
-import "google/protobuf/timestamp.proto";
