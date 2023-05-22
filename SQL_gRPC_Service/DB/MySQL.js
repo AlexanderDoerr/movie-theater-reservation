@@ -1,96 +1,230 @@
 const mysql = require('mysql');
 const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
+const { rejects } = require('assert');
 
 // Create a connection to the Google Cloud MySQL instance
-const connection = mysql.createConnection({
-  host: '35.184.132.184',
-  user: 'root',
-  password: '1234',
-  database: 'LuminaryLegendsTheatre',
+const connection = mysql.createConnection(
+{
+    host: '35.184.132.184',
+    user: 'root',
+    password: '1234',
+    database: 'LuminaryLegendsTheatre',
 });
-
-// Connect to the database
-// connection.connect((err) => {
-//   if (err) {
-//     console.error('Error connecting to the database:', err);
-//     return;
-//   }
-//   console.log('Connected to the database!');
-// });
-
 
 function createUser(firstName, lastName, email, password)
 {
-    connection.connect((err) => 
+    return new Promise((resolve, reject) =>
     {
-        if (err) 
+        connection.connect((err) => {if (err) reject(err)});
+        connection.query(`INSERT INTO users (id, firstName, lastName, email, password, created) VALUES (?,?,?,?,?,?)`,
+        [
+            crypto.randomUUID(),
+            firstName,
+            lastName,
+            email,
+            bcrypt.hashSync(password, 1),
+            Date.now()
+        ],
+        (err, results)=>
         {
-            console.error('Error connecting to the database:', err);
-            return;// Return server error
-        }
-    });
-    connection.query(`INSERT INTO users (Id, firstName, lastName, email, password) VALUES (?,?,?,?,?)`,
-    [
-        crypto.randomUUID(),
-        firstName,
-        lastName,
-        email,
-        password
-    ],
-    (err, results)=>
-    {
-        if(err) console.log(err);
+            if(err) reject(err);
+            resolve(results);
+        })
+        connection.end();
     })
-    connection.end();
-    
 }
 
 function findAllUsers()
 {
-    connection.connect((err) => 
+    return new Promise((resolve, reject) =>
     {
-        if (err) 
+        connection.connect((err) => {if (err) reject(err)});
+        connection.query('SELECT * FROM users', (err, results) => 
         {
-            console.error('Error connecting to the database:', err);
-            return;
-        }
-    });
-    connection.query('SELECT * FROM users', (err, results) => 
-    {
-        if (err)
-        {
-            console.error('Error querying the database:', err);
-            return;
-        }
-        console.log('Query results:', results);
-    });
-    connection.end();
+            if (err) reject(err)
+            resolve(results)
+        });
+        connection.end();
+    })
 }
 
 function findUserById(userId)
 {
-    connection.connect((err) => 
+    return new Promise((resolve, reject) =>
     {
-        if (err) 
+        connection.connect((err) => {if (err) reject(err)});
+        connection.query(`SELECT * FROM users where id = "${userId}"`, (err, results) => 
         {
-            console.error('Error connecting to the database:', err);
-            return;
-        }
-    });
-    connection.query(`SELECT * FROM users where Id = "${userId}"`, (err, results) => 
-    {
-        if (err)
-        {
-            console.error('Error querying the database:', err);
-            return;
-        }
-        console.log('Query results:', results);
-    });
-    connection.end();
+            if (err) reject(err)
+            resolve(results)
+        });
+        connection.end();
+    })
 }
 
-// createUser("Alex", "Kugle", "email", "testFunction") // Is functional needs to return response codes
+function findUserByEmail(email) 
+{
+    return new Promise((resolve, reject) => 
+    {
+        connection.connect((err) => {if (err) reject(err)})
+        connection.query(`SELECT * FROM users where email = "${email}"`, (err, results) => 
+        {
+            if (err) reject(err)
+            resolve(results);
+        });
+        connection.end();
+    });
+}
 
-// findAllUsers()
+function updateUser(userId, firstName, lastName, email, password)
+{
+    return new Promise((resolve, reject) =>
+    {
+        connection.connect((err) => {if (err) reject(err)});
+        connection.query(`UPDATE users SET firstName = "${firstName}", lastName = "${lastName}", email = "${bcrypt.hashSync(email, 1)}", password = "${password}" WHERE id = "${userId}"`, 
+        (err, results) => 
+        {
+            if (err) reject(err)
+            resolve(results)
+        });
+        connection.end();
+    })
+}
 
-findUserById('662ecb6c-8fe1-486f-bf96-a41b094fff40')
+function deleteUser(userId)
+{
+    return new Promise((resolve, reject) =>
+    {
+        connection.connect((err) => 
+        {if (err) reject(err)});
+        connection.query(`DELETE FROM users WHERE id = "${userId}"`, (err, results) => 
+        {
+            if (err) reject(err)
+            resolve(results)
+        });
+        connection.end();
+    })
+}
+
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function createMovie(title, description, runtime, rating, is_showing)
+{
+    return new Promise((resolve, reject) =>
+    {
+        connection.connect((err) => 
+        {if (err) reject(err)});
+        connection.query(`INSERT INTO movies (id, title, description, runtime, rating, is_showing) VALUES (?,?,?,?,?,?)`,
+        [
+            crypto.randomUUID(),
+            title,
+            description,
+            runtime,
+            rating,
+            is_showing
+        ],
+        (err, results)=>
+        {
+            if(err) reject(err)
+            resolve(results)
+        })
+        connection.end();
+    })
+}
+
+function findAllMovies()
+{
+    return new Promise((resolve, reject) =>
+    {
+        connection.connect((err) => {if (err) reject(err)});
+        connection.query('SELECT * FROM movies', (err, results) => 
+        {
+            if (err) reject(err)
+            resolve(results)
+        });
+        connection.end();
+    })
+}
+
+function findMovieById(movieId)
+{
+    return new Promise((resolve, reject) =>
+    {
+        connection.connect((err) => {if (err) reject(err) });
+        connection.query(`SELECT * FROM movies where id = "${movieId}"`, (err, results) => 
+        {
+            if (err) reject(err)
+            resolve(results)
+        });
+        connection.end();
+    })
+}
+
+function findAllShowingMovies()
+{
+    return new Promise((resolve, reject) =>
+    {
+        connection.connect((err) => {if (err) reject(err)});
+        connection.query('SELECT * FROM movies WHERE is_showing = true', (err, results) => 
+        {
+            if (err)reject(err)
+            resolve(results)
+        });
+        connection.end();
+    })
+}
+
+function updateMovie(movieId ,title, description, runtime, rating, is_showing)
+{
+    return new Promise((resolve, reject) => 
+    {
+        connection.connect((err) => {if (err) reject(err)});
+        connection.query(`UPDATE movies SET title = "${title}", description = "${description}", runtime = "${runtime}", rating = "${rating}", is_showing = "${is_showing}" WHERE id = "${movieId}"`, 
+        (err, results) => 
+        {
+            if (err) reject(err)
+            resolve(results)
+        });
+        connection.end();
+    })
+}
+
+function deleteMovie(movieId)
+{
+    return new Promise((resolve, reject) =>
+    {
+        connection.connect((err) => {if (err) reject(err)});
+        connection.query(`DELETE FROM movies WHERE id = "${movieId}"`, 
+        (err, results) => 
+        {
+            if (err) reject(err)
+            resolve(results)
+        });
+        connection.end();
+    })
+}
+
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+async function validateUser(email, password)
+{
+    user = (await findUserByEmail(email))[0];
+    console.log(bcrypt.compareSync(password, user.password));
+}
+
+
+exports.createUser = createUser
+exports.findAllUsers = findAllUsers
+exports.findUserById = findUserById
+exports.updateUser = updateUser
+exports.deleteUser = deleteUser
+
+exports.createMovie = createMovie
+exports.findAllMovies = findAllMovies
+exports.findAllShowingMovies = findAllShowingMovies
+exports.findMovieById = findMovieById
+exports.updateMovie = updateMovie
+exports.deleteMovie = deleteMovie
+
+exports.validateUser = validateUser

@@ -32,7 +32,7 @@ message MovieCreate {
   string runtime = 3;
   string rating = 4;
   bool is_showing = 5;
-  //whateever else you need
+  //whatever else you need
 }
 
 //This is what a request should look like when searching for a movie by name, this will be the string that is searched for
