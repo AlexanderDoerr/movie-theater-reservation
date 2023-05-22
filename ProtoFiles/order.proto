@@ -44,7 +44,7 @@ message OrderCreate {
 message Order {
 	string uuid = 1;
 	string userid = 2;
-	repeated TicketStub ticket = 3;
+	repeated TicketStub tickets = 3;
 	IsPaid is_paid = 4;
 	google.protobuf.Timestamp date_created = 5;
 }
