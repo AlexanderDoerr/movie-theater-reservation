@@ -45,7 +45,7 @@ message Order {
 	string uuid = 1;
 	string userid = 2;
 	repeated string ticket_uuid = 3;
-	PaymentMethod payment_method = 4;
+	IsPaid is_paid = 4;
 	google.protobuf.Timestamp date_created = 5;
 }
 

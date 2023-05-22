@@ -12,7 +12,7 @@ service UserService
     rpc getUserById(Userid) returns (User){}
     rpc getUserByEmail(UserEmail) returns (User){}
     rpc validateUser(UserValidationRequest) returns (Userid){}
-    rpc getAllUsers(google.protobuf.Empty) returns (stream User){}
+    rpc getAllUsers(google.protobuf.Empty) returns (FullUsers){} // admin only
     rpc createUser(UserCreate) returns (Userid){}
     rpc deleteUser(Userid) returns (google.protobuf.Empty){} //use kafka instead
 }
@@ -24,6 +24,16 @@ message User {
     string lastname = 3;
     string email = 4;
     google.protobuf.Timestamp createdDate = 5;
+}
+
+// Full user return object
+message FullUser {
+    string userGuid = 1;
+    string firstname = 2;
+    string lastname = 3;
+    string email = 4;
+    string password = 5;
+    google.protobuf.Timestamp createdDate = 6;
 }
 
 // User create object
@@ -53,8 +63,8 @@ message Userid
     string UUID = 1;
 }
 
-// message Status 
-// {
-//     int32 code = 1;
-//     string message = 2;
-// }
+// Full user list object
+message FullUsers 
+{
+    repeated FullUser users = 1;
+}
