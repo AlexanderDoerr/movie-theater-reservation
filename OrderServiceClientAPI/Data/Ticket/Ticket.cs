@@ -5,15 +5,15 @@ namespace OrderServiceClientAPI.Data.Ticket
     public class Ticket
     {
         [Required]
-        public Guid MovieGuid { get; set; }
+        public string MovieGuid { get; set; }
 
         [Required]
-        public string TheaterRoom { get; set; }
+        public int TheaterRoom { get; set; }
 
         [Required]
-        public string Time { get; set; }
+        public string MovieTime { get; set; }
 
         [Required]
-        public string Seat {  get; set; }
+        public string SeatNum {  get; set; }
     }
 }

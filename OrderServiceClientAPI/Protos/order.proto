@@ -11,7 +11,7 @@ message TicketStub {
 	string Movieuuid = 1;
 	int32 theater_room = 2;
 	string MovieTime = 3;
-	string seat_number = 4;
+	string seat_num = 4;
 }
 
 message Userid {
@@ -44,7 +44,7 @@ message OrderCreate {
 message Order {
 	string uuid = 1;
 	string userid = 2;
-	repeated TicketStub ticket = 3;
+	repeated TicketStub tickets = 3;
 	IsPaid is_paid = 4;
 	google.protobuf.Timestamp date_created = 5;
 }
@@ -57,5 +57,5 @@ service OrderService {
 }
 
 message Orders {
-	repeated Order orders = 1;
+	repeated Order orderList = 1;
 }

@@ -6,10 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-	<ItemGroup>
-		<None Remove="Protos\order.proto" />
-	</ItemGroup>
-
   <ItemGroup>
 	  <PackageReference Include="Google.Apis" Version="1.60.0" />
 	  <PackageReference Include="Google.Apis.Core" Version="1.60.0" />

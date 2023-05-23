@@ -46,7 +46,7 @@ namespace UserServiceClient {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::UserServiceClient.userRequest> __Marshaller_users_userRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserServiceClient.userRequest.Parser));
+    static readonly grpc::Marshaller<global::UserServiceClient.Userid> __Marshaller_users_Userid = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserServiceClient.Userid.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::UserServiceClient.User> __Marshaller_users_User = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserServiceClient.User.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -56,16 +56,16 @@ namespace UserServiceClient {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Google.Protobuf.WellKnownTypes.Empty> __Marshaller_google_protobuf_Empty = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Google.Protobuf.WellKnownTypes.Empty.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::UserServiceClient.userList> __Marshaller_users_userList = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserServiceClient.userList.Parser));
+    static readonly grpc::Marshaller<global::UserServiceClient.FullUsers> __Marshaller_users_FullUsers = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserServiceClient.FullUsers.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::UserServiceClient.UserCreate> __Marshaller_users_UserCreate = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserServiceClient.UserCreate.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::UserServiceClient.userRequest, global::UserServiceClient.User> __Method_getUserById = new grpc::Method<global::UserServiceClient.userRequest, global::UserServiceClient.User>(
+    static readonly grpc::Method<global::UserServiceClient.Userid, global::UserServiceClient.User> __Method_getUserById = new grpc::Method<global::UserServiceClient.Userid, global::UserServiceClient.User>(
         grpc::MethodType.Unary,
         __ServiceName,
         "getUserById",
-        __Marshaller_users_userRequest,
+        __Marshaller_users_Userid,
         __Marshaller_users_User);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -77,35 +77,35 @@ namespace UserServiceClient {
         __Marshaller_users_User);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::UserServiceClient.UserValidationRequest, global::UserServiceClient.User> __Method_validateUser = new grpc::Method<global::UserServiceClient.UserValidationRequest, global::UserServiceClient.User>(
+    static readonly grpc::Method<global::UserServiceClient.UserValidationRequest, global::UserServiceClient.Userid> __Method_validateUser = new grpc::Method<global::UserServiceClient.UserValidationRequest, global::UserServiceClient.Userid>(
         grpc::MethodType.Unary,
         __ServiceName,
         "validateUser",
         __Marshaller_users_UserValidationRequest,
-        __Marshaller_users_User);
+        __Marshaller_users_Userid);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::UserServiceClient.userList> __Method_getAllUsers = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::UserServiceClient.userList>(
+    static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::UserServiceClient.FullUsers> __Method_getAllUsers = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::UserServiceClient.FullUsers>(
         grpc::MethodType.Unary,
         __ServiceName,
         "getAllUsers",
         __Marshaller_google_protobuf_Empty,
-        __Marshaller_users_userList);
+        __Marshaller_users_FullUsers);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::UserServiceClient.UserCreate, global::UserServiceClient.userRequest> __Method_createUser = new grpc::Method<global::UserServiceClient.UserCreate, global::UserServiceClient.userRequest>(
+    static readonly grpc::Method<global::UserServiceClient.UserCreate, global::UserServiceClient.Userid> __Method_createUser = new grpc::Method<global::UserServiceClient.UserCreate, global::UserServiceClient.Userid>(
         grpc::MethodType.Unary,
         __ServiceName,
         "createUser",
         __Marshaller_users_UserCreate,
-        __Marshaller_users_userRequest);
+        __Marshaller_users_Userid);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::UserServiceClient.userRequest, global::Google.Protobuf.WellKnownTypes.Empty> __Method_deleteUser = new grpc::Method<global::UserServiceClient.userRequest, global::Google.Protobuf.WellKnownTypes.Empty>(
+    static readonly grpc::Method<global::UserServiceClient.Userid, global::Google.Protobuf.WellKnownTypes.Empty> __Method_deleteUser = new grpc::Method<global::UserServiceClient.Userid, global::Google.Protobuf.WellKnownTypes.Empty>(
         grpc::MethodType.Unary,
         __ServiceName,
         "deleteUser",
-        __Marshaller_users_userRequest,
+        __Marshaller_users_Userid,
         __Marshaller_google_protobuf_Empty);
 
     /// <summary>Service descriptor</summary>
@@ -142,22 +142,22 @@ namespace UserServiceClient {
       }
 
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::UserServiceClient.User getUserById(global::UserServiceClient.userRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::UserServiceClient.User getUserById(global::UserServiceClient.Userid request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return getUserById(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::UserServiceClient.User getUserById(global::UserServiceClient.userRequest request, grpc::CallOptions options)
+      public virtual global::UserServiceClient.User getUserById(global::UserServiceClient.Userid request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_getUserById, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.User> getUserByIdAsync(global::UserServiceClient.userRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.User> getUserByIdAsync(global::UserServiceClient.Userid request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return getUserByIdAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.User> getUserByIdAsync(global::UserServiceClient.userRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.User> getUserByIdAsync(global::UserServiceClient.Userid request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_getUserById, null, options, request);
       }
@@ -182,82 +182,82 @@ namespace UserServiceClient {
         return CallInvoker.AsyncUnaryCall(__Method_getUserByEmail, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::UserServiceClient.User validateUser(global::UserServiceClient.UserValidationRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::UserServiceClient.Userid validateUser(global::UserServiceClient.UserValidationRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return validateUser(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::UserServiceClient.User validateUser(global::UserServiceClient.UserValidationRequest request, grpc::CallOptions options)
+      public virtual global::UserServiceClient.Userid validateUser(global::UserServiceClient.UserValidationRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_validateUser, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.User> validateUserAsync(global::UserServiceClient.UserValidationRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.Userid> validateUserAsync(global::UserServiceClient.UserValidationRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return validateUserAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.User> validateUserAsync(global::UserServiceClient.UserValidationRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.Userid> validateUserAsync(global::UserServiceClient.UserValidationRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_validateUser, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::UserServiceClient.userList getAllUsers(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::UserServiceClient.FullUsers getAllUsers(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return getAllUsers(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::UserServiceClient.userList getAllUsers(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      public virtual global::UserServiceClient.FullUsers getAllUsers(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_getAllUsers, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.userList> getAllUsersAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.FullUsers> getAllUsersAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return getAllUsersAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.userList> getAllUsersAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.FullUsers> getAllUsersAsync(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_getAllUsers, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::UserServiceClient.userRequest createUser(global::UserServiceClient.UserCreate request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::UserServiceClient.Userid createUser(global::UserServiceClient.UserCreate request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return createUser(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::UserServiceClient.userRequest createUser(global::UserServiceClient.UserCreate request, grpc::CallOptions options)
+      public virtual global::UserServiceClient.Userid createUser(global::UserServiceClient.UserCreate request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_createUser, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.userRequest> createUserAsync(global::UserServiceClient.UserCreate request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.Userid> createUserAsync(global::UserServiceClient.UserCreate request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return createUserAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.userRequest> createUserAsync(global::UserServiceClient.UserCreate request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::UserServiceClient.Userid> createUserAsync(global::UserServiceClient.UserCreate request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_createUser, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Google.Protobuf.WellKnownTypes.Empty deleteUser(global::UserServiceClient.userRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty deleteUser(global::UserServiceClient.Userid request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return deleteUser(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::Google.Protobuf.WellKnownTypes.Empty deleteUser(global::UserServiceClient.userRequest request, grpc::CallOptions options)
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty deleteUser(global::UserServiceClient.Userid request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_deleteUser, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> deleteUserAsync(global::UserServiceClient.userRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> deleteUserAsync(global::UserServiceClient.Userid request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return deleteUserAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> deleteUserAsync(global::UserServiceClient.userRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> deleteUserAsync(global::UserServiceClient.Userid request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_deleteUser, null, options, request);
       }

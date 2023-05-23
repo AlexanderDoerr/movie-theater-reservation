@@ -41,7 +41,6 @@ public class UserRepository : IUserRepository
             Firstname = response.Firstname,
             Lastname = response.Lastname,
             Email = response.Email,
-            Password = response.Password,
             CreatedDate = response.CreatedDate.ToDateTime()
         };
     }
@@ -66,7 +65,7 @@ public class UserRepository : IUserRepository
 
     public async Task<User> GetByUserGuid(Guid userGuid)
     {
-        var request = new userRequest
+        var request = new Userid
         {
             UUID = userGuid.ToString()
         };
@@ -80,7 +79,6 @@ public class UserRepository : IUserRepository
             Firstname = response.Firstname,
             Lastname = response.Lastname,
             Email = response.Email,
-            Password = response.Password
         };
 
         return user;
@@ -95,22 +93,15 @@ public class UserRepository : IUserRepository
         };
 
         var response = await _client.validateUserAsync(request);
-
-        var user = new User
+        return new User
         {
-            UserGuid = Guid.Parse(response.UserGuid.ToString()),
-            Firstname = response.Firstname,
-            Lastname = response.Lastname,
-            Email = response.Email,
-            Password = response.Password
+            UserGuid = Guid.Parse(response.UUID)
         };
-
-        return user;
     }
 
     public void Delete(Guid userGuid)
     {
-        var request = new userRequest
+        var request = new Userid
         {
             UUID = userGuid.ToString()
         };

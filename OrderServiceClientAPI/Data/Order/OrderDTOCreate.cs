@@ -1,6 +1,7 @@
 ﻿using OrderServiceClientAPI.Data.Payment;
 using OrderServiceClientAPI.Data.Ticket;
 using System.ComponentModel.DataAnnotations;
+using OrderServiceClientAPI;
 
 public class OrderDTOCreate
 {
@@ -8,8 +9,14 @@ public class OrderDTOCreate
     public Guid UserGuid { get; set; }
 
     [Required]
-    public List<Ticket> Tickets { get; set; }
+    public List<string> Seats { get; set; }
 
     [Required]
-    public Payment? Payment { get; set; }
+    public int TheaterRoom { get; set; }
+
+    [Required]
+    public string MovieTime { get; set; }
+
+    [Required]
+    public bool IsPaid { get; set; }
 }

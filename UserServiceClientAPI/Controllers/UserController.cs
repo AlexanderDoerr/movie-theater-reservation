@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 [ApiController]
 [Route("[controller]")]
@@ -28,8 +30,8 @@ public class UserController : ControllerBase
                 {
                     Success = true,
                     Message = "User already exists!",
-                    UserGuid = uu.UserGuid,
-                    Email = uu.Email
+                    //UserGuid = uu.UserGuid,
+                    //Email = uu.Email
                 });
 
             }
@@ -51,6 +53,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
+    //[Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAll()
     {
         try
@@ -69,18 +72,35 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet]
-    [Route("{userGuid}")]
+    [HttpGet("{userGuid}")]
+    [Authorize]
     public async Task<IActionResult> GetById(Guid userGuid)
     {
         try
         {
-            var Data = await _userRepository.GetByUserGuid(userGuid);
+            //var authenticatedUserGuid = Guid.Parse(User.Identity.Name);
+
+            //if (authenticatedUserGuid != userGuid)
+            //{
+            //    return Forbid();
+            //}
+
+            var user = await _userRepository.GetByUserGuid(userGuid);
+
+            if (user == null)
+            {
+                return NotFound(new
+                {
+                    Success = false,
+                    Message = "User not found."
+                });
+            }
+
             return Ok(new
             {
                 Success = true,
-                Message = "User fetched.",
-                Data
+                Message = "User fetched successfully.",
+                Data = user
             });
         } catch (Exception ex)
         {
@@ -102,6 +122,55 @@ public class UserController : ControllerBase
                 Success = true,
                 Message = "User authenticated",
                 Data
+            });
+        } catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpDelete("{userGuid}")]
+    [Authorize]
+    public IActionResult Delete(Guid userGuid)
+    {
+        try
+        {
+            _userRepository.Delete(userGuid);
+            return Ok(new
+            {
+                Success = true,
+                Message = "User deleted successfully."
+            });
+        } catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{userEmail}")]
+    [Authorize]
+    public async Task<IActionResult> GetByUserEmail(string userEmail)
+    {
+        try
+        {
+            var user = await _userRepository.GetByUserEmail(userEmail);
+
+            if (user == null)
+            {
+                return NotFound(new
+                {
+                    Success = false,
+                    Message = "User not found."
+                });
+            }
+
+            return Ok(new
+            {
+                Success = true,
+                Message = "User fetched successfully.",
+                Data = user
             });
         } catch (Exception ex)
         {

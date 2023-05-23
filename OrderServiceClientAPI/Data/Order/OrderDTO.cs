@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using OrderServiceClientAPI.Data.Ticket;
-using OrderServiceClientAPI.Data.Payment;
+//using OrderServiceClientAPI.Data.Payment;
 
-public class Order
+public class OrderDTO
 {
     [Key]
     public Guid OrderGuid { get; set; }
@@ -14,7 +14,7 @@ public class Order
     public List<Ticket>? Tickets { get; set; }
 
     [Required]
-    public Payment Payment { get; set; }
+    public bool IsPaid { get; set; }
 
     [Required]
     public DateTime CreatedDate { get; set; }
