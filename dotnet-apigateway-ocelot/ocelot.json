@@ -1,0 +1,73 @@
+{
+  "Routes": [
+    {
+      "ServiceName": "OrderSeviceClientAPI",
+      "DownstreamPathTemplate": "/{everything}",
+      "UpstreamPathTemplate": "/ordersapi/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
+      "FileCacheOptions": {
+        "TtlSeconds": 15
+      },
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection",
+        "Key": null,
+        "Expiry": 0
+      }
+    },
+    {
+      "ServiceName": "UserServiceClientAPI",
+      "DownstreamPathTemplate": "/{everything}",
+      "UpstreamPathTemplate": "/usersapi/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
+      "FileCacheOptions": {
+        "TtlSeconds": 15
+      },
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection",
+        "Key": null,
+        "Expiry": 0
+      }
+    },
+    {
+      "ServiceName": "MovieServiceAPI",
+      "DownstreamPathTemplate": "/{everything}",
+      "UpstreamPathTemplate": "/moviesapi/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
+      "FileCacheOptions": {
+        "TtlSeconds": 15
+      },
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection",
+        "Key": null,
+        "Expiry": 0
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5041",
+    "RequestIdKey": "OcRequestId",
+    "DownstreamScheme": "http",
+    "ReRoutesCaseSensitive": false,
+    "UseServiceDiscovery": true,
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8761,
+      "Type": "Eureka"
+    }
+  }
+}

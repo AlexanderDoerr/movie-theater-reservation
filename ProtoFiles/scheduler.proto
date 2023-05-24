@@ -8,7 +8,7 @@ import "google/protobuf/timestamp.proto";
 // The movie list service definition.
 service MovieScheduleService {
     // Gets movie info
-    rpc AddMovieToSchedule(ScheduleMovie) returns (Schedule) {} //this is the get by id, single movie return update isShowing to true/ admin only
+    rpc AddMovieToSchedule(ScheduleMovie) returns (Schedule) {} //this is the get by id, single movie return update isShowing to true/ admin onlydoing this one
     rpc GetAudSchedulesByDate(Date) returns (AuditoriumSchedules) {} //this is the get by id, single movie return
     rpc ReserveSeat(Seat) returns (Seat) {}
     rpc GetShowtimesByDateAndMovieUuid(MovieShowtimesIn) returns (MovieShowings) {} //this is the get all, list of movie times return
@@ -17,10 +17,12 @@ service MovieScheduleService {
 }
 
 message Seat {
-    string uuid = 1;//Don't need this
+    string uuid = 1;
     string auditorium_uuid = 2;
-    string seat_num = 3;
-    Status status = 4; //enum
+    string date = 3;
+    string seat_num = 4;
+    string time = 5;
+    Status status = 6; //enum
 }
 
 // Seat status enum
