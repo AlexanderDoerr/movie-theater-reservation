@@ -66,8 +66,8 @@
     "UseServiceDiscovery": true,
     "ServiceDiscoveryProvider": {
       "Host": "localhost",
-      "Port": 8761,
-      "Type": "Eureka"
+      "Port": 8500,
+      "Type": "Consul"
     }
   }
 }

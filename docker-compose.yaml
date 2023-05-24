@@ -1,5 +1,22 @@
 version: '3.8'
 services:
+  consul:
+    image: consul:latest
+    container_name: consul
+    ports:
+      - "8500:8500"
+
+  APIGatewayOcelot:
+    container_name: APIGatewayOcelot
+    build:
+      context: ./dotnet-apigateway-ocelot
+      dockerfile: Dockerfile
+    image: apigatewayocelot:1
+    restart: always
+    hostname: APIGatewayOcelot
+    ports:
+      - 5041:80
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.0
     container_name: zookeeper
@@ -53,6 +70,18 @@ services:
     # networks:
       # - netSEN300Final
     # depends_on:
+    deploy:
+      mode: replicas
+      replicas: 3
+
+  MovieServiceClientAPI:
+    build:
+      context: ./movieserviceclientapi
+      dockerfile: Dockerfile
+    image: movieserviceclientapi:1
+    restart: always
+    ports: 
+      - "8080-8083:3000"
     deploy:
       mode: replicas
       replicas: 3

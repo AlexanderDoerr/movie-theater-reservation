@@ -56,6 +56,19 @@
           }
         }
       },
+      "Consul/1.6.10.9": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Consul.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Consul.dll": {}
+        }
+      },
       "FluentValidation/10.3.6": {
         "type": "package",
         "compile": {
@@ -1403,6 +1416,19 @@
         "cachemanager.microsoft.extensions.logging.nuspec",
         "lib/netstandard2.0/CacheManager.Microsoft.Extensions.Logging.dll",
         "lib/netstandard2.0/CacheManager.Microsoft.Extensions.Logging.xml"
+      ]
+    },
+    "Consul/1.6.10.9": {
+      "sha512": "c4y+f7ACAeluSSUxC5TsWjgqMnTQeWGTS92JZfEZk10FK/yi/ANp7QfUIWP7sla1QaijnVDQy9p1t2iv6zLyYA==",
+      "type": "package",
+      "path": "consul/1.6.10.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "consul.1.6.10.9.nupkg.sha512",
+        "consul.nuspec",
+        "lib/net461/Consul.dll",
+        "lib/netstandard2.0/Consul.dll"
       ]
     },
     "FluentValidation/10.3.6": {
@@ -3234,6 +3260,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "Consul >= 1.6.10.9",
       "Microsoft.AspNetCore.OpenApi >= 7.0.3",
       "Ocelot >= 18.0.0",
       "Ocelot.Cache.CacheManager >= 18.0.0",
@@ -3245,24 +3272,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\z\\.nuget\\packages\\": {}
+    "C:\\Users\\Alexander Doerr\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\neumont\\SEN300\\2023 Bookstore\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj",
+      "projectUniqueName": "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\PRO290\\movie-theater-reservation\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj",
       "projectName": "dotnet-apigateway-ocelot",
-      "projectPath": "D:\\neumont\\SEN300\\2023 Bookstore\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj",
-      "packagesPath": "C:\\Users\\z\\.nuget\\packages\\",
-      "outputPath": "D:\\neumont\\SEN300\\2023 Bookstore\\dotnet-apigateway-ocelot\\obj\\",
+      "projectPath": "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\PRO290\\movie-theater-reservation\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj",
+      "packagesPath": "C:\\Users\\Alexander Doerr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\PRO290\\movie-theater-reservation\\dotnet-apigateway-ocelot\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\z\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Alexander Doerr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3281,6 +3316,10 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
+          "Consul": {
+            "target": "Package",
+            "version": "[1.6.10.9, )"
+          },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[7.0.3, )"
