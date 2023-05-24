@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using Grpc.Core;
 using OrderServiceClient;
-using OrderServiceClientAPI.Data.Payment;
+//using OrderServiceClientAPI.Data.Payment;
 using OrderServiceClientAPI.Data.Ticket;
 //using Steeltoe.Common.Order;
 
@@ -66,7 +66,7 @@ public class OrderRepository : IOrderRepository
                     MovieGuid = ticket.Movieuuid,
                     TheaterRoom = ticket.TheaterRoom,
                     MovieTime = ticket.MovieTime,
-                    SeatNum = ticket.SeatNumber
+                    SeatNum = ticket.SeatNum
                 }).ToList(),
                 IsPaid = order.IsPaid.IsPaid_,
                 CreatedDate = order.DateCreated.ToDateTime()
@@ -82,26 +82,26 @@ public class OrderRepository : IOrderRepository
         var orderId = new Orderid { Uuid = orderGuid.ToString() };
         var response = _client.GetOrder(orderId);
 
-        var ticketStubs = new List<TicketStub>();
+        var tickets = new List<Ticket>();
         foreach (var ticket in response.Tickets)
         {
-            var ticketStub = new TicketStub
+            var ticketStub = new Ticket
             {
-                Movieuuid = ticket.Movieuuid,
+                MovieGuid = ticket.Movieuuid,
                 TheaterRoom = ticket.TheaterRoom,
                 MovieTime = ticket.MovieTime,
                 SeatNum = ticket.SeatNum
             };
-            ticketStubs.Add(ticketStub);
+            tickets.Add(ticketStub);
         }
 
         var order = new OrderDTO
         {
-            OrderGuid = Guid.Parse(response.uuid),
-            UserGuid = Guid.Parse(response.userid),
-            Tickets = ticketStubs,
-            IsPaid = response.is_paid.IsPaid,
-            CreatedDate = response.date_created.ToDateTime()
+            OrderGuid = Guid.Parse(response.Uuid),
+            UserGuid = Guid.Parse(response.Userid),
+            Tickets = tickets,
+            IsPaid = response.IsPaid.IsPaid_,
+            CreatedDate = response.DateCreated.ToDateTime()
         };
 
         return order;
