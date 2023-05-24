@@ -22,7 +22,7 @@ public class OrderRepository : IOrderRepository
     {
         var orderCreate = new OrderCreate
         {
-            Userid = userGuid.ToString(),
+            UserUuid = userGuid.ToString(),
             SeatNum = { orderDTOCreate.Seats },
             TheaterRoom = orderDTOCreate.TheaterRoom,
             MovieTime = orderDTOCreate.MovieTime,
@@ -58,10 +58,10 @@ public class OrderRepository : IOrderRepository
             var orderDto = new OrderDTO
             {
                 OrderGuid = Guid.Parse(order.Uuid),
-                UserGuid = Guid.Parse(order.Userid),
+                UserGuid = Guid.Parse(order.UserUuid),
                 Tickets = order.Tickets.Select(ticket => new Ticket
                 {
-                    MovieGuid = ticket.Movieuuid,
+                    MovieGuid = ticket.MovieUuid,
                     TheaterRoom = ticket.TheaterRoom,
                     MovieTime = ticket.MovieTime,
                     SeatNum = ticket.SeatNum
@@ -85,7 +85,7 @@ public class OrderRepository : IOrderRepository
         {
             var ticketStub = new Ticket
             {
-                MovieGuid = ticket.Movieuuid,
+                MovieGuid = ticket.MovieUuid,
                 TheaterRoom = ticket.TheaterRoom,
                 MovieTime = ticket.MovieTime,
                 SeatNum = ticket.SeatNum
@@ -96,7 +96,7 @@ public class OrderRepository : IOrderRepository
         var order = new OrderDTO
         {
             OrderGuid = Guid.Parse(response.Uuid),
-            UserGuid = Guid.Parse(response.Userid),
+            UserGuid = Guid.Parse(response.UserUuid),
             Tickets = tickets,
             IsPaid = response.IsPaid.IsPaid_,
             CreatedDate = response.DateCreated.ToDateTime()
