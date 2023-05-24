@@ -8,9 +8,9 @@ import "google/protobuf/empty.proto";
 
 // Define the message types
 message TicketStub {
-	string Movieuuid = 1;
+	string movie_uuid = 1;
 	int32 theater_room = 2;
-	string MovieTime = 3;
+	string movie_time = 3;
 	string seat_num = 4;
 }
 
@@ -23,27 +23,27 @@ message Orderid {
 }
 
 message PaymentMethod {
-	string ccNum = 1;
-	string expDate = 2;
+	string cc_num = 1;
+	string exp_date = 2;
 	string cvv = 3;
 	string name = 4;
 }
 
 message IsPaid {
-	bool IsPaid = 1;
+	bool is_paid = 1;
 }
 
 message OrderCreate {
-	string userid = 1;
+	string user_uuid = 1;
 	repeated string seat_num = 2;
 	int32 theater_room = 3;
-	string MovieTime = 4;
-	IsPaid Is_paid = 5;
+	string movie_time = 4;
+	IsPaid is_paid = 5;
 }
 
 message Order {
 	string uuid = 1;
-	string userid = 2;
+	string user_uuid = 2;
 	repeated TicketStub tickets = 3;
 	IsPaid is_paid = 4;
 	google.protobuf.Timestamp date_created = 5;
@@ -57,5 +57,5 @@ service OrderService {
 }
 
 message Orders {
-	repeated Order orderList = 1;
+	repeated Order order_list = 1;
 }

@@ -26,37 +26,37 @@ namespace OrderServiceClient {
           string.Concat(
             "ChJQcm90b3Mvb3JkZXIucHJvdG8SDE9yZGVyU2VydmljZRofZ29vZ2xlL3By",
             "b3RvYnVmL3RpbWVzdGFtcC5wcm90bxobZ29vZ2xlL3Byb3RvYnVmL2VtcHR5",
-            "LnByb3RvIloKClRpY2tldFN0dWISEQoJTW92aWV1dWlkGAEgASgJEhQKDHRo",
-            "ZWF0ZXJfcm9vbRgCIAEoBRIRCglNb3ZpZVRpbWUYAyABKAkSEAoIc2VhdF9u",
-            "dW0YBCABKAkiFgoGVXNlcmlkEgwKBHV1aWQYASABKAkiFwoHT3JkZXJpZBIM",
-            "CgR1dWlkGAEgASgJIkoKDVBheW1lbnRNZXRob2QSDQoFY2NOdW0YASABKAkS",
-            "DwoHZXhwRGF0ZRgCIAEoCRILCgNjdnYYAyABKAkSDAoEbmFtZRgEIAEoCSIY",
-            "CgZJc1BhaWQSDgoGSXNQYWlkGAEgASgIIn8KC09yZGVyQ3JlYXRlEg4KBnVz",
-            "ZXJpZBgBIAEoCRIQCghzZWF0X251bRgCIAMoCRIUCgx0aGVhdGVyX3Jvb20Y",
-            "AyABKAUSEQoJTW92aWVUaW1lGAQgASgJEiUKB0lzX3BhaWQYBSABKAsyFC5P",
-            "cmRlclNlcnZpY2UuSXNQYWlkIqkBCgVPcmRlchIMCgR1dWlkGAEgASgJEg4K",
-            "BnVzZXJpZBgCIAEoCRIpCgd0aWNrZXRzGAMgAygLMhguT3JkZXJTZXJ2aWNl",
-            "LlRpY2tldFN0dWISJQoHaXNfcGFpZBgEIAEoCzIULk9yZGVyU2VydmljZS5J",
-            "c1BhaWQSMAoMZGF0ZV9jcmVhdGVkGAUgASgLMhouZ29vZ2xlLnByb3RvYnVm",
-            "LlRpbWVzdGFtcCIwCgZPcmRlcnMSJgoJb3JkZXJMaXN0GAEgAygLMhMuT3Jk",
-            "ZXJTZXJ2aWNlLk9yZGVyMowCCgxPcmRlclNlcnZpY2USPwoLQ3JlYXRlT3Jk",
-            "ZXISGS5PcmRlclNlcnZpY2UuT3JkZXJDcmVhdGUaEy5PcmRlclNlcnZpY2Uu",
-            "T3JkZXIiABI+CgtEZWxldGVPcmRlchIVLk9yZGVyU2VydmljZS5PcmRlcmlk",
-            "GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASOAoIR2V0T3JkZXISFS5PcmRl",
-            "clNlcnZpY2UuT3JkZXJpZBoTLk9yZGVyU2VydmljZS5PcmRlciIAEkEKEUdl",
-            "dE9yZGVyc0J5VXNlcklkEhQuT3JkZXJTZXJ2aWNlLlVzZXJpZBoULk9yZGVy",
-            "U2VydmljZS5PcmRlcnMiAEIVqgIST3JkZXJTZXJ2aWNlQ2xpZW50YgZwcm90",
-            "bzM="));
+            "LnByb3RvIlwKClRpY2tldFN0dWISEgoKbW92aWVfdXVpZBgBIAEoCRIUCgx0",
+            "aGVhdGVyX3Jvb20YAiABKAUSEgoKbW92aWVfdGltZRgDIAEoCRIQCghzZWF0",
+            "X251bRgEIAEoCSIWCgZVc2VyaWQSDAoEdXVpZBgBIAEoCSIXCgdPcmRlcmlk",
+            "EgwKBHV1aWQYASABKAkiTAoNUGF5bWVudE1ldGhvZBIOCgZjY19udW0YASAB",
+            "KAkSEAoIZXhwX2RhdGUYAiABKAkSCwoDY3Z2GAMgASgJEgwKBG5hbWUYBCAB",
+            "KAkiGQoGSXNQYWlkEg8KB2lzX3BhaWQYASABKAgigwEKC09yZGVyQ3JlYXRl",
+            "EhEKCXVzZXJfdXVpZBgBIAEoCRIQCghzZWF0X251bRgCIAMoCRIUCgx0aGVh",
+            "dGVyX3Jvb20YAyABKAUSEgoKbW92aWVfdGltZRgEIAEoCRIlCgdpc19wYWlk",
+            "GAUgASgLMhQuT3JkZXJTZXJ2aWNlLklzUGFpZCKsAQoFT3JkZXISDAoEdXVp",
+            "ZBgBIAEoCRIRCgl1c2VyX3V1aWQYAiABKAkSKQoHdGlja2V0cxgDIAMoCzIY",
+            "Lk9yZGVyU2VydmljZS5UaWNrZXRTdHViEiUKB2lzX3BhaWQYBCABKAsyFC5P",
+            "cmRlclNlcnZpY2UuSXNQYWlkEjAKDGRhdGVfY3JlYXRlZBgFIAEoCzIaLmdv",
+            "b2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiMQoGT3JkZXJzEicKCm9yZGVyX2xp",
+            "c3QYASADKAsyEy5PcmRlclNlcnZpY2UuT3JkZXIyjAIKDE9yZGVyU2Vydmlj",
+            "ZRI/CgtDcmVhdGVPcmRlchIZLk9yZGVyU2VydmljZS5PcmRlckNyZWF0ZRoT",
+            "Lk9yZGVyU2VydmljZS5PcmRlciIAEj4KC0RlbGV0ZU9yZGVyEhUuT3JkZXJT",
+            "ZXJ2aWNlLk9yZGVyaWQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABI4CghH",
+            "ZXRPcmRlchIVLk9yZGVyU2VydmljZS5PcmRlcmlkGhMuT3JkZXJTZXJ2aWNl",
+            "Lk9yZGVyIgASQQoRR2V0T3JkZXJzQnlVc2VySWQSFC5PcmRlclNlcnZpY2Uu",
+            "VXNlcmlkGhQuT3JkZXJTZXJ2aWNlLk9yZGVycyIAQhWqAhJPcmRlclNlcnZp",
+            "Y2VDbGllbnRiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.TicketStub), global::OrderServiceClient.TicketStub.Parser, new[]{ "Movieuuid", "TheaterRoom", "MovieTime", "SeatNum" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.TicketStub), global::OrderServiceClient.TicketStub.Parser, new[]{ "MovieUuid", "TheaterRoom", "MovieTime", "SeatNum" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.Userid), global::OrderServiceClient.Userid.Parser, new[]{ "Uuid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.Orderid), global::OrderServiceClient.Orderid.Parser, new[]{ "Uuid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.PaymentMethod), global::OrderServiceClient.PaymentMethod.Parser, new[]{ "CcNum", "ExpDate", "Cvv", "Name" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.IsPaid), global::OrderServiceClient.IsPaid.Parser, new[]{ "IsPaid_" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.OrderCreate), global::OrderServiceClient.OrderCreate.Parser, new[]{ "Userid", "SeatNum", "TheaterRoom", "MovieTime", "IsPaid" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.Order), global::OrderServiceClient.Order.Parser, new[]{ "Uuid", "Userid", "Tickets", "IsPaid", "DateCreated" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.OrderCreate), global::OrderServiceClient.OrderCreate.Parser, new[]{ "UserUuid", "SeatNum", "TheaterRoom", "MovieTime", "IsPaid" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.Order), global::OrderServiceClient.Order.Parser, new[]{ "Uuid", "UserUuid", "Tickets", "IsPaid", "DateCreated" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.Orders), global::OrderServiceClient.Orders.Parser, new[]{ "OrderList" }, null, null, null, null)
           }));
     }
@@ -101,7 +101,7 @@ namespace OrderServiceClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public TicketStub(TicketStub other) : this() {
-      movieuuid_ = other.movieuuid_;
+      movieUuid_ = other.movieUuid_;
       theaterRoom_ = other.theaterRoom_;
       movieTime_ = other.movieTime_;
       seatNum_ = other.seatNum_;
@@ -114,15 +114,15 @@ namespace OrderServiceClient {
       return new TicketStub(this);
     }
 
-    /// <summary>Field number for the "Movieuuid" field.</summary>
-    public const int MovieuuidFieldNumber = 1;
-    private string movieuuid_ = "";
+    /// <summary>Field number for the "movie_uuid" field.</summary>
+    public const int MovieUuidFieldNumber = 1;
+    private string movieUuid_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Movieuuid {
-      get { return movieuuid_; }
+    public string MovieUuid {
+      get { return movieUuid_; }
       set {
-        movieuuid_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        movieUuid_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -138,7 +138,7 @@ namespace OrderServiceClient {
       }
     }
 
-    /// <summary>Field number for the "MovieTime" field.</summary>
+    /// <summary>Field number for the "movie_time" field.</summary>
     public const int MovieTimeFieldNumber = 3;
     private string movieTime_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -177,7 +177,7 @@ namespace OrderServiceClient {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Movieuuid != other.Movieuuid) return false;
+      if (MovieUuid != other.MovieUuid) return false;
       if (TheaterRoom != other.TheaterRoom) return false;
       if (MovieTime != other.MovieTime) return false;
       if (SeatNum != other.SeatNum) return false;
@@ -188,7 +188,7 @@ namespace OrderServiceClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Movieuuid.Length != 0) hash ^= Movieuuid.GetHashCode();
+      if (MovieUuid.Length != 0) hash ^= MovieUuid.GetHashCode();
       if (TheaterRoom != 0) hash ^= TheaterRoom.GetHashCode();
       if (MovieTime.Length != 0) hash ^= MovieTime.GetHashCode();
       if (SeatNum.Length != 0) hash ^= SeatNum.GetHashCode();
@@ -210,9 +210,9 @@ namespace OrderServiceClient {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Movieuuid.Length != 0) {
+      if (MovieUuid.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Movieuuid);
+        output.WriteString(MovieUuid);
       }
       if (TheaterRoom != 0) {
         output.WriteRawTag(16);
@@ -236,9 +236,9 @@ namespace OrderServiceClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Movieuuid.Length != 0) {
+      if (MovieUuid.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Movieuuid);
+        output.WriteString(MovieUuid);
       }
       if (TheaterRoom != 0) {
         output.WriteRawTag(16);
@@ -262,8 +262,8 @@ namespace OrderServiceClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Movieuuid.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Movieuuid);
+      if (MovieUuid.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MovieUuid);
       }
       if (TheaterRoom != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(TheaterRoom);
@@ -286,8 +286,8 @@ namespace OrderServiceClient {
       if (other == null) {
         return;
       }
-      if (other.Movieuuid.Length != 0) {
-        Movieuuid = other.Movieuuid;
+      if (other.MovieUuid.Length != 0) {
+        MovieUuid = other.MovieUuid;
       }
       if (other.TheaterRoom != 0) {
         TheaterRoom = other.TheaterRoom;
@@ -314,7 +314,7 @@ namespace OrderServiceClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            Movieuuid = input.ReadString();
+            MovieUuid = input.ReadString();
             break;
           }
           case 16: {
@@ -345,7 +345,7 @@ namespace OrderServiceClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            Movieuuid = input.ReadString();
+            MovieUuid = input.ReadString();
             break;
           }
           case 16: {
@@ -792,7 +792,7 @@ namespace OrderServiceClient {
       return new PaymentMethod(this);
     }
 
-    /// <summary>Field number for the "ccNum" field.</summary>
+    /// <summary>Field number for the "cc_num" field.</summary>
     public const int CcNumFieldNumber = 1;
     private string ccNum_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -804,7 +804,7 @@ namespace OrderServiceClient {
       }
     }
 
-    /// <summary>Field number for the "expDate" field.</summary>
+    /// <summary>Field number for the "exp_date" field.</summary>
     public const int ExpDateFieldNumber = 2;
     private string expDate_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1089,7 +1089,7 @@ namespace OrderServiceClient {
       return new IsPaid(this);
     }
 
-    /// <summary>Field number for the "IsPaid" field.</summary>
+    /// <summary>Field number for the "is_paid" field.</summary>
     public const int IsPaid_FieldNumber = 1;
     private bool isPaid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1268,7 +1268,7 @@ namespace OrderServiceClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public OrderCreate(OrderCreate other) : this() {
-      userid_ = other.userid_;
+      userUuid_ = other.userUuid_;
       seatNum_ = other.seatNum_.Clone();
       theaterRoom_ = other.theaterRoom_;
       movieTime_ = other.movieTime_;
@@ -1282,15 +1282,15 @@ namespace OrderServiceClient {
       return new OrderCreate(this);
     }
 
-    /// <summary>Field number for the "userid" field.</summary>
-    public const int UseridFieldNumber = 1;
-    private string userid_ = "";
+    /// <summary>Field number for the "user_uuid" field.</summary>
+    public const int UserUuidFieldNumber = 1;
+    private string userUuid_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Userid {
-      get { return userid_; }
+    public string UserUuid {
+      get { return userUuid_; }
       set {
-        userid_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        userUuid_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -1317,7 +1317,7 @@ namespace OrderServiceClient {
       }
     }
 
-    /// <summary>Field number for the "MovieTime" field.</summary>
+    /// <summary>Field number for the "movie_time" field.</summary>
     public const int MovieTimeFieldNumber = 4;
     private string movieTime_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1329,7 +1329,7 @@ namespace OrderServiceClient {
       }
     }
 
-    /// <summary>Field number for the "Is_paid" field.</summary>
+    /// <summary>Field number for the "is_paid" field.</summary>
     public const int IsPaidFieldNumber = 5;
     private global::OrderServiceClient.IsPaid isPaid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1356,7 +1356,7 @@ namespace OrderServiceClient {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Userid != other.Userid) return false;
+      if (UserUuid != other.UserUuid) return false;
       if(!seatNum_.Equals(other.seatNum_)) return false;
       if (TheaterRoom != other.TheaterRoom) return false;
       if (MovieTime != other.MovieTime) return false;
@@ -1368,7 +1368,7 @@ namespace OrderServiceClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Userid.Length != 0) hash ^= Userid.GetHashCode();
+      if (UserUuid.Length != 0) hash ^= UserUuid.GetHashCode();
       hash ^= seatNum_.GetHashCode();
       if (TheaterRoom != 0) hash ^= TheaterRoom.GetHashCode();
       if (MovieTime.Length != 0) hash ^= MovieTime.GetHashCode();
@@ -1391,9 +1391,9 @@ namespace OrderServiceClient {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Userid.Length != 0) {
+      if (UserUuid.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Userid);
+        output.WriteString(UserUuid);
       }
       seatNum_.WriteTo(output, _repeated_seatNum_codec);
       if (TheaterRoom != 0) {
@@ -1418,9 +1418,9 @@ namespace OrderServiceClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Userid.Length != 0) {
+      if (UserUuid.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Userid);
+        output.WriteString(UserUuid);
       }
       seatNum_.WriteTo(ref output, _repeated_seatNum_codec);
       if (TheaterRoom != 0) {
@@ -1445,8 +1445,8 @@ namespace OrderServiceClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Userid.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Userid);
+      if (UserUuid.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(UserUuid);
       }
       size += seatNum_.CalculateSize(_repeated_seatNum_codec);
       if (TheaterRoom != 0) {
@@ -1470,8 +1470,8 @@ namespace OrderServiceClient {
       if (other == null) {
         return;
       }
-      if (other.Userid.Length != 0) {
-        Userid = other.Userid;
+      if (other.UserUuid.Length != 0) {
+        UserUuid = other.UserUuid;
       }
       seatNum_.Add(other.seatNum_);
       if (other.TheaterRoom != 0) {
@@ -1502,7 +1502,7 @@ namespace OrderServiceClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            Userid = input.ReadString();
+            UserUuid = input.ReadString();
             break;
           }
           case 18: {
@@ -1540,7 +1540,7 @@ namespace OrderServiceClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            Userid = input.ReadString();
+            UserUuid = input.ReadString();
             break;
           }
           case 18: {
@@ -1604,7 +1604,7 @@ namespace OrderServiceClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public Order(Order other) : this() {
       uuid_ = other.uuid_;
-      userid_ = other.userid_;
+      userUuid_ = other.userUuid_;
       tickets_ = other.tickets_.Clone();
       isPaid_ = other.isPaid_ != null ? other.isPaid_.Clone() : null;
       dateCreated_ = other.dateCreated_ != null ? other.dateCreated_.Clone() : null;
@@ -1629,15 +1629,15 @@ namespace OrderServiceClient {
       }
     }
 
-    /// <summary>Field number for the "userid" field.</summary>
-    public const int UseridFieldNumber = 2;
-    private string userid_ = "";
+    /// <summary>Field number for the "user_uuid" field.</summary>
+    public const int UserUuidFieldNumber = 2;
+    private string userUuid_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Userid {
-      get { return userid_; }
+    public string UserUuid {
+      get { return userUuid_; }
       set {
-        userid_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        userUuid_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -1692,7 +1692,7 @@ namespace OrderServiceClient {
         return true;
       }
       if (Uuid != other.Uuid) return false;
-      if (Userid != other.Userid) return false;
+      if (UserUuid != other.UserUuid) return false;
       if(!tickets_.Equals(other.tickets_)) return false;
       if (!object.Equals(IsPaid, other.IsPaid)) return false;
       if (!object.Equals(DateCreated, other.DateCreated)) return false;
@@ -1704,7 +1704,7 @@ namespace OrderServiceClient {
     public override int GetHashCode() {
       int hash = 1;
       if (Uuid.Length != 0) hash ^= Uuid.GetHashCode();
-      if (Userid.Length != 0) hash ^= Userid.GetHashCode();
+      if (UserUuid.Length != 0) hash ^= UserUuid.GetHashCode();
       hash ^= tickets_.GetHashCode();
       if (isPaid_ != null) hash ^= IsPaid.GetHashCode();
       if (dateCreated_ != null) hash ^= DateCreated.GetHashCode();
@@ -1730,9 +1730,9 @@ namespace OrderServiceClient {
         output.WriteRawTag(10);
         output.WriteString(Uuid);
       }
-      if (Userid.Length != 0) {
+      if (UserUuid.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(Userid);
+        output.WriteString(UserUuid);
       }
       tickets_.WriteTo(output, _repeated_tickets_codec);
       if (isPaid_ != null) {
@@ -1757,9 +1757,9 @@ namespace OrderServiceClient {
         output.WriteRawTag(10);
         output.WriteString(Uuid);
       }
-      if (Userid.Length != 0) {
+      if (UserUuid.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(Userid);
+        output.WriteString(UserUuid);
       }
       tickets_.WriteTo(ref output, _repeated_tickets_codec);
       if (isPaid_ != null) {
@@ -1783,8 +1783,8 @@ namespace OrderServiceClient {
       if (Uuid.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Uuid);
       }
-      if (Userid.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Userid);
+      if (UserUuid.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(UserUuid);
       }
       size += tickets_.CalculateSize(_repeated_tickets_codec);
       if (isPaid_ != null) {
@@ -1808,8 +1808,8 @@ namespace OrderServiceClient {
       if (other.Uuid.Length != 0) {
         Uuid = other.Uuid;
       }
-      if (other.Userid.Length != 0) {
-        Userid = other.Userid;
+      if (other.UserUuid.Length != 0) {
+        UserUuid = other.UserUuid;
       }
       tickets_.Add(other.tickets_);
       if (other.isPaid_ != null) {
@@ -1844,7 +1844,7 @@ namespace OrderServiceClient {
             break;
           }
           case 18: {
-            Userid = input.ReadString();
+            UserUuid = input.ReadString();
             break;
           }
           case 26: {
@@ -1885,7 +1885,7 @@ namespace OrderServiceClient {
             break;
           }
           case 18: {
-            Userid = input.ReadString();
+            UserUuid = input.ReadString();
             break;
           }
           case 26: {
@@ -1957,7 +1957,7 @@ namespace OrderServiceClient {
       return new Orders(this);
     }
 
-    /// <summary>Field number for the "orderList" field.</summary>
+    /// <summary>Field number for the "order_list" field.</summary>
     public const int OrderListFieldNumber = 1;
     private static readonly pb::FieldCodec<global::OrderServiceClient.Order> _repeated_orderList_codec
         = pb::FieldCodec.ForMessage(10, global::OrderServiceClient.Order.Parser);
