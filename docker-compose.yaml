@@ -56,3 +56,15 @@ services:
     deploy:
       mode: replicas
       replicas: 3
+
+  MovieServiceClientAPI:
+    build:
+      context: ./movieserviceclientapi
+      dockerfile: Dockerfile
+    image: movieserviceclientapi:1
+    restart: always
+    ports: 
+      - "8080-8083:3000"
+    deploy:
+      mode: replicas
+      replicas: 3
