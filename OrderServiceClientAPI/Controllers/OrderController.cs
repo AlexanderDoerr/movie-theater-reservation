@@ -47,7 +47,7 @@ public class OrderController : ControllerBase
 
     [HttpDelete]
     [Route("{orderid}")]
-    public async void Delete(Guid orderGuid)
+    public void Delete(Guid orderGuid)
     {
         try
         {
