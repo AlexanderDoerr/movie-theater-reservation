@@ -64,8 +64,8 @@ public class OrderController : ControllerBase
     {
         try
         {
-            var Data = _ordersRepository.GetOrdersByUserId(userGuid);
-            _ordersRepository.GetOrdersByUserId(userGuid);
+            var Data = await Task.Run(() => _ordersRepository.GetOrdersByUserId(userGuid));
+            // _ordersRepository.GetOrdersByUserId(userGuid);
             return Ok(new
             {
                 Success = true,

@@ -5,9 +5,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using Grpc.Core;
 using OrderServiceClient;
-//using OrderServiceClientAPI.Data.Payment;
 using OrderServiceClientAPI.Data.Ticket;
-//using Steeltoe.Common.Order;
 
 public class OrderRepository : IOrderRepository
 {
