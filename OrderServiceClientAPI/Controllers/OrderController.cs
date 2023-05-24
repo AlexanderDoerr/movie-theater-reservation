@@ -59,8 +59,8 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{userid}")]
-    public async Task<IActionResult> GetAllWithItems(Guid userGuid)
+    [Route("userid/{userid}")]
+    public async Task<IActionResult> GetOrdersUserid(Guid userGuid)
     {
         try
         {
@@ -77,5 +77,23 @@ public class OrderController : ControllerBase
             Console.WriteLine(ex.Message);
             return StatusCode(500, ex.Message);
         }
+    }
+
+    [HttpGet("orderid/{orderId}")]
+    public ActionResult<OrderDTO> GetOrderByOrderId(string orderId)
+    {
+        if (!Guid.TryParse(orderId, out Guid orderGuid))
+        {
+            return BadRequest("Invalid order ID format.");
+        }
+
+        var order = _ordersRepository.GetOrderById(orderGuid);
+
+        if (order == null)
+        {
+            return NotFound("Order not found.");
+        }
+
+        return Ok(order);
     }
 }
