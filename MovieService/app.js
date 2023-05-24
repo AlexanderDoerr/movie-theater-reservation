@@ -1,5 +1,6 @@
 const express = require('express');
-const movieList = require('./routes/movie-list-route');
+const movieRoutes = require('./routes/movieRoutes');
+const movieScheduleRoutes = require('./routes/movieScheduleRoutes');
 
 // const sleep = require('sleep-promise');
 require('dotenv').config();
@@ -7,7 +8,8 @@ require('dotenv').config();
 const app = express();
 
 app.use(express.json());
-app.use('/api', movieList);
+app.use('/movies', movieRoutes);
+app.use('/movie-schedule', movieScheduleRoutes);
 
 // app.use(moviescheduler);
 
