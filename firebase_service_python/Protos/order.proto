@@ -1,16 +1,17 @@
 syntax = "proto3";
 
-option csharp_namespace = "OrderService";
+option csharp_namespace = "OrderServiceClient";
 
 package OrderService;
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 
 // Define the message types
-message Ticket {
-	string Movieuuid = 1;
+message TicketStub {
+	string movie_uuid = 1;
 	int32 theater_room = 2;
-	string MovieTime = 3;
-	string seat_number = 4;
+	string movie_time = 3;
+	string seat_num = 4;
 }
 
 message Userid {
@@ -22,33 +23,39 @@ message Orderid {
 }
 
 message PaymentMethod {
-	string ccNum = 1;
-	string expDate = 2;
+	string cc_num = 1;
+	string exp_date = 2;
 	string cvv = 3;
 	string name = 4;
 }
 
-message PaymentType {
-	string type = 1;
+message IsPaid {
+	bool is_paid = 1;
 }
 
-message OrderOut {
-	string userid = 1;
-	repeated string ticket_uuid = 2;
-	PaymentMethod payment_method = 3;
-	google.protobuf.Timestamp date_created = 4;
+message OrderCreate {
+	string user_uuid = 1;
+	repeated string seat_num = 2;
+	int32 theater_room = 3;
+	string movie_time = 4;
+	IsPaid is_paid = 5;
 }
 
-message OrderIn {
+message Order {
 	string uuid = 1;
-	string userid = 2;
-	repeated string ticket_uuid = 3;
-	PaymentMethod payment_method = 4;
+	string user_uuid = 2;
+	repeated TicketStub tickets = 3;
+	IsPaid is_paid = 4;
 	google.protobuf.Timestamp date_created = 5;
 }
 
 service OrderService {
-	rpc CreateOrder(OrderOut) returns (OrderIn) {}
-	rpc GetOrder(Orderid) returns (OrderIn) {}
-	rpc GetOrdersForUser(Userid) returns (stream OrderIn) {}
+	rpc CreateOrder(OrderCreate) returns (Order) {}
+	rpc DeleteOrder(Orderid) returns (google.protobuf.Empty) {}
+	rpc GetOrder(Orderid) returns (Order) {}
+	rpc GetOrdersByUserId(Userid) returns (Orders) {}
+}
+
+message Orders {
+	repeated Order order_list = 1;
 }

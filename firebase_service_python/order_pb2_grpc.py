@@ -2,7 +2,8 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import order_pb2 as order__pb2
+from firebase_service_python import order_pb2 as firebase__service__python_dot_Protos_dot_order__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
 class OrderServiceStub(object):
@@ -16,18 +17,23 @@ class OrderServiceStub(object):
         """
         self.CreateOrder = channel.unary_unary(
                 '/OrderService.OrderService/CreateOrder',
-                request_serializer=order__pb2.OrderOut.SerializeToString,
-                response_deserializer=order__pb2.OrderIn.FromString,
+                request_serializer=firebase__service__python_dot_Protos_dot_order__pb2.OrderCreate.SerializeToString,
+                response_deserializer=firebase__service__python_dot_Protos_dot_order__pb2.Order.FromString,
+                )
+        self.DeleteOrder = channel.unary_unary(
+                '/OrderService.OrderService/DeleteOrder',
+                request_serializer=firebase__service__python_dot_Protos_dot_order__pb2.Orderid.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.GetOrder = channel.unary_unary(
                 '/OrderService.OrderService/GetOrder',
-                request_serializer=order__pb2.Orderid.SerializeToString,
-                response_deserializer=order__pb2.OrderIn.FromString,
+                request_serializer=firebase__service__python_dot_Protos_dot_order__pb2.Orderid.SerializeToString,
+                response_deserializer=firebase__service__python_dot_Protos_dot_order__pb2.Order.FromString,
                 )
-        self.GetOrdersForUser = channel.unary_stream(
-                '/OrderService.OrderService/GetOrdersForUser',
-                request_serializer=order__pb2.Userid.SerializeToString,
-                response_deserializer=order__pb2.OrderIn.FromString,
+        self.GetOrdersByUserId = channel.unary_unary(
+                '/OrderService.OrderService/GetOrdersByUserId',
+                request_serializer=firebase__service__python_dot_Protos_dot_order__pb2.Userid.SerializeToString,
+                response_deserializer=firebase__service__python_dot_Protos_dot_order__pb2.Orders.FromString,
                 )
 
 
@@ -40,13 +46,19 @@ class OrderServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DeleteOrder(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetOrder(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetOrdersForUser(self, request, context):
+    def GetOrdersByUserId(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -57,18 +69,23 @@ def add_OrderServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CreateOrder': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateOrder,
-                    request_deserializer=order__pb2.OrderOut.FromString,
-                    response_serializer=order__pb2.OrderIn.SerializeToString,
+                    request_deserializer=firebase__service__python_dot_Protos_dot_order__pb2.OrderCreate.FromString,
+                    response_serializer=firebase__service__python_dot_Protos_dot_order__pb2.Order.SerializeToString,
+            ),
+            'DeleteOrder': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteOrder,
+                    request_deserializer=firebase__service__python_dot_Protos_dot_order__pb2.Orderid.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'GetOrder': grpc.unary_unary_rpc_method_handler(
                     servicer.GetOrder,
-                    request_deserializer=order__pb2.Orderid.FromString,
-                    response_serializer=order__pb2.OrderIn.SerializeToString,
+                    request_deserializer=firebase__service__python_dot_Protos_dot_order__pb2.Orderid.FromString,
+                    response_serializer=firebase__service__python_dot_Protos_dot_order__pb2.Order.SerializeToString,
             ),
-            'GetOrdersForUser': grpc.unary_stream_rpc_method_handler(
-                    servicer.GetOrdersForUser,
-                    request_deserializer=order__pb2.Userid.FromString,
-                    response_serializer=order__pb2.OrderIn.SerializeToString,
+            'GetOrdersByUserId': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetOrdersByUserId,
+                    request_deserializer=firebase__service__python_dot_Protos_dot_order__pb2.Userid.FromString,
+                    response_serializer=firebase__service__python_dot_Protos_dot_order__pb2.Orders.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -92,8 +109,25 @@ class OrderService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/OrderService.OrderService/CreateOrder',
-            order__pb2.OrderOut.SerializeToString,
-            order__pb2.OrderIn.FromString,
+            firebase__service__python_dot_Protos_dot_order__pb2.OrderCreate.SerializeToString,
+            firebase__service__python_dot_Protos_dot_order__pb2.Order.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeleteOrder(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/OrderService.OrderService/DeleteOrder',
+            firebase__service__python_dot_Protos_dot_order__pb2.Orderid.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -109,13 +143,13 @@ class OrderService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/OrderService.OrderService/GetOrder',
-            order__pb2.Orderid.SerializeToString,
-            order__pb2.OrderIn.FromString,
+            firebase__service__python_dot_Protos_dot_order__pb2.Orderid.SerializeToString,
+            firebase__service__python_dot_Protos_dot_order__pb2.Order.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetOrdersForUser(request,
+    def GetOrdersByUserId(request,
             target,
             options=(),
             channel_credentials=None,
@@ -125,8 +159,8 @@ class OrderService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/OrderService.OrderService/GetOrdersForUser',
-            order__pb2.Userid.SerializeToString,
-            order__pb2.OrderIn.FromString,
+        return grpc.experimental.unary_unary(request, target, '/OrderService.OrderService/GetOrdersByUserId',
+            firebase__service__python_dot_Protos_dot_order__pb2.Userid.SerializeToString,
+            firebase__service__python_dot_Protos_dot_order__pb2.Orders.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
