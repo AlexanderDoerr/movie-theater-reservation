@@ -33,6 +33,7 @@ exports.getAllMovies = (req, res) => {
         if (err) {
             res.status(500).send(err);
         } else {
+            console.log(response);
             res.json(response);
         }
     });
