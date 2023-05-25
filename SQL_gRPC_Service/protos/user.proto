@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserServiceClient";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+package users;
+
+service UserService
+{
+    rpc getUserById(Userid) returns (User){}
+    rpc getUserByEmail(UserEmail) returns (User){}
+    rpc validateUser(UserValidationRequest) returns (Userid){}
+    rpc getAllUsers(google.protobuf.Empty) returns (FullUsers){} // admin only
+    rpc createUser(UserCreate) returns (Userid){}
+    rpc deleteUser(Userid) returns (google.protobuf.Empty){} //use kafka instead
+}
+
+// User return object
+message User {
+    string userGuid = 1;
+    string firstname = 2;
+    string lastname = 3;
+    string email = 4;
+    google.protobuf.Timestamp createdDate = 5;
+}
+
+// Full user return object
+message FullUser {
+    string userGuid = 1;
+    string firstname = 2;
+    string lastname = 3;
+    string email = 4;
+    string password = 5;
+    google.protobuf.Timestamp createdDate = 6;
+}
+
+// User create object
+message UserCreate {
+    string firstname = 1;
+    string lastname = 2;
+    string email = 3;
+    string password = 4;
+}
+
+// User validation object
+message UserValidationRequest
+{
+	string email = 1;
+	string password = 2;
+}
+
+// User email object
+message UserEmail
+{
+	string email = 1;
+}
+
+// User id object
+message Userid
+{
+    string UUID = 1;
+}
+
+// Full user list object
+message FullUsers 
+{
+    repeated FullUser users = 1;
+}
