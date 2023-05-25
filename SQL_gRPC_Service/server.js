@@ -33,7 +33,7 @@ function main()
         if(err) console.log(err);
         else
         {
-            server.start;
+            server.start();
             console.log('Server running at http://localhost:50052');
         } 
     });
