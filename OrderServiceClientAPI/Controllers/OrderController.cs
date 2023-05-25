@@ -47,7 +47,7 @@ public class OrderController : ControllerBase
 
     [HttpDelete]
     [Route("{orderid}")]
-    public async void Delete(Guid orderGuid)
+    public void Delete(Guid orderGuid)
     {
         try
         {
@@ -59,13 +59,13 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{userid}")]
-    public async Task<IActionResult> GetAllWithItems(Guid userGuid)
+    [Route("userid/{userid}")]
+    public async Task<IActionResult> GetOrdersUserid(Guid userGuid)
     {
         try
         {
-            var Data = _ordersRepository.GetOrdersByUserId(userGuid);
-            _ordersRepository.GetOrdersByUserId(userGuid);
+            var Data = await Task.Run(() => _ordersRepository.GetOrdersByUserId(userGuid));
+            // _ordersRepository.GetOrdersByUserId(userGuid);
             return Ok(new
             {
                 Success = true,
@@ -77,5 +77,23 @@ public class OrderController : ControllerBase
             Console.WriteLine(ex.Message);
             return StatusCode(500, ex.Message);
         }
+    }
+
+    [HttpGet("orderid/{orderId}")]
+    public ActionResult<OrderDTO> GetOrderByOrderId(string orderId)
+    {
+        if (!Guid.TryParse(orderId, out Guid orderGuid))
+        {
+            return BadRequest("Invalid order ID format.");
+        }
+
+        var order = _ordersRepository.GetOrderById(orderGuid);
+
+        if (order == null)
+        {
+            return NotFound("Order not found.");
+        }
+
+        return Ok(order);
     }
 }

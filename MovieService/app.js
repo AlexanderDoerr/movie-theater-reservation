@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/movies', movieRoutes);
-app.use('/movie-schedule', movieScheduleRoutes);
+// app.use('/movie-schedule', movieScheduleRoutes);
 
 // app.use(moviescheduler);
 

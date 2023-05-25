@@ -1,5 +1,22 @@
 version: '3.8'
 services:
+  consul:
+    image: consul:latest
+    container_name: consul
+    ports:
+      - "8500:8500"
+
+  APIGatewayOcelot:
+    container_name: APIGatewayOcelot
+    build:
+      context: ./dotnet-apigateway-ocelot
+      dockerfile: Dockerfile
+    image: apigatewayocelot:1
+    restart: always
+    hostname: APIGatewayOcelot
+    ports:
+      - 5041:80
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.0
     container_name: zookeeper
@@ -24,3 +41,47 @@ services:
       - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
       - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
       - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
+
+  OrderServiceClientAPI:
+    build:
+      context: ./orderserviceclientapi
+      dockerfile: Dockerfile
+    image: orderserviceclientapi:1
+    restart: always
+    # hostname: OrderServiceAPI
+    # ports:
+    #   - ":8080"
+    # networks:
+      # - netSEN300Final
+    # depends_on:
+    deploy:
+      mode: replicas
+      replicas: 3
+
+  UserServiceClientAPI:
+    build:
+      context: ./userserviceclientapi
+      dockerfile: Dockerfile
+    image: userserviceclientapi:1
+    restart: always
+    # hostname: UserServiceAPI
+    # ports:
+    #   - ":8080"
+    # networks:
+      # - netSEN300Final
+    # depends_on:
+    deploy:
+      mode: replicas
+      replicas: 3
+
+  MovieServiceClientAPI:
+    build:
+      context: ./movieserviceclientapi
+      dockerfile: Dockerfile
+    image: movieserviceclientapi:1
+    restart: always
+    ports: 
+      - "8080-8083:3000"
+    deploy:
+      mode: replicas
+      replicas: 3

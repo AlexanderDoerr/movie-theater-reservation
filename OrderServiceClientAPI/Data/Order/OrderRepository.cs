@@ -5,9 +5,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using Grpc.Core;
 using OrderServiceClient;
-using OrderServiceClientAPI.Data.Payment;
 using OrderServiceClientAPI.Data.Ticket;
-//using Steeltoe.Common.Order;
 
 public class OrderRepository : IOrderRepository
 {
@@ -24,7 +22,7 @@ public class OrderRepository : IOrderRepository
     {
         var orderCreate = new OrderCreate
         {
-            Userid = userGuid.ToString(),
+            UserUuid = userGuid.ToString(),
             SeatNum = { orderDTOCreate.Seats },
             TheaterRoom = orderDTOCreate.TheaterRoom,
             MovieTime = orderDTOCreate.MovieTime,
@@ -60,13 +58,13 @@ public class OrderRepository : IOrderRepository
             var orderDto = new OrderDTO
             {
                 OrderGuid = Guid.Parse(order.Uuid),
-                UserGuid = Guid.Parse(order.Userid),
+                UserGuid = Guid.Parse(order.UserUuid),
                 Tickets = order.Tickets.Select(ticket => new Ticket
                 {
-                    MovieGuid = ticket.Movieuuid,
+                    MovieGuid = ticket.MovieUuid,
                     TheaterRoom = ticket.TheaterRoom,
                     MovieTime = ticket.MovieTime,
-                    SeatNum = ticket.SeatNumber
+                    SeatNum = ticket.SeatNum
                 }).ToList(),
                 IsPaid = order.IsPaid.IsPaid_,
                 CreatedDate = order.DateCreated.ToDateTime()
@@ -82,26 +80,26 @@ public class OrderRepository : IOrderRepository
         var orderId = new Orderid { Uuid = orderGuid.ToString() };
         var response = _client.GetOrder(orderId);
 
-        var ticketStubs = new List<TicketStub>();
+        var tickets = new List<Ticket>();
         foreach (var ticket in response.Tickets)
         {
-            var ticketStub = new TicketStub
+            var ticketStub = new Ticket
             {
-                Movieuuid = ticket.Movieuuid,
+                MovieGuid = ticket.MovieUuid,
                 TheaterRoom = ticket.TheaterRoom,
                 MovieTime = ticket.MovieTime,
                 SeatNum = ticket.SeatNum
             };
-            ticketStubs.Add(ticketStub);
+            tickets.Add(ticketStub);
         }
 
         var order = new OrderDTO
         {
-            OrderGuid = Guid.Parse(response.uuid),
-            UserGuid = Guid.Parse(response.userid),
-            Tickets = ticketStubs,
-            IsPaid = response.is_paid.IsPaid,
-            CreatedDate = response.date_created.ToDateTime()
+            OrderGuid = Guid.Parse(response.Uuid),
+            UserGuid = Guid.Parse(response.UserUuid),
+            Tickets = tickets,
+            IsPaid = response.IsPaid.IsPaid_,
+            CreatedDate = response.DateCreated.ToDateTime()
         };
 
         return order;
