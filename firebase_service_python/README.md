@@ -20,7 +20,12 @@ This service uses Firebase for data persistence. As such, it is necessary to pro
 
 1. Generate a new private key file for your service account from the Firebase Console.
 2. Rename this file to `authToken.json` and place it in the same directory as this script.
-3. You will also need to install the required packages from `requirements.txt` using `pip install -r requirements.txt`.
+3. Install the required packages from `requirements.txt` using `pip install -r requirements.txt`.
+4. Run the following command to generate the gRPC stubs from the proto file:
+
+```bash
+python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. .\Protos\order.proto  .\Protos\scheduler.proto 
+```
 
 This script assumes the Firestore database has a collection called 'orders'. Each document in 'orders' represents an order, which includes fields such as 'uuid', 'userid', 'ticket_uuid', 'payment_method', and 'date_created'.
 

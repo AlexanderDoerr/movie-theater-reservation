@@ -57,8 +57,8 @@ public class OrderRepository : IOrderRepository
         {
             var orderDto = new OrderDTO
             {
-                OrderGuid = Guid.Parse(order.Uuid),
-                UserGuid = Guid.Parse(order.UserUuid),
+                OrderGuid = order.Uuid,
+                UserGuid = order.UserUuid,
                 Tickets = order.Tickets.Select(ticket => new Ticket
                 {
                     MovieGuid = ticket.MovieUuid,
@@ -95,8 +95,8 @@ public class OrderRepository : IOrderRepository
 
         var order = new OrderDTO
         {
-            OrderGuid = Guid.Parse(response.Uuid),
-            UserGuid = Guid.Parse(response.UserUuid),
+            OrderGuid = response.Uuid,
+            UserGuid = response.UserUuid,
             Tickets = tickets,
             IsPaid = response.IsPaid.IsPaid_,
             CreatedDate = response.DateCreated.ToDateTime()
