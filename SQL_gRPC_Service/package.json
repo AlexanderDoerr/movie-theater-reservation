@@ -9,10 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@grpc/grpc-js": "^1.8.14",
     "@grpc/proto-loader": "^0.7.7",
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
-    "grpc": "^1.24.11",
     "kafkajs": "^2.2.4",
     "mysql": "^2.18.1"
   }

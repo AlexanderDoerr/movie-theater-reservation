@@ -1,4 +1,4 @@
-const grpc = require('grpc');
+const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const db = require("./DB/MySQL")
 
@@ -12,9 +12,10 @@ const movieProto = grpc.loadPackageDefinition(moviePackageDefinition).movielist;
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function getAllMovies(call ,callback)
+async function getAllMovies(call ,callback)
 {
-    callback(null, db.getAllMovies())
+    let movies = await db.findAllMovies();
+    callback(null, {movies})
 }
 
 // db.createMovie("title 1", "description 1", "runtime 1", "rating 1", true);
@@ -27,9 +28,16 @@ function main()
     server.addService(movieProto.MovieList.service, {
         getAllMovies: getAllMovies,
     });
-    server.bind('localhost:50052', grpc.ServerCredentials.createInsecure());
-    server.start();
-    console.log('Server running at http://localhost:50052');
+    server.bindAsync('localhost:50052', grpc.ServerCredentials.createInsecure(), (err) =>
+    {
+        if(err) console.log(err);
+        else
+        {
+            server.start;
+            console.log('Server running at http://localhost:50052');
+        } 
+    });
+
 }
 
 main();
