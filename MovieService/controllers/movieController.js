@@ -1,7 +1,8 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
+const path = require('path');
 
-const PROTO_PATH = './path/to/your/protofile.proto';
+const PROTO_PATH = path.join(__dirname, '../proto/movie.proto');
 
 const packageDefinition = protoLoader.loadSync(
     PROTO_PATH,
@@ -14,7 +15,7 @@ const packageDefinition = protoLoader.loadSync(
 
 const movielist_proto = grpc.loadPackageDefinition(packageDefinition).movielist;
 
-const client = new movielist_proto.MovieList('localhost:50051', grpc.credentials.createInsecure());
+const client = new movielist_proto.MovieList('localhost:50052', grpc.credentials.createInsecure());
 
 exports.getMovieInfo = (req, res) => {
     client.GetMovieInfo({id: req.params.id}, function(err, response) {
