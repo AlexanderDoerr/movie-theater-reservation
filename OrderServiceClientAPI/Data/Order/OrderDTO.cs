@@ -5,10 +5,10 @@ using OrderServiceClientAPI.Data.Ticket;
 public class OrderDTO
 {
     [Key]
-    public Guid OrderGuid { get; set; }
+    public string OrderGuid { get; set; }
 
     [Required]
-    public Guid UserGuid { get; set; }
+    public string UserGuid { get; set; }
 
     [Required]
     public List<Ticket>? Tickets { get; set; }
