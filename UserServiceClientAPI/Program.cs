@@ -5,9 +5,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-//eureka
-using Steeltoe.Discovery.Client;
-using Steeltoe.Discovery.Eureka;
+//consul
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Consul;
 
 internal class Program
 {
@@ -48,8 +51,12 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        //eureka
-        //builder.Services.AddDiscoveryClient(builder.Configuration);
+        // Consul configuration
+        //builder.Services.AddSingleton<IConsulClient>(sp => new ConsulClient(config =>
+        //{
+        //    var consulConfig = sp.GetRequiredService<IConfiguration>().GetSection("Consul");
+        //    config.Address = new Uri($"http://{consulConfig["Host"]}:{consulConfig["Port"]}");
+        //}));
 
         var app = builder.Build();
 

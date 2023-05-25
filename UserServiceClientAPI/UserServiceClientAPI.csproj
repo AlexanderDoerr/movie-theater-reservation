@@ -10,26 +10,30 @@
 		<None Remove="Protos\user.proto" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Google.Apis" Version="1.60.0" />
-		<PackageReference Include="Google.Apis.Core" Version="1.60.0" />
-		<PackageReference Include="Google.Protobuf" Version="3.23.1" />
-		<PackageReference Include="Google.Protobuf.Tools" Version="3.23.0" />
-		<PackageReference Include="Grpc" Version="2.46.6" />
-		<PackageReference Include="Grpc.Net.Client" Version="2.53.0" />
-		<PackageReference Include="Grpc.Tools" Version="2.54.0">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+  <ItemGroup>
+	  <PackageReference Include="Consul" Version="1.6.10.9" />
+	  <PackageReference Include="Consul.Microsoft.Extensions.Configuration" Version="0.0.2" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" /><PackageReference Include="Microsoft.Extensions.DependencyInjection.Consul" Version="0.0.2" />
+	  <PackageReference Include="Consul" Version="X.X.X" />
+	  <PackageReference Include="Google.Apis" Version="1.60.0" />
+	  <PackageReference Include="Google.Apis.Core" Version="1.60.0" />
+	  <PackageReference Include="Google.Protobuf" Version="3.23.0" />
+	  <PackageReference Include="Google.Protobuf.Tools" Version="3.23.0" />
+	  <PackageReference Include="Grpc" Version="2.46.6" />
+	  <PackageReference Include="Grpc.Net.Client" Version="2.53.0" />
+	  <PackageReference Include="Grpc.Tools" Version="2.54.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 
 
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-		<PackageReference Include="Steeltoe.Discovery.ClientCore" Version="3.2.3" />
-		<PackageReference Include="Steeltoe.Discovery.Eureka" Version="3.2.3" />
+	  <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
+	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+	  <PackageReference Include="Steeltoe.Discovery.ClientCore" Version="3.2.3" />
+	  <PackageReference Include="Steeltoe.Discovery.Eureka" Version="3.2.3" />
 
-	</ItemGroup>
+  </ItemGroup>
 
 	<ItemGroup>
 		<Protobuf Include="Protos\user.proto" GrpcServices="Client" />

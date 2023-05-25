@@ -47,6 +47,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpDelete]
+    //[Authorize]
     [Route("{orderid}")]
     public void Delete(Guid orderGuid)
     {
@@ -60,6 +61,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
+    //[Authorize]
     [Route("userid/{userid}")]
     public async Task<IActionResult> GetOrdersUserid(Guid userGuid)
     {
@@ -81,6 +83,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet("orderid/{orderId}")]
+    //[Authorize]
     public ActionResult<OrderDTO> GetOrderByOrderId(string orderId)
     {
         if (!Guid.TryParse(orderId, out Guid orderGuid))
