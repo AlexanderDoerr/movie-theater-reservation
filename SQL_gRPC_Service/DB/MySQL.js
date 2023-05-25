@@ -1,7 +1,6 @@
 const mysql = require('mysql');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
-const { rejects } = require('assert');
 
 // Create a connection to the Google Cloud MySQL instance
 const connection = mysql.createConnection(

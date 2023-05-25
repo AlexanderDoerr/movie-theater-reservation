@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package movielist;
+
+import "google/protobuf/empty.proto";
+
+// The movie list service definition.
+service MovieList {
+  // Gets movie info
+  rpc GetMovieInfo(MovieId) returns (Movie) {} //this is the get by id, single movie return
+  rpc GetAllMovies(google.protobuf.Empty) returns (Movies) {} //this is the get all, list of movies return, admin
+  rpc GetAllShowingMovies(google.protobuf.Empty) returns (MovieTitles) {} //user endpoint, returns a list of movies titles that are showing
+  rpc UpdateMovie(MovieUpdate) returns (Movie) {} //this is the update, single movie return
+}
+
+//This is a what a movie should look like when being returned from the server
+message Movie {
+  string uuid = 1;
+  string title = 2;
+  string description = 3;
+  string runtime = 4;
+  string rating = 5;
+  bool is_showing = 6;
+
+  //any other fields you need like year, rating, etc
+}
+
+//This is what a movie should look like when being sent to the server to be created
+message MovieCreate {
+  string title = 1;
+  string description = 2;
+  string runtime = 3;
+  string rating = 4;
+  bool is_showing = 5;
+  //whatever else you need
+}
+
+//This is what a request should look like when searching for a movie by name, this will be the string that is searched for
+message SearchRequest {
+  string search = 1;
+}
+
+// The request message containing the movie's ID for a getbyid request
+message MovieId {
+  string id = 1;
+}
+
+message MovieUpdate {
+  string uuid = 1;
+  bool is_showing = 2;
+}
+
+message MovieTitle {
+  string uuid = 1;
+  string title = 2;
+  //string picture = 3; //?
+}
+
+message Movies {
+  repeated Movie movies = 1;
+}
+
+message MovieTitles {
+  repeated MovieTitle movies = 1;
+}
