@@ -23,20 +23,37 @@ def get_current_timestamp():
 
 class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
     def GetOrder(self, request, context):
-        doc_ref = db.collection('orders').document(request.uuid)
+        print("getting order: " + request.uuid)
+        doc_ref = db.collection('orders').document(request.uuid.replace('-', ''))
         doc = doc_ref.get()
+        tickets_raw = doc.to_dict()['tickets']
+        ticket_stubs = []
+        print(tickets_raw)
+        for ticket in tickets_raw:
+            tdoc = ticket.get()
+            aud_doc = tdoc.to_dict()['auditorium'].get()
+            schedule = aud_doc.to_dict()['schedules'][tdoc.to_dict()['movie_date']][tdoc.to_dict()['movie_index']]
+            seat_doc = tdoc.to_dict()["seat"].get()
+            seat_num = seat_doc.to_dict()['seat_num']
+            print("Ticket Stub: " + str(schedule['movie_uuid']) + " " + str(aud_doc.to_dict()['auditorium_num']) + " " + str(schedule['start_time']) + " " + str(seat_num))
+
+            ticket_stubs.append(order_pb2.TicketStub(
+                movie_uuid=schedule['movie_uuid'],
+                theater_room=aud_doc.to_dict()['auditorium_num'],
+                movie_time=str(schedule['start_time']),
+                seat_num=seat_num,
+            ))
+        print(ticket_stubs)
         if doc.exists:
-            print(doc.to_dict())
-            return order_pb2.OrderIn(
-                uuid=doc.to_dict()['uuid'],
-                userid=doc.to_dict()['userid'],
-                ticket_uuid=doc.to_dict()['ticket_uuid'],
-                payment_method=order_pb2.PaymentMethod(
-                    ccNum=doc.to_dict()['payment_method']['ccNum'],
-                    expDate=doc.to_dict()['payment_method']['expDate'],
-                    cvv=doc.to_dict()['payment_method']['cvv'],
-                    name=doc.to_dict()['payment_method']['name']
-                ),
+            # put the dashes back in the guids
+            formatted_user_guid = doc.to_dict()['user_uuid'][:8] + '-' + doc.to_dict()['user_uuid'][8:12] + '-' + doc.to_dict()['user_uuid'][12:16] + '-' + doc.to_dict()['user_uuid'][16:20] + '-' + doc.to_dict()['user_uuid'][20:]
+            formatted_guid = doc.to_dict()['uuid'][:8] + '-' + doc.to_dict()['uuid'][8:12] + '-' + doc.to_dict()['uuid'][12:16] + '-' + doc.to_dict()['uuid'][16:20] + '-' + doc.to_dict()['uuid'][20:]
+            print(formatted_guid)
+            return order_pb2.Order(
+                uuid=formatted_guid,
+                user_uuid=formatted_user_guid,
+                tickets=ticket_stubs,
+                is_paid=order_pb2.IsPaid(is_paid=doc.to_dict()['isPaid']),
                 date_created=timestamp_pb2.Timestamp(seconds=doc.to_dict()['date_created'])
             )
         else:
