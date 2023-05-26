@@ -11,7 +11,7 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use("/movies", movieRoutes);
+app.use("/movieService", movieRoutes);
 app.use("/movie-schedule", movieScheduleRoutes);
 
 
