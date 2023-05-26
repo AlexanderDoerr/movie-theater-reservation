@@ -6,7 +6,7 @@ using Ocelot.Middleware;
 using Ocelot.Responses;
 using Ocelot.Values;
 
-using Ocelot.Provider.Eureka;
+using Ocelot.Provider.Consul;
 using Ocelot.Provider.Polly;
 using Steeltoe.Discovery.Client;
 
@@ -18,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("ocelot.json").Build();
 //IConfiguration configuration = new ConfigurationBuilder().AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", true, true).Build();
 builder.Services.AddOcelot(configuration)
-.AddEureka()
+.AddConsul()
 .AddPolly();
 
 
