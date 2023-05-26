@@ -107,8 +107,6 @@ services:
       dockerfile: Dockerfile
     image: movieserviceclientapi:1
     restart: always
-    ports: 
-      - "8080-8083:3000"
     networks:
       - netPRO290
     deploy:
