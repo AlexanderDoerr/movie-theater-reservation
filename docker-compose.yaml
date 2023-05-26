@@ -1,10 +1,17 @@
 version: '3.8'
+
+networks:
+  netPRO290:
+    external: false
+
 services:
   consul:
     image: consul:latest
     container_name: consul
     ports:
       - "8500:8500"
+    networks:
+      - netPRO290
 
   APIGatewayOcelot:
     container_name: APIGatewayOcelot
@@ -16,6 +23,8 @@ services:
     hostname: APIGatewayOcelot
     ports:
       - 5041:80
+    networks:
+      - netPRO290
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.0
@@ -24,12 +33,16 @@ services:
     environment:
       - ZOOKEEPER_CLIENT_PORT=2182
       - ZOOKEEPER_TICK_TIME=2000
+    networks:
+      - netPRO290
 
   broker:
     image: confluentinc/cp-kafka:7.3.0
     container_name: broker
     ports:
       - "9092:9092"
+    networks:
+      - netPRO290
     depends_on:
       - zookeeper
     restart: always
@@ -42,18 +55,36 @@ services:
       - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
       - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
 
+  Firebase-Service-Pyton:
+    build:
+      context: ./firebase_service_python
+      dockerfile: Dockerfile
+    image: firebaseservicepython:1
+    restart: always
+    ports: 
+      - "50051:50051"
+    networks:
+      - netPRO290
+
+  Sql-gRPC-Service:
+    build:
+      context: ./SQL_gRPC_Service
+      dockerfile: Dockerfile
+    image: sqlservicegrpc:1
+    restart: always
+    ports: 
+      - "50052:50052"
+    networks:
+      - netPRO290
+
   OrderServiceClientAPI:
     build:
       context: ./orderserviceclientapi
       dockerfile: Dockerfile
     image: orderserviceclientapi:1
     restart: always
-    # hostname: OrderServiceAPI
-    # ports:
-    #   - ":8080"
-    # networks:
-      # - netSEN300Final
-    # depends_on:
+    networks:
+      - netPRO290
     deploy:
       mode: replicas
       replicas: 3
@@ -64,24 +95,22 @@ services:
       dockerfile: Dockerfile
     image: userserviceclientapi:1
     restart: always
-    # hostname: UserServiceAPI
-    # ports:
-    #   - ":8080"
-    # networks:
-      # - netSEN300Final
-    # depends_on:
+    networks:
+      - netPRO290
     deploy:
       mode: replicas
       replicas: 3
 
   MovieServiceClientAPI:
     build:
-      context: ./movieserviceclientapi
+      context: ./movieservice
       dockerfile: Dockerfile
     image: movieserviceclientapi:1
     restart: always
     ports: 
       - "8080-8083:3000"
+    networks:
+      - netPRO290
     deploy:
       mode: replicas
       replicas: 3

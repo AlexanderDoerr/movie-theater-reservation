@@ -9,7 +9,7 @@ public class UserRepository : IUserRepository
 
     public UserRepository()
     {
-        var channel = new Channel("localhost:5001", ChannelCredentials.Insecure);
+        var channel = new Channel("Sql-gRPC-Service:50052", ChannelCredentials.Insecure);
         _client = new UserService.UserServiceClient(channel);
     }
 
