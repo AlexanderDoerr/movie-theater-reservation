@@ -2,7 +2,7 @@
 FROM python:3.10.11
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /app/firebase_service_python
 
 # Copy requirements.txt to the working directory
 COPY requirements.txt .
@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code to the working directory
 COPY . .
 
-RUN python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./Protos/order.proto  ./Protos/scheduler.proto
+RUN python -m grpc_tools.protoc -I. --python_out=./Protos --grpc_python_out=./Protos ./Protos/order.proto  ./Protos/scheduler.proto
 
 # Start the Python application
 CMD ["python", "main.py"]
