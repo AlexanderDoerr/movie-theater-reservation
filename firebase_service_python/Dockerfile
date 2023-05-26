@@ -2,7 +2,7 @@
 FROM python:3.10.11
 
 # Set the working directory inside the container
-WORKDIR /app/firebase_service_python
+WORKDIR /app
 
 # Copy requirements.txt to the working directory
 COPY requirements.txt .
