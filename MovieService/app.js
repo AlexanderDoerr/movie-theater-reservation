@@ -8,7 +8,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(express.json());
-app.use('/movies', movieRoutes);
+app.use('/api', movieRoutes);
 // app.use('/movie-schedule', movieScheduleRoutes);
 
 // app.use(moviescheduler);

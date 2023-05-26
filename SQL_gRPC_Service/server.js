@@ -69,10 +69,10 @@ async function getAllShowingMovies(call, callback)
         response.movies.push({
             uuid: movie.id,
             title: movie.title,
-            // description: movie.description,
-            // runtime: movie.runtime,
-            // rating: movie.rating,
-            // is_showing: movie.is_showing,
+            description: movie.description,
+            runtime: movie.runtime,
+            rating: movie.rating,
+            is_showing: movie.is_showing
         });
         }
 
@@ -82,12 +82,6 @@ async function getAllShowingMovies(call, callback)
     callback(error);
 }
 }
-
-
-
-// db.createMovie("title 1", "description 1", "runtime 1", "rating 1", true);
-// db.createMovie("title 2", "description 2", "runtime 2", "rating 2", false);
-// db.createMovie("title 3", "description 3", "runtime 3", "rating 3", true);
 
 function main() 
 {
