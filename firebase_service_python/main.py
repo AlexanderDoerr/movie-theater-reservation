@@ -8,8 +8,7 @@ import grpc
 from firebase_admin import firestore, credentials
 from google.protobuf import timestamp_pb2
 
-import order_pb2
-import order_pb2_grpc
+from Protos import order_pb2, order_pb2_grpc
 
 cred = credentials.Certificate("authToken.json")
 app = firebase_admin.initialize_app(cred)
@@ -67,18 +66,10 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
             date_created = timestamp_pb2.Timestamp(seconds=seconds)
             orderid = uuid.uuid4().hex
             doc_ref = db.collection('orders').document(orderid)
-            doc_ref.set({
-                'uuid': orderid,
-                'userid': request.userid,
-                'ticket_uuid': [x for x in request.ticket_uuid],
-                'payment_method': {
-                    'ccNum': request.payment_method.ccNum,
-                    'expDate': request.payment_method.expDate,
-                    'cvv': request.payment_method.cvv,
-                    'name': request.payment_method.name
-                },
-                'date_created': seconds
-            })
+            # doc_ref.set({
+            #     user_uuid=request.user_uuid,
+            #
+            # })
             print(request)
             context.set_code(grpc.StatusCode.OK)
             return order_pb2.OrderIn(
