@@ -12,18 +12,18 @@ const port = process.env.PORT;
 
 app.use(express.json());
 app.use('/movies', movieRoutes);
-// app.use('/movie-schedule', movieScheduleRoutes);
+app.use('/movie-schedule', movieScheduleRoutes);
 
 // app.use(moviescheduler);
 
 
 
-// app.get('/health', (req, res) => {
-//     res.sendStatus(200);
-//   });
+app.get('/health', (req, res) => {
+    res.sendStatus(200);
+  });
 
 app.listen(port, () =>
 {
     console.log(`Listening on port ${port}...`);
-    // registerWithConsul();
+    registerWithConsul();
 } );
