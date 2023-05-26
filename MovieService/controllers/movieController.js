@@ -32,7 +32,6 @@ exports.getAllMovies = (req, res) => {
     client.GetAllMovies({}, function(err, response) {
         if (err) {
             res.status(500).send(err);
-            console.log(err);
         } else {
             console.log(response);
             res.json(response);

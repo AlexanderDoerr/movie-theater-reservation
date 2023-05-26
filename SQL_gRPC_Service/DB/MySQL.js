@@ -11,6 +11,17 @@ const connection = mysql.createConnection(
     database: 'LuminaryLegendsTheatre',
 });
 
+function createConnection()
+{
+    connection.connect((err) => {if (err) reject(err)});
+}
+
+function endConnection ()
+{
+    connection.end();
+}
+
+
 function createUser(firstName, lastName, email, password)
 {
     return new Promise((resolve, reject) =>
@@ -112,8 +123,6 @@ function createMovie(title, description, runtime, rating, is_showing)
 {
     return new Promise((resolve, reject) =>
     {
-        connection.connect((err) => 
-        {if (err) reject(err)});
         connection.query(`INSERT INTO movies (id, title, description, runtime, rating, is_showing) VALUES (?,?,?,?,?,?)`,
         [
             crypto.randomUUID(),
@@ -128,7 +137,6 @@ function createMovie(title, description, runtime, rating, is_showing)
             if(err) reject(err)
             resolve(results)
         })
-        connection.end();
     })
 }
 
@@ -136,13 +144,11 @@ function findAllMovies()
 {
     return new Promise((resolve, reject) =>
     {
-        connection.connect((err) => {if (err) reject(err)});
         connection.query('SELECT * FROM movies', (err, results) => 
         {
             if (err) reject(err)
             resolve(results)
         });
-        connection.end();
     })
 }
 
@@ -150,13 +156,11 @@ function findMovieById(movieId)
 {
     return new Promise((resolve, reject) =>
     {
-        connection.connect((err) => {if (err) reject(err) });
         connection.query(`SELECT * FROM movies where id = "${movieId}"`, (err, results) => 
         {
             if (err) reject(err)
             resolve(results)
         });
-        connection.end();
     })
 }
 
@@ -164,13 +168,11 @@ function findAllShowingMovies()
 {
     return new Promise((resolve, reject) =>
     {
-        connection.connect((err) => {if (err) reject(err)});
-        connection.query('SELECT * FROM movies WHERE is_showing = true', (err, results) => 
+        connection.query('SELECT * FROM movies WHERE is_showing = 1', (err, results) => 
         {
             if (err)reject(err)
             resolve(results)
         });
-        connection.end();
     })
 }
 
@@ -227,3 +229,5 @@ exports.updateMovie = updateMovie
 exports.deleteMovie = deleteMovie
 
 exports.validateUser = validateUser
+exports.createConnection = createConnection
+exports.endConnection = endConnection
