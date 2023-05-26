@@ -18,12 +18,12 @@ app.use('/movies', movieRoutes);
 
 
 
-app.get('/health', (req, res) => {
-    res.sendStatus(200);
-  });
+// app.get('/health', (req, res) => {
+//     res.sendStatus(200);
+//   });
 
 app.listen(port, () =>
 {
     console.log(`Listening on port ${port}...`);
-    registerWithConsul();
+    // registerWithConsul();
 } );
