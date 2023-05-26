@@ -55,11 +55,15 @@
             },
             "Ocelot": {
               "target": "Package",
-              "version": "[18.0.0, )"
+              "version": "[19.0.2, )"
             },
             "Ocelot.Cache.CacheManager": {
               "target": "Package",
               "version": "[18.0.0, )"
+            },
+            "Ocelot.Provider.Consul": {
+              "target": "Package",
+              "version": "[19.0.2, )"
             },
             "Ocelot.Provider.Eureka": {
               "target": "Package",
