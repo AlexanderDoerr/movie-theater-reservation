@@ -7,8 +7,8 @@ const ssl = !!sasl
 // create a client connection
 const kafka = new Kafka(
     {
-        // brokers:[process.env.KAFKA_BROKER_SERVER],
-        brokers:['localhost:9092'],
+        brokers:[process.env.KAFKA_BROKER_SERVER],
+        // brokers:['localhost:9092'],
         clientId: "movie-service-producer",
         ssl,
         sasl

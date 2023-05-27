@@ -1,12 +1,12 @@
 const kafka = require("./streams/kafka.js");
 const db  = require("./DB/MySQL.js");
 
-main  = async () =>
+start  = async () =>
 {
     consumer = kafka.consumer({groupId: "service-consumer-group"});
     await consumer.connect();
 
-    await consumer.subscribe({topics: ['users','orders']});
+    await consumer.subscribe({topics: ['users','movies']});
     await consumer.run(
         {
             eachMessage: async({topic, patition, message, heartbeat, pause}) =>
@@ -25,13 +25,13 @@ main  = async () =>
                             db.deleteUser(message.value.toString())
                             break;
                         }
-                    case "game-updated":
+                    case "movie-updated":
                         {
                             let jsonMessage = JSON.parse(message.value.toString());
                             db.updateMovie(jsonMessage['movieId'], jsonMessage['title'],jsonMessage['description'],jsonMessage['runtime'],jsonMessage['rating'],jsonMessage['is_showing'])
                             break;
                         }
-                    case "game-deleted":
+                    case "movie-deleted":
                         {
                             db.deleteMovie(message.value.toString())
                             break;
@@ -43,4 +43,4 @@ main  = async () =>
         ) 
     } 
 
-    main();
+exports.start = start

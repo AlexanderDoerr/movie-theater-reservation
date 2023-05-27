@@ -8,7 +8,8 @@ const ssl = !!sasl
 const kafka = new Kafka(
     {
         brokers:[process.env.KAFKA_BROKER_SERVER],
-        clientId: "task-manager-producer-cart",
+        // brokers:["localhost:9092"],
+        clientId: "movie-service-producer",
         ssl,
         sasl
     }

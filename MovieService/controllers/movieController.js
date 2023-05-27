@@ -1,10 +1,6 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const path = require('path');
-const kafka = require('../stream/kafka');
-
-const topic = 'movies';
-const producer = kafka.producer();
 
 const PROTO_PATH = path.join(__dirname, '../proto/movie.proto');
 
@@ -53,26 +49,12 @@ exports.getAllShowingMovies = (req, res) => {
     });
 };
 
-exports.updateMovie = async (req, res) => {
-    await producer.connect();
-    producer.send(
-        {
-            topic: topic,
-            messages:
-            [
-                {
-                    key: "movie-updated", 
-                    value: JSON.stringify({
-                        movieId: req.params.id,
-                        title: req.body.title,
-                        description: req.body.description,
-                        runtime: req.body.runtime,
-                        rating: req.body.rating,
-                        is_showing: req.body.is_showing
-                    })
-                }
-            ]
+exports.updateMovie = (req, res) => {
+    client.UpdateMovie({uuid: req.params.id, is_showing: req.body.is_showing}, function(err, response) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.json(response);
         }
-    )
-    res.status(200).send("Movie updated");
+    });
 };

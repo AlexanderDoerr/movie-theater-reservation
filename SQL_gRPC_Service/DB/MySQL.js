@@ -168,7 +168,7 @@ function findAllShowingMovies()
 {
     return new Promise((resolve, reject) =>
     {
-        connection.query('SELECT * FROM movies WHERE is_showing = 1', (err, results) => 
+        connection.query('SELECT * FROM movies WHERE is_showing = 0', (err, results) => 
         {
             if (err)reject(err)
             resolve(results)
@@ -180,14 +180,12 @@ function updateMovie(movieId ,title, description, runtime, rating, is_showing)
 {
     return new Promise((resolve, reject) => 
     {
-        connection.connect((err) => {if (err) reject(err)});
         connection.query(`UPDATE movies SET title = "${title}", description = "${description}", runtime = "${runtime}", rating = "${rating}", is_showing = "${is_showing}" WHERE id = "${movieId}"`, 
         (err, results) => 
         {
             if (err) reject(err)
             resolve(results)
         });
-        connection.end();
     })
 }
 

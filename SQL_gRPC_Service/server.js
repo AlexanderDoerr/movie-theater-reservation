@@ -1,6 +1,7 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const db = require("./DB/MySQL")
+const kafkaServer = require("./kafkaConsumer");
 
 const USER_PROTO_PATH = './protos/user.proto';
 const userPackageDefinition = protoLoader.loadSync(USER_PROTO_PATH);
@@ -19,21 +20,21 @@ async function getAllMovies(call, callback) {
         const response = { movies: [] };
         
         for (const movie of movies) {
-        response.movies.push({
-            uuid: movie.id,
-            title: movie.title,
-            description: movie.description,
-            runtime: movie.runtime,
-            rating: movie.rating,
-            is_showing: movie.is_showing,
-        });
+            response.movies.push({
+                uuid: movie.id,
+                title: movie.title,
+                description: movie.description,
+                runtime: movie.runtime,
+                rating: movie.rating,
+                is_showing: movie.is_showing,
+            });
         }
-
-    callback(null, response);
-} catch (error) {
-    console.error('Error fetching movies:', error);
-    callback(error);
-}
+        console.log(response)
+        callback(null, response);
+    } catch (error) {
+        console.error('Error fetching movies:', error);
+        callback(error);
+    }
 }
 
 
@@ -46,7 +47,7 @@ async function getMovieInfo(call, callback) {
         description: movie.description,
         runtime: movie.runtime,
         rating: movie.rating,
-        is_showing: movie.is_showing,
+        is_showing: movie.is_showing
         };
         callback(null, response);
     } catch (error) {
@@ -66,13 +67,14 @@ async function getAllShowingMovies(call, callback)
                 console.error("Encounter undefinded movie")
                 continue;
             }
+            let showing = movie.is_showing === 1
         response.movies.push({
             uuid: movie.id,
             title: movie.title,
             description: movie.description,
             runtime: movie.runtime,
             rating: movie.rating,
-            is_showing: movie.is_showing
+            is_showing:showing
         });
         }
 
@@ -97,7 +99,10 @@ function main()
         else
         {
             server.start();
-            db.createConnection()
+            kafkaServer.start();
+            db.createConnection();
+
+            db.createMovie("title", "description", "oire[owvn", "ribvipv", 1)
             console.log('Server running at http://localhost:50052');
         } 
     });
