@@ -112,3 +112,6 @@ services:
     deploy:
       mode: replicas
       replicas: 3
+    environment:
+      - KAFKA_BROKER_SERVER=broker:29092
+      
