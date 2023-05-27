@@ -13,7 +13,7 @@ from google.cloud.firestore_v1 import DocumentSnapshot
 from google.protobuf import timestamp_pb2
 from proto.datetime_helpers import DatetimeWithNanoseconds
 
-from Protos import order_pb2, order_pb2_grpc
+from Protos import order_pb2, order_pb2_grpc, scheduler_pb2_grpc, scheduler_pb2
 
 cred = credentials.Certificate("authToken.json")
 app = firebase_admin.initialize_app(cred)
@@ -116,9 +116,9 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
                                                                                                    12:16] + '-' + \
                              doc.to_dict()['uuid'][16:20] + '-' + doc.to_dict()['uuid'][20:]
             logging.debug("Order time obj" + str(doc.to_dict()['date_created']))
-            dt = datetime.strptime(str(doc.to_dict()['date_created']), "%Y-%m-%d %H:%M:%S")
+            dt = datetime.fromtimestamp(doc.to_dict()['date_created'].timestamp())
             timestamp = timestamp_pb2.Timestamp()
-            timestamp.FromDatetime(dt)
+            timestamp = timestamp.FromDatetime(dt)
             return order_pb2.Order(
                 uuid=formatted_guid,
                 user_uuid=formatted_user_guid,
@@ -217,6 +217,18 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
             ticket.delete()
         db.collection('orders').document(request.uuid).delete()
         return google.protobuf.empty_pb2.Empty()
+
+
+def seat_generator(auditorium, movie_date, movie_time):
+
+    return
+
+# def get_auditorium_
+
+class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
+    def AddMovieToSchedule(self, request, context):
+
+        return scheduler_pb2.Schedule()
 
 
 def serve():
