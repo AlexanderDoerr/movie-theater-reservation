@@ -37,8 +37,9 @@ message OrderCreate {
 	string user_uuid = 1;
 	repeated string seat_num = 2;
 	int32 theater_room = 3;
-	string movie_time = 4;
-	IsPaid is_paid = 5;
+	google.protobuf.Timestamp movie_time = 4;
+	string movie_date = 5;
+	IsPaid is_paid = 6;
 }
 
 message Order {
