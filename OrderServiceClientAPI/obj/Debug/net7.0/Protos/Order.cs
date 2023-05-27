@@ -31,22 +31,23 @@ namespace OrderServiceClient {
             "X251bRgEIAEoCSIWCgZVc2VyaWQSDAoEdXVpZBgBIAEoCSIXCgdPcmRlcmlk",
             "EgwKBHV1aWQYASABKAkiTAoNUGF5bWVudE1ldGhvZBIOCgZjY19udW0YASAB",
             "KAkSEAoIZXhwX2RhdGUYAiABKAkSCwoDY3Z2GAMgASgJEgwKBG5hbWUYBCAB",
-            "KAkiGQoGSXNQYWlkEg8KB2lzX3BhaWQYASABKAgigwEKC09yZGVyQ3JlYXRl",
+            "KAkiGQoGSXNQYWlkEg8KB2lzX3BhaWQYASABKAgiswEKC09yZGVyQ3JlYXRl",
             "EhEKCXVzZXJfdXVpZBgBIAEoCRIQCghzZWF0X251bRgCIAMoCRIUCgx0aGVh",
-            "dGVyX3Jvb20YAyABKAUSEgoKbW92aWVfdGltZRgEIAEoCRIlCgdpc19wYWlk",
-            "GAUgASgLMhQuT3JkZXJTZXJ2aWNlLklzUGFpZCKsAQoFT3JkZXISDAoEdXVp",
-            "ZBgBIAEoCRIRCgl1c2VyX3V1aWQYAiABKAkSKQoHdGlja2V0cxgDIAMoCzIY",
-            "Lk9yZGVyU2VydmljZS5UaWNrZXRTdHViEiUKB2lzX3BhaWQYBCABKAsyFC5P",
-            "cmRlclNlcnZpY2UuSXNQYWlkEjAKDGRhdGVfY3JlYXRlZBgFIAEoCzIaLmdv",
-            "b2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiMQoGT3JkZXJzEicKCm9yZGVyX2xp",
-            "c3QYASADKAsyEy5PcmRlclNlcnZpY2UuT3JkZXIyjAIKDE9yZGVyU2Vydmlj",
-            "ZRI/CgtDcmVhdGVPcmRlchIZLk9yZGVyU2VydmljZS5PcmRlckNyZWF0ZRoT",
-            "Lk9yZGVyU2VydmljZS5PcmRlciIAEj4KC0RlbGV0ZU9yZGVyEhUuT3JkZXJT",
-            "ZXJ2aWNlLk9yZGVyaWQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABI4CghH",
-            "ZXRPcmRlchIVLk9yZGVyU2VydmljZS5PcmRlcmlkGhMuT3JkZXJTZXJ2aWNl",
-            "Lk9yZGVyIgASQQoRR2V0T3JkZXJzQnlVc2VySWQSFC5PcmRlclNlcnZpY2Uu",
-            "VXNlcmlkGhQuT3JkZXJTZXJ2aWNlLk9yZGVycyIAQhWqAhJPcmRlclNlcnZp",
-            "Y2VDbGllbnRiBnByb3RvMw=="));
+            "dGVyX3Jvb20YAyABKAUSLgoKbW92aWVfdGltZRgEIAEoCzIaLmdvb2dsZS5w",
+            "cm90b2J1Zi5UaW1lc3RhbXASEgoKbW92aWVfZGF0ZRgFIAEoCRIlCgdpc19w",
+            "YWlkGAYgASgLMhQuT3JkZXJTZXJ2aWNlLklzUGFpZCKsAQoFT3JkZXISDAoE",
+            "dXVpZBgBIAEoCRIRCgl1c2VyX3V1aWQYAiABKAkSKQoHdGlja2V0cxgDIAMo",
+            "CzIYLk9yZGVyU2VydmljZS5UaWNrZXRTdHViEiUKB2lzX3BhaWQYBCABKAsy",
+            "FC5PcmRlclNlcnZpY2UuSXNQYWlkEjAKDGRhdGVfY3JlYXRlZBgFIAEoCzIa",
+            "Lmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiMQoGT3JkZXJzEicKCm9yZGVy",
+            "X2xpc3QYASADKAsyEy5PcmRlclNlcnZpY2UuT3JkZXIyjAIKDE9yZGVyU2Vy",
+            "dmljZRI/CgtDcmVhdGVPcmRlchIZLk9yZGVyU2VydmljZS5PcmRlckNyZWF0",
+            "ZRoTLk9yZGVyU2VydmljZS5PcmRlciIAEj4KC0RlbGV0ZU9yZGVyEhUuT3Jk",
+            "ZXJTZXJ2aWNlLk9yZGVyaWQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABI4",
+            "CghHZXRPcmRlchIVLk9yZGVyU2VydmljZS5PcmRlcmlkGhMuT3JkZXJTZXJ2",
+            "aWNlLk9yZGVyIgASQQoRR2V0T3JkZXJzQnlVc2VySWQSFC5PcmRlclNlcnZp",
+            "Y2UuVXNlcmlkGhQuT3JkZXJTZXJ2aWNlLk9yZGVycyIAQhWqAhJPcmRlclNl",
+            "cnZpY2VDbGllbnRiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -55,7 +56,7 @@ namespace OrderServiceClient {
             new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.Orderid), global::OrderServiceClient.Orderid.Parser, new[]{ "Uuid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.PaymentMethod), global::OrderServiceClient.PaymentMethod.Parser, new[]{ "CcNum", "ExpDate", "Cvv", "Name" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.IsPaid), global::OrderServiceClient.IsPaid.Parser, new[]{ "IsPaid_" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.OrderCreate), global::OrderServiceClient.OrderCreate.Parser, new[]{ "UserUuid", "SeatNum", "TheaterRoom", "MovieTime", "IsPaid" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.OrderCreate), global::OrderServiceClient.OrderCreate.Parser, new[]{ "UserUuid", "SeatNum", "TheaterRoom", "MovieTime", "MovieDate", "IsPaid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.Order), global::OrderServiceClient.Order.Parser, new[]{ "Uuid", "UserUuid", "Tickets", "IsPaid", "DateCreated" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::OrderServiceClient.Orders), global::OrderServiceClient.Orders.Parser, new[]{ "OrderList" }, null, null, null, null)
           }));
@@ -1271,7 +1272,8 @@ namespace OrderServiceClient {
       userUuid_ = other.userUuid_;
       seatNum_ = other.seatNum_.Clone();
       theaterRoom_ = other.theaterRoom_;
-      movieTime_ = other.movieTime_;
+      movieTime_ = other.movieTime_ != null ? other.movieTime_.Clone() : null;
+      movieDate_ = other.movieDate_;
       isPaid_ = other.isPaid_ != null ? other.isPaid_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -1319,18 +1321,30 @@ namespace OrderServiceClient {
 
     /// <summary>Field number for the "movie_time" field.</summary>
     public const int MovieTimeFieldNumber = 4;
-    private string movieTime_ = "";
+    private global::Google.Protobuf.WellKnownTypes.Timestamp movieTime_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string MovieTime {
+    public global::Google.Protobuf.WellKnownTypes.Timestamp MovieTime {
       get { return movieTime_; }
       set {
-        movieTime_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        movieTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "movie_date" field.</summary>
+    public const int MovieDateFieldNumber = 5;
+    private string movieDate_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string MovieDate {
+      get { return movieDate_; }
+      set {
+        movieDate_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
     /// <summary>Field number for the "is_paid" field.</summary>
-    public const int IsPaidFieldNumber = 5;
+    public const int IsPaidFieldNumber = 6;
     private global::OrderServiceClient.IsPaid isPaid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1359,7 +1373,8 @@ namespace OrderServiceClient {
       if (UserUuid != other.UserUuid) return false;
       if(!seatNum_.Equals(other.seatNum_)) return false;
       if (TheaterRoom != other.TheaterRoom) return false;
-      if (MovieTime != other.MovieTime) return false;
+      if (!object.Equals(MovieTime, other.MovieTime)) return false;
+      if (MovieDate != other.MovieDate) return false;
       if (!object.Equals(IsPaid, other.IsPaid)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1371,7 +1386,8 @@ namespace OrderServiceClient {
       if (UserUuid.Length != 0) hash ^= UserUuid.GetHashCode();
       hash ^= seatNum_.GetHashCode();
       if (TheaterRoom != 0) hash ^= TheaterRoom.GetHashCode();
-      if (MovieTime.Length != 0) hash ^= MovieTime.GetHashCode();
+      if (movieTime_ != null) hash ^= MovieTime.GetHashCode();
+      if (MovieDate.Length != 0) hash ^= MovieDate.GetHashCode();
       if (isPaid_ != null) hash ^= IsPaid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1400,12 +1416,16 @@ namespace OrderServiceClient {
         output.WriteRawTag(24);
         output.WriteInt32(TheaterRoom);
       }
-      if (MovieTime.Length != 0) {
+      if (movieTime_ != null) {
         output.WriteRawTag(34);
-        output.WriteString(MovieTime);
+        output.WriteMessage(MovieTime);
+      }
+      if (MovieDate.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(MovieDate);
       }
       if (isPaid_ != null) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(50);
         output.WriteMessage(IsPaid);
       }
       if (_unknownFields != null) {
@@ -1427,12 +1447,16 @@ namespace OrderServiceClient {
         output.WriteRawTag(24);
         output.WriteInt32(TheaterRoom);
       }
-      if (MovieTime.Length != 0) {
+      if (movieTime_ != null) {
         output.WriteRawTag(34);
-        output.WriteString(MovieTime);
+        output.WriteMessage(MovieTime);
+      }
+      if (MovieDate.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(MovieDate);
       }
       if (isPaid_ != null) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(50);
         output.WriteMessage(IsPaid);
       }
       if (_unknownFields != null) {
@@ -1452,8 +1476,11 @@ namespace OrderServiceClient {
       if (TheaterRoom != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(TheaterRoom);
       }
-      if (MovieTime.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(MovieTime);
+      if (movieTime_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MovieTime);
+      }
+      if (MovieDate.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MovieDate);
       }
       if (isPaid_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(IsPaid);
@@ -1477,8 +1504,14 @@ namespace OrderServiceClient {
       if (other.TheaterRoom != 0) {
         TheaterRoom = other.TheaterRoom;
       }
-      if (other.MovieTime.Length != 0) {
-        MovieTime = other.MovieTime;
+      if (other.movieTime_ != null) {
+        if (movieTime_ == null) {
+          MovieTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+        }
+        MovieTime.MergeFrom(other.MovieTime);
+      }
+      if (other.MovieDate.Length != 0) {
+        MovieDate = other.MovieDate;
       }
       if (other.isPaid_ != null) {
         if (isPaid_ == null) {
@@ -1514,10 +1547,17 @@ namespace OrderServiceClient {
             break;
           }
           case 34: {
-            MovieTime = input.ReadString();
+            if (movieTime_ == null) {
+              MovieTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+            }
+            input.ReadMessage(MovieTime);
             break;
           }
           case 42: {
+            MovieDate = input.ReadString();
+            break;
+          }
+          case 50: {
             if (isPaid_ == null) {
               IsPaid = new global::OrderServiceClient.IsPaid();
             }
@@ -1552,10 +1592,17 @@ namespace OrderServiceClient {
             break;
           }
           case 34: {
-            MovieTime = input.ReadString();
+            if (movieTime_ == null) {
+              MovieTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+            }
+            input.ReadMessage(MovieTime);
             break;
           }
           case 42: {
+            MovieDate = input.ReadString();
+            break;
+          }
+          case 50: {
             if (isPaid_ == null) {
               IsPaid = new global::OrderServiceClient.IsPaid();
             }

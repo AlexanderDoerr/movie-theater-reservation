@@ -3,6 +3,7 @@ using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using OrderServiceClient;
 using OrderServiceClientAPI.Data.Ticket;
@@ -25,7 +26,8 @@ public class OrderRepository : IOrderRepository
             UserUuid = userGuid.ToString(),
             SeatNum = { orderDTOCreate.Seats },
             TheaterRoom = orderDTOCreate.TheaterRoom,
-            MovieTime = orderDTOCreate.MovieTime,
+            MovieTime = Timestamp.FromDateTime(orderDTOCreate.MovieTime),
+            MovieDate = orderDTOCreate.MovieDate,
             IsPaid = new IsPaid { IsPaid_ = orderDTOCreate.IsPaid }
         };
 

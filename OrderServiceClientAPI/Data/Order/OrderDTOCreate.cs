@@ -15,7 +15,10 @@ public class OrderDTOCreate
     public int TheaterRoom { get; set; }
 
     [Required]
-    public string MovieTime { get; set; }
+    public DateTime MovieTime { get; set; }
+
+    [Required]
+    public string MovieDate { get; set; }
 
     [Required]
     public bool IsPaid { get; set; }

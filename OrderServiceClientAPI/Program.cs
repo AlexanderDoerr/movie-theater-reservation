@@ -18,7 +18,7 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+        //builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
         // Add services to the container.
         builder.Services.AddAuthorization();
