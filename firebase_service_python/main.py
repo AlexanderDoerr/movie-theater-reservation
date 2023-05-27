@@ -6,6 +6,7 @@ from concurrent import futures
 from datetime import datetime
 
 import firebase_admin
+import google
 import grpc
 from firebase_admin import firestore, credentials
 from google.cloud.firestore_v1 import DocumentSnapshot
@@ -41,7 +42,11 @@ def get_seat_and_movie_index_and_aud_by_seat_num_auditorium_movie_date_and_movie
         logging.debug("timestamp: " + str(movie_timestamp))
         seconds = movie_timestamp.seconds
         formatted_movie_time = datetime.fromtimestamp(seconds)
-        schedule = auditorium.to_dict()['schedules'][movie_date]
+        try:
+            schedule = auditorium.to_dict()['schedules'][movie_date]
+        except KeyError:
+            logging.debug("Movie date not found!")
+            return None, None, None
         schedule = list(schedule)
         event = None
         movie_index = None
@@ -142,7 +147,7 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
                     return order_pb2.Order()
                 # ds = DocumentSnapshot.reference
                 logging.debug("Seat: " + str(seat.reference))
-                ticket_doc_ref = db.collection('tickets').document(ticket_uuid)
+                ticket_doc_ref = db.collection('ticket').document(ticket_uuid)
                 ticket_doc_ref.set({
                     'uuid': ticket_uuid,
                     'user_uuid': request.user_uuid,
@@ -199,6 +204,19 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
                 date_created=timestamp
             ))
         return order_pb2.Orders(order_list=returns)
+
+    def DeleteOrder(self, request, context):
+        order_to_delete = db.collection('orders').document(request.uuid).get()
+        if not order_to_delete.exists:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('Order not found!')
+            return order_pb2.Order()
+        logging.debug("Order to delete: " + str(order_to_delete.to_dict()))
+        tickets_to_delete = order_to_delete.to_dict()['tickets']
+        for ticket in tickets_to_delete:
+            ticket.delete()
+        db.collection('orders').document(request.uuid).delete()
+        return google.protobuf.empty_pb2.Empty()
 
 
 def serve():
