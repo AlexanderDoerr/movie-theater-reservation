@@ -1,3 +1,5 @@
+import logging
+import sys
 import time
 import uuid
 from concurrent import futures
@@ -6,7 +8,9 @@ from datetime import datetime
 import firebase_admin
 import grpc
 from firebase_admin import firestore, credentials
+from google.cloud.firestore_v1 import DocumentSnapshot
 from google.protobuf import timestamp_pb2
+from proto.datetime_helpers import DatetimeWithNanoseconds
 
 from Protos import order_pb2, order_pb2_grpc
 
@@ -14,34 +18,58 @@ cred = credentials.Certificate("authToken.json")
 app = firebase_admin.initialize_app(cred)
 db = firestore.client()
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+
 
 def get_current_timestamp():
-    now = datetime.now()
-    return int(time.mktime(now.timetuple()))
+    now = datetime.utcnow()
+    timestamp = timestamp_pb2.Timestamp()
+    timestamp.FromDatetime(now)
+    return timestamp
 
 
 def get_seat_and_movie_index_and_aud_by_seat_num_auditorium_movie_date_and_movie_timestamp(seat_num, auditorium_num, movie_date, movie_timestamp):
-    auditorium = db.collection('auditorium').where('auditorium_num', '==', auditorium_num).get()[0]
-    schedule = auditorium.to_dict()['schedules'][movie_date]
-    schedule = list(schedule)
-    event = None
-    movie_index = None
-    for i in range(len(schedule)):
-        if schedule[i]['start_time'] == movie_timestamp:
-            event = schedule[i]
-            movie_index = i
-            break
-    if event is None:
-        return None
-    seats_raw = event['seats']
-    seats = []
-    for s in seats_raw:
-        seats.append(s.get())
-    if len(seats) > 0:
-        for s in seats:
-            if s.to_dict()['seat_num'] == seat_num:
-                return s, movie_index, auditorium
-    return None
+    try:
+        auditorium = db.collection('auditorium').where('auditorium_num', '==', auditorium_num).get()[0]
+        logging.debug("timestamp: " + str(movie_timestamp))
+        seconds = movie_timestamp.seconds
+        formatted_movie_time = datetime.fromtimestamp(seconds)
+        schedule = auditorium.to_dict()['schedules'][movie_date]
+        schedule = list(schedule)
+        event = None
+        movie_index = None
+        for i in range(len(schedule)):
+            dt = schedule[i]['start_time']
+            logging.debug(dt)
+            formatted_time = datetime.fromtimestamp(dt.timestamp())
+            formatted_time = formatted_time.replace(microsecond=formatted_movie_time.microsecond)
+            if formatted_time == formatted_movie_time:
+                event = schedule[i]
+                movie_index = i
+                break
+        if event is None:
+            logging.debug("Event not found!")
+            return None, None, None
+        seats_raw = event['seats']
+        seats = []
+        for s in seats_raw:
+            seats.append(s.get())
+        if len(seats) > 0:
+            for s in seats:
+                logging.debug(s)
+                if s.to_dict()['seat_num'] == seat_num:
+                    return s, movie_index, auditorium
+    except Exception as e:
+        logging.error("Error: ", exc_info=True)
+        return None, None, None
+    logging.debug("Seat not found!")
+    return None, None, None
 
 
 def raw_tickets_to_ticket_stubs(tickets):
@@ -81,18 +109,21 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
                                                                                                        'uuid'][
                                                                                                    12:16] + '-' + \
                              doc.to_dict()['uuid'][16:20] + '-' + doc.to_dict()['uuid'][20:]
-            print(formatted_guid)
+            logging.debug("Order time obj" + str(doc.to_dict()['date_created']))
+            dt = datetime.strptime(str(doc.to_dict()['date_created']), "%Y-%m-%d %H:%M:%S")
+            timestamp = timestamp_pb2.Timestamp()
+            timestamp.FromDatetime(dt)
             return order_pb2.Order(
                 uuid=formatted_guid,
                 user_uuid=formatted_user_guid,
                 tickets=ticket_stubs,
                 is_paid=order_pb2.IsPaid(is_paid=doc.to_dict()['isPaid']),
-                date_created=timestamp_pb2.Timestamp(seconds=doc.to_dict()['date_created'])
+                date_created=timestamp,
             )
         else:
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details('Order not found!')
-            return order_pb2.OrderIn()
+            return order_pb2.Order()
 
     def CreateOrder(self, request, context):
         try:
@@ -102,41 +133,43 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
             tickets = []
             for seat_num in request.seat_num:
                 ticket_uuid = uuid.uuid4().hex
-                seat, movie_index, aud = get_seat_and_movie_index_and_aud_by_seat_num_auditorium_movie_date_and_movie_timestamp(seat, request.auditorium_num, request.movie_date, request.movie_timestamp)
+                seat, movie_index, aud = get_seat_and_movie_index_and_aud_by_seat_num_auditorium_movie_date_and_movie_timestamp(seat_num, request.theater_room, request.movie_date, request.movie_time)
                 if seat is None:
                     context.set_code(grpc.StatusCode.NOT_FOUND)
                     context.set_details('Seat not found!')
                     return order_pb2.Order()
-
+                # ds = DocumentSnapshot.reference
+                logging.debug("Seat: " + str(seat.reference))
                 ticket_doc_ref = db.collection('tickets').document(ticket_uuid)
                 ticket_doc_ref.set({
                     'uuid': ticket_uuid,
                     'user_uuid': request.user_uuid,
-                    'seat': seat,
+                    'seat': seat.reference,
                     'order_uuid': orderid,
                     'movie_index': movie_index,
                     'movie_date': request.movie_date,
-                    'auditorium': aud
+                    'auditorium': aud.reference
                 })
                 tickets.append(ticket_doc_ref)
-                print("Ticket: " + ticket_doc_ref.get().to_dict())
+                print("Ticket: " + str(ticket_doc_ref.get().to_dict()))
             ticket_stubs = raw_tickets_to_ticket_stubs(tickets)
             order_doc_ref.set({
                 'uuid': orderid,
                 'user_uuid': request.user_uuid,
                 'tickets': tickets,
                 'isPaid': False,
-                'date_created': date_created
+                'date_created': date_created.ToDatetime()
             })
             context.set_code(grpc.StatusCode.OK)
             return order_pb2.Order(
                 uuid=orderid,
-                user_uuid=request.userid,
+                user_uuid=request.user_uuid,
                 tickets=ticket_stubs,
                 is_paid=order_pb2.IsPaid(is_paid=False),
                 date_created=date_created
             )
         except Exception as e:
+            logging.error("Error! ", exc_info=True)
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details('Error! ' + str(e))
             return order_pb2.Order()
