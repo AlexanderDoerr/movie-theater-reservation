@@ -26,7 +26,7 @@ async function getAllMovies(call, callback) {
                 description: movie.description,
                 runtime: movie.runtime,
                 rating: movie.rating,
-                is_showing: movie.is_showing,
+                is_showing: movie.is_showing == 1,
             });
         }
         console.log(response)
@@ -102,7 +102,7 @@ function main()
             kafkaServer.start();
             db.createConnection();
 
-            db.createMovie("title", "description", "oire[owvn", "ribvipv", 1)
+            db.createMovie("title", "description", "oire[owvn", "ribvipv", false)
             console.log('Server running at http://localhost:50052');
         } 
     });
