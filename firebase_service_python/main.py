@@ -34,7 +34,8 @@ def get_current_timestamp():
     return timestamp
 
 
-def get_seat_and_movie_index_and_aud_by_seat_num_auditorium_movie_date_and_movie_timestamp(seat_num, auditorium_num, movie_date, movie_timestamp):
+def get_seat_and_movie_index_and_aud_by_seat_num_auditorium_movie_date_and_movie_timestamp(seat_num, auditorium_num,
+                                                                                           movie_date, movie_timestamp):
     try:
         auditorium = db.collection('auditorium').where('auditorium_num', '==', auditorium_num).get()[0]
         logging.debug("timestamp: " + str(movie_timestamp))
@@ -133,7 +134,8 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
             tickets = []
             for seat_num in request.seat_num:
                 ticket_uuid = uuid.uuid4().hex
-                seat, movie_index, aud = get_seat_and_movie_index_and_aud_by_seat_num_auditorium_movie_date_and_movie_timestamp(seat_num, request.theater_room, request.movie_date, request.movie_time)
+                seat, movie_index, aud = get_seat_and_movie_index_and_aud_by_seat_num_auditorium_movie_date_and_movie_timestamp(
+                    seat_num, request.theater_room, request.movie_date, request.movie_time)
                 if seat is None:
                     context.set_code(grpc.StatusCode.NOT_FOUND)
                     context.set_details('Seat not found!')
@@ -174,26 +176,29 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
             context.set_details('Error! ' + str(e))
             return order_pb2.Order()
 
-    def GetOrdersForUser(self, request, context):
-        docs = db.collection('orders').where('userid', '==', request.uuid).stream()
+    def GetOrdersByUserId(self, request, context):
+        logging.debug("Getting orders for user: " + request.uuid)
+        docs = db.collection('orders').where('user_uuid', '==', request.uuid).stream()
         if docs is None:
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details('No orders found for user!')
-            return order_pb2.OrderIn()
+            return order_pb2.Order()
+        returns = []
+        logging.debug("Found orders: " + str(docs))
         for doc in docs:
+            dt = doc.to_dict()['date_created'].timestamp()
+            timestamp = timestamp_pb2.Timestamp()
+            logging.debug("Order time obj" + str(dt))
+            ticket_stubs = raw_tickets_to_ticket_stubs(doc.to_dict()['tickets'])
             print(doc.to_dict())
-            yield order_pb2.OrderIn(
+            returns.append(order_pb2.Order(
                 uuid=doc.to_dict()['uuid'],
-                userid=doc.to_dict()['userid'],
-                ticket_uuid=doc.to_dict()['ticket_uuid'],
-                payment_method=order_pb2.PaymentMethod(
-                    ccNum=doc.to_dict()['payment_method']['ccNum'],
-                    expDate=doc.to_dict()['payment_method']['expDate'],
-                    cvv=doc.to_dict()['payment_method']['cvv'],
-                    name=doc.to_dict()['payment_method']['name']
-                ),
-                date_created=timestamp_pb2.Timestamp(seconds=doc.to_dict()['date_created'])
-            )
+                user_uuid=doc.to_dict()['user_uuid'],
+                tickets=ticket_stubs,
+                is_paid=order_pb2.IsPaid(is_paid=doc.to_dict()['isPaid']),
+                date_created=timestamp
+            ))
+        return order_pb2.Orders(order_list=returns)
 
 
 def serve():
