@@ -3025,7 +3025,6 @@
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.3",
       "Microsoft.AspNetCore.OpenApi >= 7.0.4",
       "Microsoft.Extensions.DependencyInjection >= 7.0.0",
-      "Microsoft.Extensions.DependencyInjection.Consul >= 0.0.2",
       "Steeltoe.Discovery.ClientCore >= 3.2.3",
       "Steeltoe.Discovery.Eureka >= 3.2.3",
       "Swashbuckle.AspNetCore >= 6.2.3"
@@ -3126,10 +3125,6 @@
             "target": "Package",
             "version": "[7.0.0, )"
           },
-          "Microsoft.Extensions.DependencyInjection.Consul": {
-            "target": "Package",
-            "version": "[0.0.2, )"
-          },
           "Steeltoe.Discovery.ClientCore": {
             "target": "Package",
             "version": "[3.2.3, )"
@@ -3165,16 +3160,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1101",
-      "level": "Error",
-      "message": "Unable to find package Microsoft.Extensions.DependencyInjection.Consul. No packages exist with this id in source(s): C:\\Program Files\\dotnet\\library-packs, Microsoft Visual Studio Offline Packages, nuget.org",
-      "libraryId": "Microsoft.Extensions.DependencyInjection.Consul",
-      "targetGraphs": [
-        "net7.0"
-      ]
-    }
-  ]
+  }
 }

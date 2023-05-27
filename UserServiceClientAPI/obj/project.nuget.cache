@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "HVESZ+zytAANRrAaXmXXelz3qR4kCiPc9HB3eLdfKH6VfixwuNSJPnq3fDsWh9Vkvytz0nAshdfASkw9rAUHHA==",
-  "success": false,
+  "dgSpecHash": "PHkMZcdXqZdj4h7adogqerOK+AErvU0serITpDZqKZsE9ZDtP8VmHI11D09Alnp/WM65/BM/pO8K+bBn3oEAlA==",
+  "success": true,
   "projectFilePath": "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\UserServiceClientAPI\\UserServiceClientAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\choffman\\.nuget\\packages\\consul\\1.6.10.9\\consul.1.6.10.9.nupkg.sha512",
@@ -79,15 +79,5 @@
     "C:\\Users\\choffman\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
     "C:\\Users\\choffman\\.nuget\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1101",
-      "level": "Error",
-      "message": "Unable to find package Microsoft.Extensions.DependencyInjection.Consul. No packages exist with this id in source(s): C:\\Program Files\\dotnet\\library-packs, Microsoft Visual Studio Offline Packages, nuget.org",
-      "libraryId": "Microsoft.Extensions.DependencyInjection.Consul",
-      "targetGraphs": [
-        "net7.0"
-      ]
-    }
-  ]
+  "logs": []
 }

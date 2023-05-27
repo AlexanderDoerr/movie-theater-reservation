@@ -95,10 +95,6 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
-            "Microsoft.Extensions.DependencyInjection.Consul": {
-              "target": "Package",
-              "version": "[0.0.2, )"
-            },
             "Steeltoe.Discovery.ClientCore": {
               "target": "Package",
               "version": "[3.2.3, )"

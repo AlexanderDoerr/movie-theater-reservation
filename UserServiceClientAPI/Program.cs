@@ -51,14 +51,36 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        // Consul configuration
-        //builder.Services.AddSingleton<IConsulClient>(sp => new ConsulClient(config =>
-        //{
-        //    var consulConfig = sp.GetRequiredService<IConfiguration>().GetSection("Consul");
-        //    config.Address = new Uri($"http://{consulConfig["Host"]}:{consulConfig["Port"]}");
-        //}));
+
 
         var app = builder.Build();
+
+        var consulConfig = builder.Configuration.GetSection("Consul").Get<ConsulConfig>();
+
+        if (consulConfig.Register)
+        {
+            var consulClient = new ConsulClient(config =>
+            {
+                config.Address = new Uri($"http://{consulConfig.Host}:{consulConfig.Port}");
+            });
+
+            var registration = new AgentServiceRegistration
+            {
+                ID = Guid.NewGuid().ToString(),
+                Name = consulConfig.Service.Name,
+                Address = consulConfig.Service.Address,
+                Port = consulConfig.Service.Port,
+                Tags = consulConfig.Service.Tags.ToArray()
+            };
+
+            consulClient.Agent.ServiceRegister(registration).GetAwaiter().GetResult();
+
+            var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
+            lifetime.ApplicationStopping.Register(() =>
+            {
+                consulClient.Agent.ServiceDeregister(registration.ID).GetAwaiter().GetResult();
+            });
+        }
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
@@ -100,5 +122,22 @@ internal class Program
         });
 
         app.Run();
+    }
+
+    public class ConsulConfig
+    {
+        public string Host { get; set; }
+        public int Port { get; set; }
+        public ConsulServiceConfig Service { get; set; }
+        public bool Register { get; set; }
+    }
+
+    public class ConsulServiceConfig
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public List<string> Tags { get; set; }
+        public string Address { get; set; }
+        public int Port { get; set; }
     }
 }
