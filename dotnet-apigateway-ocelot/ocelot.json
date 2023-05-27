@@ -1,9 +1,9 @@
 {
   "Routes": [
     {
-      "ServiceName": "pancake-service-api",
+      "ServiceName": "OrderServiceClientAPI",
       "DownstreamPathTemplate": "/{everything}",
-      "UpstreamPathTemplate": "/pancakeserviceapi/{everything}",
+      "UpstreamPathTemplate": "/ordersapi/{everything}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
@@ -20,9 +20,9 @@
       }
     },
     {
-      "ServiceName": "SEN300PancakeBasketServiceAPI",
+      "ServiceName": "UserServiceClientAPI",
       "DownstreamPathTemplate": "/{everything}",
-      "UpstreamPathTemplate": "/basketserviceapi/{everything}",
+      "UpstreamPathTemplate": "/usersapi/{everything}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
