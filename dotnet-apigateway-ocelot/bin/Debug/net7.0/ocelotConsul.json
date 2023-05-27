@@ -39,7 +39,7 @@
       }
     },
     {
-      "ServiceName": "MovieServiceClientAPI",
+      "ServiceName": "movie-service",
       "DownstreamPathTemplate": "/{everything}",
       "UpstreamPathTemplate": "/moviesapi/{everything}",
       "UpstreamHttpMethod": [
@@ -59,15 +59,15 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://APIGatewayOcelot:80",
+    "BaseUrl": "http://localhost:5041",
     "RequestIdKey": "OcRequestId",
     "DownstreamScheme": "http",
     "ReRoutesCaseSensitive": false,
     "UseServiceDiscovery": true,
     "ServiceDiscoveryProvider": {
-      "Host": "EurekaServer",
-      "Port": 8761,
-      "Type": "Eureka"
+      "Host": "consul",
+      "Port": 8500,
+      "Type": "Consul"
     }
   }
 }

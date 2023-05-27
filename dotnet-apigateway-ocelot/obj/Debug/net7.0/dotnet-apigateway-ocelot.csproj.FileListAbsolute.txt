@@ -70,3 +70,5 @@ C:\Users\Alexander Doerr\Neumont_School_Folder\Q7\PRO290\movie-theater-reservati
 C:\Users\Alexander Doerr\Neumont_School_Folder\Q7\PRO290\movie-theater-reservation\dotnet-apigateway-ocelot\obj\Debug\net7.0\dotnet-apigateway-ocelot.pdb
 C:\Users\Alexander Doerr\Neumont_School_Folder\Q7\PRO290\movie-theater-reservation\dotnet-apigateway-ocelot\obj\Debug\net7.0\dotnet-apigateway-ocelot.genruntimeconfig.cache
 C:\Users\Alexander Doerr\Neumont_School_Folder\Q7\PRO290\movie-theater-reservation\dotnet-apigateway-ocelot\obj\Debug\net7.0\ref\dotnet-apigateway-ocelot.dll
+C:\Users\Alexander Doerr\Neumont_School_Folder\Q7\PRO290\movie-theater-reservation\dotnet-apigateway-ocelot\bin\Debug\net7.0\appsettingsConsul.json
+C:\Users\Alexander Doerr\Neumont_School_Folder\Q7\PRO290\movie-theater-reservation\dotnet-apigateway-ocelot\bin\Debug\net7.0\ocelotConsul.json

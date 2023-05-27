@@ -15,7 +15,7 @@ services:
 
   EurekaServer:
     container_name: EurekaServer
-    image: steeltoesoss/eureka-server:latest
+    image: steeltoeoss/eureka-server:latest
     restart: always
     hostname: EurekaServer
     ports:

@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "ServiceName": "OrderSeviceClientAPI",
+      "ServiceName": "OrderServiceClientAPI",
       "DownstreamPathTemplate": "/{everything}",
       "UpstreamPathTemplate": "/ordersapi/{everything}",
       "UpstreamHttpMethod": [
@@ -39,7 +39,7 @@
       }
     },
     {
-      "ServiceName": "MovieServiceAPI",
+      "ServiceName": "MovieServiceClientAPI",
       "DownstreamPathTemplate": "/{everything}",
       "UpstreamPathTemplate": "/moviesapi/{everything}",
       "UpstreamHttpMethod": [
@@ -59,15 +59,15 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5041",
+    "BaseUrl": "http://APIGatewayOcelot:80",
     "RequestIdKey": "OcRequestId",
     "DownstreamScheme": "http",
     "ReRoutesCaseSensitive": false,
     "UseServiceDiscovery": true,
     "ServiceDiscoveryProvider": {
-      "Host": "localhost",
-      "Port": 8500,
-      "Type": "Consul"
+      "Host": "EurekaServer",
+      "Port": 8761,
+      "Type": "Eureka"
     }
   }
 }
