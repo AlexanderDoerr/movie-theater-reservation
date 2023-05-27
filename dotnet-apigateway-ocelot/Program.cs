@@ -5,7 +5,8 @@ using Ocelot.Middleware;
 using Ocelot.Responses;
 using Ocelot.Values;
 
-using Ocelot.Provider.Consul;
+// using Ocelot.Provider.Consul;
+using Ocelot.Provider.Eureka;
 using Ocelot.Provider.Polly;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("ocelot.json").Build();
 
 builder.Services.AddOcelot(configuration)
-    .AddConsul()
+    .AddEureka()
     .AddPolly();
 
 builder.Services.AddEndpointsApiExplorer();
