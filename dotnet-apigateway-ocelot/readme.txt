@@ -1,6 +1,7 @@
 
 !!! EUREKA AS A DOCKER CONTAINER DOESN'T LIKE UNDERSCORES _ IN THE HOSTNAME - BIG TROUBLE major headache !!!
-docker run --name SEN300EurekaRegistry -d --net netSEN300 -p 8761:8761 -d steeltoeoss/eureka-server:latest
+docker run --name SEN300EurekaRegistry -d --net netSEN300Project -p 8761:8761 -d steeltoeoss/eureka-server:latest
+docker run --name SEN300ProjEurekaRegistry -d --net netSEN300Project -p 8761:8761 -d steeltoeoss/eureka-server:latest
 
 !!! this is weird, but sometimes when testing between different ocelot.json files, it seems like an old one gets "stuck", it's like it's not picking up the new one. I don't know how this is possible between runs of the program, but dotnet clean seems to clear it up
 

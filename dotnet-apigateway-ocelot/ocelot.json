@@ -1,9 +1,9 @@
 {
   "Routes": [
     {
-      "ServiceName": "OrderServiceClientAPI",
+      "ServiceName": "pancake-service-api",
       "DownstreamPathTemplate": "/{everything}",
-      "UpstreamPathTemplate": "/ordersapi/{everything}",
+      "UpstreamPathTemplate": "/pancakeserviceapi/{everything}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
@@ -20,9 +20,9 @@
       }
     },
     {
-      "ServiceName": "UserServiceClientAPI",
+      "ServiceName": "SEN300PancakeBasketServiceAPI",
       "DownstreamPathTemplate": "/{everything}",
-      "UpstreamPathTemplate": "/usersapi/{everything}",
+      "UpstreamPathTemplate": "/basketserviceapi/{everything}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
@@ -59,7 +59,7 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://APIGatewayOcelot:80",
+    "BaseUrl": "http://EurekaServer:80",
     "RequestIdKey": "OcRequestId",
     "DownstreamScheme": "http",
     "ReRoutesCaseSensitive": false,

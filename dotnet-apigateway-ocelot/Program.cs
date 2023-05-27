@@ -1,3 +1,4 @@
+
 using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.LoadBalancer.LoadBalancers;
@@ -62,6 +63,5 @@ app.UseCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 await app.UseOcelot();
 
 app.MapGet("/", () => "Hello World!");
-
 
 app.Run();

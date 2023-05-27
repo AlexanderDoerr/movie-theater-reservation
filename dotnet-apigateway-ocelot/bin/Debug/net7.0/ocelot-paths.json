@@ -9,7 +9,7 @@
           "Port": 8081
         }
       ],
-      "UpstreamPathTemplate": "/booksserviceapi/{everything}",
+      "UpstreamPathTemplate": "/pancakeserviceapi/{everything}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
@@ -40,7 +40,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5261
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/ordersapi/{everything}",

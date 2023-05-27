@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\PRO290\\movie-theater-reservation\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj": {}
+    "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\SEN300\\E-CommerceMicroserviceImplementation\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\PRO290\\movie-theater-reservation\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj": {
+    "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\SEN300\\E-CommerceMicroserviceImplementation\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\PRO290\\movie-theater-reservation\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj",
+        "projectUniqueName": "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\SEN300\\E-CommerceMicroserviceImplementation\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj",
         "projectName": "dotnet-apigateway-ocelot",
-        "projectPath": "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\PRO290\\movie-theater-reservation\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj",
+        "projectPath": "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\SEN300\\E-CommerceMicroserviceImplementation\\dotnet-apigateway-ocelot\\dotnet-apigateway-ocelot.csproj",
         "packagesPath": "C:\\Users\\Alexander Doerr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\PRO290\\movie-theater-reservation\\dotnet-apigateway-ocelot\\obj\\",
+        "outputPath": "C:\\Users\\Alexander Doerr\\Neumont_School_Folder\\Q7\\SEN300\\E-CommerceMicroserviceImplementation\\dotnet-apigateway-ocelot\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -45,25 +45,17 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Consul": {
-              "target": "Package",
-              "version": "[1.6.10.9, )"
-            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.3, )"
             },
             "Ocelot": {
               "target": "Package",
-              "version": "[19.0.2, )"
+              "version": "[18.0.0, )"
             },
             "Ocelot.Cache.CacheManager": {
               "target": "Package",
               "version": "[18.0.0, )"
-            },
-            "Ocelot.Provider.Consul": {
-              "target": "Package",
-              "version": "[19.0.2, )"
             },
             "Ocelot.Provider.Eureka": {
               "target": "Package",
