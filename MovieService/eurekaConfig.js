@@ -5,7 +5,8 @@ const uuid = require('uuid'); // Add this line to import the 'uuid' package
 const uniqueId = uuid.v4(); // Generate a unique UUID
 
 const instanceId = `MovieServiceClientAPI:${uniqueId}:${process.env.PORT || 3000}`; // Update the instanceId variable to include the unique UUID
-
+console.log(instanceId);
+console.log(process.env.PORT);
 const ipAddress = ip.address();
 
 const eurekaClient = new Eureka({

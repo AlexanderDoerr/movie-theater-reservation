@@ -111,9 +111,9 @@ services:
     restart: always
     networks:
       - netPRO290
-    deploy:
-      mode: replicas
-      replicas: 3
+    # deploy:
+    #   mode: replicas
+    #   replicas: 3
     environment:
       - KAFKA_BROKER_SERVER=broker:29092
       
