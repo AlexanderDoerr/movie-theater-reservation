@@ -252,7 +252,7 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
             aud_schedule[date] = []
         # check if schedule has a movie with a time that overlaps with the new movie
         for sched in aud_schedule[date]:
-            if sched['start_time'].replace(tzinfo=None) < dt < sched['end_time'].replace(tzinfo=None):
+            if sched['start_time'].replace(tzinfo=None) <= dt <= sched['end_time'].replace(tzinfo=None):
                 context.set_code(grpc.StatusCode.ALREADY_EXISTS)
                 context.set_details('Movie already scheduled at this time!')
                 return scheduler_pb2.Schedule()
