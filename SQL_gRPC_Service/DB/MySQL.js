@@ -180,7 +180,9 @@ function updateMovie(movieId ,title, description, runtime, rating, is_showing)
 {
     return new Promise((resolve, reject) => 
     {
-        connection.query(`UPDATE movies SET title = "${title}", description = "${description}", runtime = "${runtime}", rating = "${rating}", is_showing = "${is_showing}" WHERE id = "${movieId}"`, 
+        let showing = is_showing ? 1 : 0;
+        let sql = `UPDATE movies SET title = "${title}", description = "${description}", runtime = "${runtime}", rating = "${rating}", is_showing = "${showing}" WHERE id = "${movieId}"`;
+        connection.query(sql, 
         (err, results) => 
         {
             if (err) reject(err)
