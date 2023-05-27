@@ -15,7 +15,7 @@ public class OrderRepository : IOrderRepository
 
     public OrderRepository()
     {
-        _channel = new Channel("firebase-service-python:50051", ChannelCredentials.Insecure);
+        _channel = new Channel("Firebase-Service-Python:50051", ChannelCredentials.Insecure);
         _client = new OrderService.OrderServiceClient(_channel);
     }
 

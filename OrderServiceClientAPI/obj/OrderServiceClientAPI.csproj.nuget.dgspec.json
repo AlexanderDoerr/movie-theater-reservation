@@ -45,14 +45,6 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Consul": {
-              "target": "Package",
-              "version": "[1.6.10.9, )"
-            },
-            "Consul.Microsoft.Extensions.Configuration": {
-              "target": "Package",
-              "version": "[0.0.2, )"
-            },
             "Google.Apis": {
               "target": "Package",
               "version": "[1.60.0, )"
@@ -91,9 +83,13 @@
               "target": "Package",
               "version": "[7.0.4, )"
             },
-            "Microsoft.Extensions.DependencyInjection": {
+            "Steeltoe.Discovery.ClientCore": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[3.2.3, )"
+            },
+            "Steeltoe.Discovery.Eureka": {
+              "target": "Package",
+              "version": "[3.2.3, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

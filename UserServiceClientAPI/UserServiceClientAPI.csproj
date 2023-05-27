@@ -11,9 +11,6 @@
 	</ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Consul" Version="1.6.10.9" />
-	  <PackageReference Include="Consul.Microsoft.Extensions.Configuration" Version="0.0.2" />
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
 	  <PackageReference Include="Google.Apis" Version="1.60.0" />
 	  <PackageReference Include="Google.Apis.Core" Version="1.60.0" />
 	  <PackageReference Include="Google.Protobuf" Version="3.23.0" />
