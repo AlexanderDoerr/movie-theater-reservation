@@ -7,6 +7,7 @@ using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using OrderServiceClient;
 using OrderServiceClientAPI.Data.Ticket;
+using System.Globalization;
 
 public class OrderRepository : IOrderRepository
 {
@@ -15,21 +16,27 @@ public class OrderRepository : IOrderRepository
 
     public OrderRepository()
     {
-        _channel = new Channel("Firebase-Service-Python:50051", ChannelCredentials.Insecure);
+        _channel = new Channel("firebase-service-python:50051", ChannelCredentials.Insecure);
         _client = new OrderService.OrderServiceClient(_channel);
     }
 
     public async Task<Guid> Create(OrderDTOCreate orderDTOCreate, Guid userGuid)
     {
+        var movieTimeUtc = orderDTOCreate.MovieTime.ToUniversalTime(); 
+
+        var movieDate = DateTime.ParseExact(orderDTOCreate.MovieDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
         var orderCreate = new OrderCreate
         {
             UserUuid = userGuid.ToString(),
             SeatNum = { orderDTOCreate.Seats },
             TheaterRoom = orderDTOCreate.TheaterRoom,
-            MovieTime = Timestamp.FromDateTime(orderDTOCreate.MovieTime),
-            MovieDate = orderDTOCreate.MovieDate,
+            MovieTime = Timestamp.FromDateTime(movieTimeUtc),
+            MovieDate = movieDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture),
             IsPaid = new IsPaid { IsPaid_ = orderDTOCreate.IsPaid }
         };
+
+        // orderCreate.SeatNum.AddRange(orderDTOCreate.Seats);
 
         var response = await _client.CreateOrderAsync(orderCreate);
 
