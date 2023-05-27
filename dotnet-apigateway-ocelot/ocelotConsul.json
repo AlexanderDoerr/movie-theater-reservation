@@ -59,15 +59,15 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://APIGatewayOcelot:80",
+    "BaseUrl": "http://localhost:5041",
     "RequestIdKey": "OcRequestId",
     "DownstreamScheme": "http",
     "ReRoutesCaseSensitive": false,
     "UseServiceDiscovery": true,
     "ServiceDiscoveryProvider": {
-      "Host": "SEN300EurekaRegistry",
-      "Port": 8761,
-      "Type": "Eureka"
+      "Host": "consul",
+      "Port": 8500,
+      "Type": "Consul"
     }
   }
 }

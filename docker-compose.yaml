@@ -13,6 +13,16 @@ services:
     networks:
       - netPRO290
 
+  EurekaServer:
+    container_name: EurekaServer
+    image: steeltoesoss/eureka-server:latest
+    restart: always
+    hostname: EurekaServer
+    ports:
+      - 8761:8761
+    networks:
+      - netPRO290
+
   APIGatewayOcelot:
     container_name: APIGatewayOcelot
     build:
