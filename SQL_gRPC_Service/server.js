@@ -93,7 +93,7 @@ function main()
         getMovieInfo: getMovieInfo,
         getAllShowingMovies: getAllShowingMovies
     });
-    server.bindAsync('localhost:50052', grpc.ServerCredentials.createInsecure(), (err) =>
+    server.bindAsync('0.0.0.0:50052', grpc.ServerCredentials.createInsecure(), (err) =>
     {
         if(err) console.log(err);
         else
