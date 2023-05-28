@@ -1,5 +1,6 @@
 const express = require('express');
 const movieListRoutes = require('./routes/movieListRoute');
+const movieScheduleRoutes = require('./routes/schedulerRoute');
 const eurekaClient = require('./eurekaConfig');
 const sleep = require('sleep-promise');
 
@@ -7,6 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use("/api/movies", movieListRoutes);
+app.use("/api/schedule", movieScheduleRoutes);
 
 port = process.env.PORT || 3000;
 app.listen(port, async () => {
