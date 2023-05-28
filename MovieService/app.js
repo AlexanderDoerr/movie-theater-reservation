@@ -7,7 +7,7 @@ const sleep = require('sleep-promise');
 const app = express();
 
 app.use(express.json());
-app.use("/api/movies", movieListRoutes);
+app.use("/api", movieListRoutes);
 app.use("/api/schedule", movieScheduleRoutes);
 
 port = process.env.PORT || 3000;

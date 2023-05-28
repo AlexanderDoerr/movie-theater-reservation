@@ -18,7 +18,7 @@ async function getAllMovies(call, callback) {
     try {
         const movies = await db.findAllMovies();
         const response = { movies: [] };
-        
+        console.log(movies + "\n\n\n")
         for (const movie of movies) {
             response.movies.push({
                 uuid: movie.id,
@@ -26,7 +26,7 @@ async function getAllMovies(call, callback) {
                 description: movie.description,
                 runtime: movie.runtime,
                 rating: movie.rating,
-                is_showing: movie.is_showing,
+                isShowing: movie.is_showing === "true",
             });
         }
         console.log(response)
