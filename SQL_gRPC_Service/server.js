@@ -216,15 +216,7 @@ function main()
         getMovieInfo: getMovieInfo,
         getAllShowingMovies: getAllShowingMovies
     });
-    server.addService(userProto.UserService.service,
-        {
-            getUserById: getUserById,
-            getUserByEmail: getUserByEmail,
-            validateUser: validateUser,
-            getAllUsers: getAllUsers,
-            createUser: createUser
-        });
-    server.bindAsync('localhost:50052', grpc.ServerCredentials.createInsecure(), (err) =>
+    server.bindAsync('0.0.0.0:50052', grpc.ServerCredentials.createInsecure(), (err) =>
     {
         if(err) console.log(err);
         else

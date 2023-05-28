@@ -116,11 +116,13 @@ services:
       dockerfile: Dockerfile
     image: movieserviceclientapi:1
     restart: always
+    ports:
+      - "8070-8073:3000"
     networks:
       - netPRO290
     deploy:
-      mode: replicas
       replicas: 3
     environment:
       - KAFKA_BROKER_SERVER=broker:29092
+      - PORT=3000
       
