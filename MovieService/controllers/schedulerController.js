@@ -1,5 +1,6 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
+const { Timestamp } = require('google-protobuf/google/protobuf/timestamp_pb.js');
 const path = require('path');
 
 const PROTO_PATH = path.join(__dirname, '../proto/scheduler.proto');
@@ -39,7 +40,14 @@ createClient();
 
 const addMovieToSchedule = (req, res) => {
     if (client) {
-        client.AddMovieToSchedule({movie_uuid: req.body.movie_uuid, auditorium_num: req.body.auditorium_num, time: req.body.time}, function(err, response) {
+        const timestamp = new Timestamp();
+        timestamp.fromDate(new Date(req.body.time));
+
+        client.AddMovieToSchedule({
+            movie_uuid: req.body.movie_uuid, 
+            auditorium_num: req.body.auditorium_num, 
+            time: timestamp
+        }, function(err, response) {
             if (err) {
                 res.status(500).send(err);
             } else {
@@ -54,7 +62,7 @@ const addMovieToSchedule = (req, res) => {
 
 const getAudSchedulesByDate = (req, res) => {
     if (client) {
-        client.GetAudSchedulesByDate({date: req.params.date}, function(err, response) {
+        client.GetAudSchedulesByDate({date: req.body.date}, function(err, response) {
             if (err) {
                 res.status(500).send(err);
             } else {
@@ -84,7 +92,10 @@ const reserveSeat = (req, res) => {
 
 const getShowtimesByDateAndMovieUuid = (req, res) => {
     if (client) {
-        client.GetShowtimesByDateAndMovieUuid({movie_uuid: req.params.movie_uuid, date: req.params.date}, function(err, response) {
+        client.GetShowtimesByDateAndMovieUuid({
+            movie_uuid: req.body.movie_uuid, 
+            date: req.body.date
+        }, function(err, response) {
             if (err) {
                 res.status(500).send(err);
             } else {
@@ -99,7 +110,14 @@ const getShowtimesByDateAndMovieUuid = (req, res) => {
 
 const getSeats = (req, res) => {
     if (client) {
-        client.GetSeats({auditorium_uuid: req.params.auditorium_uuid, date: req.params.date, time: req.params.time}, function(err, response) {
+        const timestamp = new Timestamp();
+        timestamp.fromDate(new Date(req.body.date));
+        
+        client.GetSeats({
+            auditorium_uuid: req.body.auditorium_uuid, 
+            date: timestamp, 
+            time: req.body.time
+        }, function(err, response) {
             if (err) {
                 res.status(500).send(err);
             } else {

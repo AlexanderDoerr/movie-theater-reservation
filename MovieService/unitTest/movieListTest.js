@@ -1,83 +1,141 @@
 const sinon = require('sinon');
 const chai = require('chai');
 const proxyquire = require('proxyquire');
+const assert = chai.assert;
 
-const expect = chai.expect;
+describe('Movie Controller', () => {
+  let movieController, grpcMock, kafkaMock, protoLoaderMock, clientStub, producerStub, movieProto;
 
-describe('Controller', function() {
-    let controller;
-    let grpcClientStub;
-    let reqStub = {}, resStub = {};
+  beforeEach(() => {
+    process.env.KAFKA_BROKER_SERVER = 'mock-broker-server';
 
-    beforeEach(function() {
-        // Setup the behavior of gRPC client
-        grpcClientStub = {
-            GetMovieInfo: sinon.stub(),
-            GetAllMovies: sinon.stub(),
-            GetAllShowingMovies: sinon.stub()
-        };
+    clientStub = {
+      GetMovieInfo: sinon.stub(),
+      GetAllMovies: sinon.stub(),
+      GetAllShowingMovies: sinon.stub(),
+    };
 
-        // Setup the response object with a stub for .status().send()
-        resStub = {
-            status: sinon.stub().returnsThis(),
-            send: sinon.stub()
-        };
+    producerStub = {
+      connect: sinon.stub(),
+      send: sinon.stub(),
+    };
 
-        controller = proxyquire.noCallThru().load('../controllers/movieListController.js', {
-            '@grpc/grpc-js': {
-                credentials: {
-                    createInsecure: sinon.stub()
-                },
-                MovieList: function() {
-                    return grpcClientStub;
-                }
-            },
-            '../stream/kafka': {}  // Add this line to prevent requiring the actual kafka module
-        });
+    movieProto = {
+      MovieList: sinon.stub().returns(clientStub)
+    };
+
+    grpcMock = {
+      loadPackageDefinition: sinon.stub().returns({movielist: movieProto}),
+      credentials: { createInsecure: sinon.stub() }
+    };
+
+    kafkaMock = {
+      producer: sinon.stub().returns(producerStub)
+    };
+
+    protoLoaderMock = {
+      loadSync: sinon.stub()
+    };
+
+    movieController = proxyquire('../controllers/movieListController', {
+      '@grpc/grpc-js': grpcMock,
+      '../stream/kafka': kafkaMock,
+      '@grpc/proto-loader': protoLoaderMock,
     });
+  });
 
-    afterEach(function() {
-        // Clean up your stubs after each test
-        grpcClientStub.GetMovieInfo.reset();
-        grpcClientStub.GetAllMovies.reset();
-        grpcClientStub.GetAllShowingMovies.reset();
-        resStub.status.reset();
-        resStub.send.reset();
+  afterEach(() => {
+    delete process.env.KAFKA_BROKER_SERVER;
+  });
+
+  describe('getAllMovies', () => {
+    it('should return all movies', (done) => {
+      const mockReq = {};
+      const mockRes = {
+        json: sinon.stub(),
+        status: sinon.stub().returnsThis()
+      };
+      const mockResponse = { movies: ['Movie 1', 'Movie 2'] };
+
+      clientStub.GetAllMovies.yields(null, mockResponse);
+
+      movieController.getAllMovies(mockReq, mockRes);
+
+      setImmediate(() => {
+        assert(clientStub.GetAllMovies.calledOnce);
+        assert(mockRes.json.calledWith(mockResponse));
+        done();
+      });
     });
+  });
 
-    // Your test cases here
-    it('should get all movies', function(done) {
-        // Configure your stubs for this test
-        grpcClientStub.GetAllMovies.callsArgWith(1, null, { movies: ['movie1', 'movie2'] });
-
-        resStub.json = function(data) {
-            expect(data).to.deep.equal({ movies: ['movie1', 'movie2'] });
-            done();
+describe('getMovieInfo', () => {
+    it('should return movie info', (done) => {
+      const mockReq = { params: { id: '123' } };
+      const mockRes = {
+        json: sinon.stub(),
+        status: sinon.stub().returnsThis()
+      };
+      const mockResponse = { title: 'Movie 1', description: 'Some description' };
+  
+      clientStub.GetMovieInfo.yields(null, mockResponse);
+  
+      movieController.getMovieInfo(mockReq, mockRes);
+  
+      setImmediate(() => {
+        assert(clientStub.GetMovieInfo.calledWith({id: '123'}));
+        assert(mockRes.json.calledWith(mockResponse));
+        done();
+      });
+    });
+  });
+  
+  describe('getAllShowingMovies', () => {
+    it('should return all showing movies', (done) => {
+      const mockReq = {};
+      const mockRes = {
+        json: sinon.stub(),
+        status: sinon.stub().returnsThis()
+      };
+      const mockResponse = { movies: ['Movie 1', 'Movie 2'] };
+  
+      clientStub.GetAllShowingMovies.yields(null, mockResponse);
+  
+      movieController.getAllShowingMovies(mockReq, mockRes);
+  
+      setImmediate(() => {
+        assert(clientStub.GetAllShowingMovies.calledOnce);
+        assert(mockRes.json.calledWith(mockResponse));
+        done();
+      });
+    });
+  });
+  
+  describe('updateMovie', () => {
+    it('should update movie', async () => {
+      const mockReq = {
+        params: { id: '123' },
+        body: {
+          title: 'New title',
+          description: 'New description',
+          runtime: '2h',
+          rating: 5,
+          is_showing: true
         }
-
-        controller.getAllMovies(reqStub, resStub);
+      };
+      const mockRes = {
+        send: sinon.stub(),
+        status: sinon.stub().returnsThis()
+      };
+  
+      await movieController.updateMovie(mockReq, mockRes);
+  
+      assert(producerStub.connect.calledOnce);
+      assert(producerStub.send.calledOnce);
+      assert(mockRes.send.calledWith('Movie Updated'));
     });
-
-    it('should get movie info', function(done) {
-        grpcClientStub.GetMovieInfo.callsArgWith(1, null, { id: 1, title: "Test Movie" });
-
-        resStub.json = function(data) {
-            expect(data).to.deep.equal({ id: 1, title: "Test Movie" });
-            done();
-        }
-
-        reqStub.params = { id: 1 };
-        controller.getMovieInfo(reqStub, resStub);
-    });
-
-    it('should get all showing movies', function(done) {
-        grpcClientStub.GetAllShowingMovies.callsArgWith(1, null, { movies: ['movie1', 'movie2'] });
-
-        resStub.json = function(data) {
-            expect(data).to.deep.equal({ movies: ['movie1', 'movie2'] });
-            done();
-        }
-
-        controller.getAllShowingMovies(reqStub, resStub);
-    });
+  });
+  
 });
+
+

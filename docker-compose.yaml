@@ -79,12 +79,13 @@ services:
     networks:
       - netPRO290
 
-  EmailMicroService:
-    environment:
-        - KAFKA_BROKER_SERVER=broker:29092
-    build: ./EmailMicroService
-    ports:
-      - "3030:3030"
+  # emailmicroservice:
+  #   environment:
+  #       - KAFKA_BROKER_SERVER=broker:29092
+  #   build: ./EmailMicroService
+  #   ports:
+  #     - "3030:3030"
+
 
   OrderServiceClientAPI:
     build:

@@ -24,6 +24,7 @@ const eurekaClient = new Eureka({
         },
     },
     eureka: {
+        // host: 'localhost',
         host: 'EurekaServer',
         port: 8761,
         servicePath: '/eureka/apps/',
