@@ -36,7 +36,7 @@ exports.getAllMovies = (req, res) => {
         if (err) {
             res.status(500).send(err);
         } else {
-            console.log(response);
+            console.log(response.movies[0].is_showing);
             res.json(response);
         }
     });

@@ -2,6 +2,7 @@ const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const db = require("./DB/MySQL")
 const kafkaServer = require("./kafkaConsumer");
+const { Timestamp } = require('google-protobuf/google/protobuf/timestamp_pb');
 
 const USER_PROTO_PATH = './protos/user.proto';
 const userPackageDefinition = protoLoader.loadSync(USER_PROTO_PATH);
@@ -12,7 +13,6 @@ const moviePackageDefinition = protoLoader.loadSync(MOVIE_PROTO_PATH);
 const movieProto = grpc.loadPackageDefinition(moviePackageDefinition).movielist;
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 async function getAllMovies(call, callback) {
     try {
@@ -26,7 +26,7 @@ async function getAllMovies(call, callback) {
                 description: movie.description,
                 runtime: movie.runtime,
                 rating: movie.rating,
-                is_showing: movie.is_showing == 1,
+                is_showing: movie.is_showing,
             });
         }
         console.log(response)
@@ -67,14 +67,13 @@ async function getAllShowingMovies(call, callback)
                 console.error("Encounter undefinded movie")
                 continue;
             }
-            let showing = movie.is_showing === 1
         response.movies.push({
             uuid: movie.id,
             title: movie.title,
             description: movie.description,
             runtime: movie.runtime,
             rating: movie.rating,
-            is_showing:showing
+            is_showing: movie.is_showing
         });
         }
 
@@ -85,6 +84,130 @@ async function getAllShowingMovies(call, callback)
 }
 }
 
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+async function createUser(call, callback)
+{
+    try
+    {
+        let users = db.findAllUsers();
+        let validUser = true;
+        for(const user of users)
+        {
+            if(call.request.email == user.email)
+            {
+                validUser = false;
+            }
+        }
+        if(validUser)
+        {
+            db.createUser(call.request.firstname, call.request.lastname, call.request.email, call.request.password)
+            userId = (await db.findUserByEmail(call.request.email))[0].id;
+            callback(null, {userId})
+        }
+        else
+        {
+            let message = "User in database";
+            callback(null, {message})
+        }
+    }
+    catch(err)
+    {
+        console.log("Error Creating User: " + err);
+        callback(null, err);
+    }
+}
+
+async function getUserById(call, callback)
+{
+    try{
+        let user = (await db.findUserById(call.request.uuid))[0]
+        let response = 
+        {
+            userGuid: user.id,
+            firstname: user.firstName,
+            lastname: user.lastName,
+            email: user.email,
+            createdDate: convertToTimestamp(user.created)
+        }
+        callback(null, response);
+    }
+    catch(err)
+    {
+        console.log("Error finding user by id " + err);
+        callback(null, err)
+    }
+}
+
+async function getUserByEmail(call, callback)
+{
+    try{
+        let user = (await db.findUserByEmail(call.request.email))[0]
+        let response = 
+        {
+            userGuid: user.id,
+            firstname: user.firstName,
+            lastname: user.lastName,
+            email: user.email,
+            createdDate: convertToTimestamp(user.created)
+        }
+        callback(null, response);
+    }
+    catch(err)
+    {
+        console.log("Error finding user by email " + err);
+        callback(null, err)
+    }
+}
+
+async function validateUser(call, callback)
+{
+    try
+    {
+        let response = await db.validateUser(call.request.email, call.request.password);
+        callback(null, response);
+    }
+    catch(err){
+        console.log("Error validating user: " + err)
+        callback(null, err);
+    }
+}
+
+async function getAllUsers(call, callback) {
+    try {
+        const users = await db.findAllUsers();
+        const response = { users: [] };
+        
+        for (const user of users) {
+            response.users.push({
+                userGuid: user.id,
+                firstname: user.firstName,
+                lastname: user.lastName,
+                email: user.email,
+                password: user.password,
+                createdDate: convertToTimestamp(user.created)
+            });
+        }
+        callback(null, response);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        callback(error);
+    }
+}
+
+
+function convertToTimestamp(millisecs)
+{
+    const timestamp = new Timestamp();
+
+    timestamp.setSeconds(millisecs / 1000);
+    timestamp.setNanos((millisecs % 1000) * 1000000);
+
+    return timestamp;
+}
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function main() 
 {
     const server = new grpc.Server();
@@ -93,6 +216,14 @@ function main()
         getMovieInfo: getMovieInfo,
         getAllShowingMovies: getAllShowingMovies
     });
+    server.addService(userProto.UserService.service,
+        {
+            getUserById: getUserById,
+            getUserByEmail: getUserByEmail,
+            validateUser: validateUser,
+            getAllUsers: getAllUsers,
+            createUser: createUser
+        });
     server.bindAsync('localhost:50052', grpc.ServerCredentials.createInsecure(), (err) =>
     {
         if(err) console.log(err);
@@ -102,7 +233,7 @@ function main()
             kafkaServer.start();
             db.createConnection();
 
-            db.createMovie("title", "description", "oire[owvn", "ribvipv", false)
+            // db.createMovie("title", "description", "oire[owvn", "ribvipv", "false")
             console.log('Server running at http://localhost:50052');
         } 
     });
