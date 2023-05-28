@@ -3,7 +3,7 @@ import sys
 import time
 import uuid
 from concurrent import futures
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import firebase_admin
 import google
@@ -219,21 +219,115 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
         return google.protobuf.empty_pb2.Empty()
 
 
-def seat_generator(auditorium, movie_date, movie_time):
+def seat_generator(auditorium):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    seats = []
+    aud_layout = auditorium.to_dict()['layout'].get()
+    for row in range(aud_layout.to_dict()['rows']):
+        for col in range(aud_layout.to_dict()['seats_per_row']):
+            seat_uuid = uuid.uuid4().hex
+            seat_doc_ref = db.collection('seats').document(seat_uuid)
+            seat_doc_ref.set({
+                'seat_num': str(alphabet[col]) + str(col),
+                'auditorium': auditorium.reference,
+                'status': scheduler_pb2.Status.Value("Available"),
+                'user': None,
+                'uuid': seat_uuid,
+            })
+            seats.append(seat_doc_ref)
+    return seats
 
-    return
-
-# def get_auditorium_
 
 class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
     def AddMovieToSchedule(self, request, context):
+        aud_num = int(request.auditorium_num)
+        aud = db.collection('auditorium').where("auditorium_num", "==", aud_num).get()[0]
+        date = request.time
+        dt = date.ToDatetime(tzinfo=None)
+        # format date mm/dd/yyyy
+        date = dt.strftime("%m/%d/%Y")
 
-        return scheduler_pb2.Schedule()
+        aud_schedule = aud.to_dict()['schedules']
+        if date not in aud_schedule:
+            aud_schedule[date] = []
+        # check if schedule has a movie with a time that overlaps with the new movie
+        for sched in aud_schedule[date]:
+            if sched['start_time'].replace(tzinfo=None) <= dt <= sched['end_time'].replace(tzinfo=None):
+                context.set_code(grpc.StatusCode.ALREADY_EXISTS)
+                context.set_details('Movie already scheduled at this time!')
+                return scheduler_pb2.Schedule()
+        seats = seat_generator(aud)
+        aud_schedule[date].append({
+            'movie_uuid': request.movie.uuid,
+            'start_time': dt,
+            'end_time': dt + timedelta(minutes=180),
+            'seats': seats
+        })
+        aud.reference.update({
+            'schedules': aud_schedule
+        })
+        # add three hours to dt
+        dt = dt + timedelta(minutes=180)
+        return scheduler_pb2.Schedule(
+            movie=request.movie,
+            auditorium_num=request.auditorium_num,
+            start_time=request.time,
+            end_time=timestamp_pb2.Timestamp(seconds=int(dt.timestamp()))
+        )
+
+    def GetAudSchedulesByDate(self, request, context):
+        auditoriums = db.collection('auditorium').stream()
+        if auditoriums is None:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('No auditoriums found!')
+            return scheduler_pb2.Schedules()
+        returns = []
+        for auditorium in auditoriums:
+            events = []
+            aud_schedule = auditorium.to_dict()['schedules']
+            if not aud_schedule or request.date not in aud_schedule:
+                context.set_code(grpc.StatusCode.NOT_FOUND)
+                context.set_details('No schedules found!')
+                return scheduler_pb2.Schedules()
+            if request.date in aud_schedule:
+                for sched in aud_schedule[request.date]:
+                    start_timestamp = timestamp_pb2.Timestamp().FromDatetime(sched['start_time'])
+                    end_timestamp = timestamp_pb2.Timestamp().FromDatetime(sched['end_time'])
+                    logging.debug("Sched: " + str(sched))
+                    events.append(scheduler_pb2.Schedule(
+                        movie_uuid=sched['movie_uuid'],
+                        auditorium_num=str(auditorium.to_dict()['auditorium_num']),
+                        start_time=start_timestamp,
+                        end_time=end_timestamp
+                    ))
+            aud_sched = scheduler_pb2.AuditoriumSchedule(
+                auditorium_num=str(auditorium.to_dict()['auditorium_num']),
+                schedules=events
+            )
+            returns.append(aud_sched)
+        return scheduler_pb2.AuditoriumSchedules(auditorium_schedules=returns)
+
+    def ReserveSeat(self, request, context):
+        seat = db.collection('seats').document(request.uuid).get()
+        if not seat.exists:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('Seat not found!')
+            return scheduler_pb2.Seat()
+        seat.reference.update({
+            'status': scheduler_pb2.Status.Value("Reserved")
+        })
+        return scheduler_pb2.Seat(
+            uuid=seat.to_dict()['uuid'],
+            auditorium_uuid=seat.to_dict()['auditorium'].get().to_dict()['uuid'],
+            seat_num=seat.to_dict()['seat_num'],
+            status=seat.to_dict()['status'],
+        )
 
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     order_pb2_grpc.add_OrderServiceServicer_to_server(GreeterServicer(), server)
+    scheduler_pb2_grpc.add_MovieScheduleServiceServicer_to_server(SchedulerServicer(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
     print("Server started")
