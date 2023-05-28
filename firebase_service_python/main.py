@@ -275,6 +275,38 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
             end_time=timestamp_pb2.Timestamp(seconds=int(dt.timestamp()))
         )
 
+    def GetAudSchedulesByDate(self, request, context):
+        auditoriums = db.collection('auditorium').stream()
+        if auditoriums is None:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('No auditoriums found!')
+            return scheduler_pb2.Schedules()
+        returns = []
+        for auditorium in auditoriums:
+            events = []
+            aud_schedule = auditorium.to_dict()['schedules']
+            if not aud_schedule or request.date not in aud_schedule:
+                context.set_code(grpc.StatusCode.NOT_FOUND)
+                context.set_details('No schedules found!')
+                return scheduler_pb2.Schedules()
+            if request.date in aud_schedule:
+                for sched in aud_schedule[request.date]:
+                    start_timestamp = timestamp_pb2.Timestamp().FromDatetime(sched['start_time'])
+                    end_timestamp = timestamp_pb2.Timestamp().FromDatetime(sched['end_time'])
+                    logging.debug("Sched: " + str(sched))
+                    events.append(scheduler_pb2.Schedule(
+                        movie_uuid=sched['movie_uuid'],
+                        auditorium_num=str(auditorium.to_dict()['auditorium_num']),
+                        start_time=start_timestamp,
+                        end_time=end_timestamp
+                    ))
+            aud_sched = scheduler_pb2.AuditoriumSchedule(
+                auditorium_num=str(auditorium.to_dict()['auditorium_num']),
+                schedules=events
+            )
+            returns.append(aud_sched)
+        return scheduler_pb2.AuditoriumSchedules(auditorium_schedules=returns)
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
