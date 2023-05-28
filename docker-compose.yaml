@@ -79,7 +79,7 @@ services:
     networks:
       - netPRO290
 
-  emailmicroservice:
+  EmailMicroService:
     environment:
         - KAFKA_BROKER_SERVER=broker:29092
     build: ./EmailMicroService
