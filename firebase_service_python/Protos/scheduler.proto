@@ -22,9 +22,7 @@ message SeatId {
 message Seat {
     string uuid = 1;
     string auditorium_uuid = 2;
-    string date = 3;
     string seat_num = 4;
-    string time = 5;
     Status status = 6; //enum
 }
 

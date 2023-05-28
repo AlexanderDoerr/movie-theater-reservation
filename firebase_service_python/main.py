@@ -307,6 +307,22 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
             returns.append(aud_sched)
         return scheduler_pb2.AuditoriumSchedules(auditorium_schedules=returns)
 
+    def ReserveSeat(self, request, context):
+        seat = db.collection('seats').document(request.uuid).get()
+        if not seat.exists:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('Seat not found!')
+            return scheduler_pb2.Seat()
+        seat.reference.update({
+            'status': scheduler_pb2.Status.Value("Reserved")
+        })
+        return scheduler_pb2.Seat(
+            uuid=seat.to_dict()['uuid'],
+            auditorium_uuid=seat.to_dict()['auditorium'].get().to_dict()['uuid'],
+            seat_num=seat.to_dict()['seat_num'],
+            status=seat.to_dict()['status'],
+        )
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
