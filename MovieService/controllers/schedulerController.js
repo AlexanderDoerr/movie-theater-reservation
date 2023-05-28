@@ -14,7 +14,7 @@ const packageDefinition = protoLoader.loadSync(
      oneofs: true
     });
 
-const movieschedule_proto = grpc.loadPackageDefinition(packageDefinition).MovieScheduleService;
+const movieschedule_proto = grpc.loadPackageDefinition(packageDefinition).seatavailability;
 
 let client;
 const maxRetries = 10;
@@ -22,7 +22,7 @@ let retryCount = 0;
 
 const createClient = () => {
     try {
-        client = new movieschedule_proto.MovieScheduleService('Sql-gRPC-Service:50052', grpc.credentials.createInsecure());
+        client = new movieschedule_proto.MovieScheduleService('Firebase-Service-Python:50051', grpc.credentials.createInsecure());
         console.log('Successfully connected to gRPC server');
     } catch (error) {
         console.error('Failed to create gRPC client:', error);
