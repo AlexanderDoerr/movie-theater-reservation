@@ -4,7 +4,7 @@
   "description": "Service that will handle getting a list of movies and scheduling them through GRPC connections, Also a REST API so the front end can hit it",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha ./unitTest/*.js",
     "start": "nodemon app.js"
   },
   "author": "Alexander Doerr",
@@ -12,12 +12,16 @@
   "dependencies": {
     "@grpc/grpc-js": "^1.8.14",
     "@grpc/proto-loader": "^0.7.7",
+    "chai": "^4.3.7",
     "eureka-js-client": "^4.5.0",
     "express": "^4.18.2",
     "ip": "^1.1.8",
     "kafkajs": "^2.2.4",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
     "path": "^0.12.7",
+    "proxyquire": "^2.1.3",
+    "sinon": "^15.1.0",
     "sleep-promise": "^9.1.0",
     "uuid": "^9.0.0"
   }
