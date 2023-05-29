@@ -1,9 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using UserServiceClient;
-using System.Data;
-using Confluent.Kafka;
-using System.Text;
+using Kafka = Confluent.Kafka;
 using System;
 
 public class UserRepository : IUserRepository
@@ -104,24 +102,23 @@ public class UserRepository : IUserRepository
 
     public void Delete(Guid userGuid)
     {
-        var config = new ProducerConfig
+        var config = new Kafka.ProducerConfig
         {
-            BootstrapServers = "your_kafka_bootstrap_servers"
+            BootstrapServers = "broker:9092"
         };
 
-        using (var producer = new ProducerBuilder<string, string>(config).Build())
+        using (var producer = new Kafka.ProducerBuilder<string, string>(config).Build())
         {
             var key = "user-deleted";
             var value = userGuid.ToString();
 
-            var message = new Message<string, string>
+            var message = new Kafka.Message<string, string>
             {
                 Key = key,
                 Value = value
             };
 
-            producer.ProduceAsync("your_kafka_topic", message).Wait();
+            producer.ProduceAsync("users", message).Wait();
         }
     }
-
 }

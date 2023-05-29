@@ -8,6 +8,12 @@ using Grpc.Core;
 using OrderServiceClient;
 using OrderServiceClientAPI.Data.Ticket;
 using System.Globalization;
+using Kafka = Confluent.Kafka;
+using System.Net.Mail;
+using System.Net;
+using static Google.Apis.Requests.BatchRequest;
+using System.Xml.Linq;
+using Newtonsoft.Json;
 
 public class OrderRepository : IOrderRepository
 {
@@ -42,11 +48,83 @@ public class OrderRepository : IOrderRepository
 
         if (Guid.TryParse(response.Uuid, out Guid orderGuid))
         {
+            var config = new Kafka.ProducerConfig
+            {
+                BootstrapServers = "broker:9092"
+            };
+
+            using (var producer = new Kafka.ProducerBuilder<string, string>(config).Build())
+            {
+                var key = "order-created";
+                var value = userGuid.ToString();
+
+                var message = new Kafka.Message<string, string>
+                {
+                    Key = key,
+                    Value = value
+                };
+
+                producer.ProduceAsync("orders", message).Wait();
+            }
+
+            // Send email here after the Kafka message sending
+            await SendEmail(orderDTOCreate);
+
             return orderGuid;
         } else
         {
             throw new Exception("Invalid GUID format in the response.");
         }
+    }
+
+    private async Task SendEmail(OrderDTOCreate orderDetails)
+    {
+        // Code to send the email using SmtpClient
+        // Replace the placeholders with your actual email sending logic
+
+
+        var config = new Kafka.ProducerConfig
+        {
+            BootstrapServers = "broker:9092"
+        };
+
+        using (var producer = new Kafka.ProducerBuilder<string, string>(config).Build())
+        {
+            var key = "order-created";
+            var value = JsonConvert.SerializeObject(orderDetails);
+
+            var message = new Kafka.Message<string, string>
+            {
+                Key = key,
+                Value = value
+            };
+
+            producer.ProduceAsync("users", message).Wait();
+        }
+
+
+        //using (var client = new SmtpClient("smtp.example.com", 587))
+        //{
+        //    client.UseDefaultCredentials = false;
+        //    client.Credentials = new NetworkCredential("username", "password");
+        //    client.EnableSsl = true;
+
+        //    var message = new MailMessage
+        //    {
+        //        From = new MailAddress("from@example.com"),
+        //        To = { new MailAddress(orderDetails.UserEmail) },
+        //        Subject = "Order Created at SilverScreenCinema",
+        //        Body = $"Order created for user: {orderDetails.UserName}\n\n" +
+        //           $"Order Details:\n" +
+        //           $"Movie: {orderDetails.MovieTitle}\n" +
+        //           $"Date: {orderDetails.MovieDate}\n" +
+        //           $"Time: {orderDetails.MovieTime}\n" +
+        //           $"Seats: {string.Join(", ", orderDetails.Seats)}\n" +
+        //           $"Paid: {orderDetails.IsPaid}\n"
+        //    };
+
+        //    client.Send(message);
+        //}
     }
 
     public void Delete(Guid orderGuid)

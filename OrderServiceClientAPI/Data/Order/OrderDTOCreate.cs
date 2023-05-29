@@ -22,4 +22,13 @@ public class OrderDTOCreate
 
     [Required]
     public bool IsPaid { get; set; }
+
+    [Required]
+    public string UserEmail { get; set; }
+
+    [Required]
+    public string UserName { get; set; }
+
+    [Required]
+    public string MovieTitle { get; set; }
 }
