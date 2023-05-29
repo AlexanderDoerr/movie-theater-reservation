@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using UserServiceClientAPI.User;
 
 [ApiController]
 [Route("[controller]")]
@@ -72,19 +73,12 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("{userGuid}")]
+    [HttpGet("id/{userGuid}")]
     //[Authorize]
     public async Task<IActionResult> GetById(Guid userGuid)
     {
         try
         {
-            //var authenticatedUserGuid = Guid.Parse(User.Identity.Name);
-
-            //if (authenticatedUserGuid != userGuid)
-            //{
-            //    return Forbid();
-            //}
-
             var user = await _userRepository.GetByUserGuid(userGuid);
 
             if (user == null)
@@ -112,11 +106,11 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [Route("login")]
-    public async Task<IActionResult> GetUserByCredentials(string email, string password)
+    public async Task<IActionResult> GetUserByCredentials(UserDTOCredentials credentials)
     {
         try
         {
-            var Data = await _userRepository.GetByCredentials(email, password);
+            var Data = await _userRepository.GetByCredentials(credentials);
             return Ok(new
             {
                 Success = true,
@@ -149,7 +143,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("{userEmail}")]
+    [HttpGet("email/{userEmail}")]
     //[Authorize]
     public async Task<IActionResult> GetByUserEmail(string userEmail)
     {

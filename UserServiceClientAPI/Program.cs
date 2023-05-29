@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using UserServiceClientAPI.User;
 
 using Steeltoe.Discovery.Client;
 using Steeltoe.Discovery.Eureka;
@@ -69,8 +70,13 @@ internal class Program
 
         app.MapPost("/security/createToken2", [AllowAnonymous] async (User user, IConfiguration _config, IUserRepository _userRepository) =>
         {
+            UserDTOCredentials credentials = new UserDTOCredentials();
+            credentials.Password = user.Password;
+            credentials.Email = user.Email;
+
             //if (user.Email == "ccantera@yahoo.com" && user.Password == "pwd123")
-            User uu = await _userRepository.GetByCredentials(user.Email, user.Password);
+            UserDTOGuid uu = await _userRepository.GetByCredentials(credentials);
+
 
             if (uu != null)
             {

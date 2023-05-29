@@ -1,8 +1,8 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using UserServiceClient;
-using Kafka = Confluent.Kafka;
-using System;
+using System.Data;
+using UserServiceClientAPI.User;
 
 public class UserRepository : IUserRepository
 {
@@ -28,24 +28,6 @@ public class UserRepository : IUserRepository
         return Guid.Parse(response.UUID);
     }
 
-    public async Task<User> GetByUserEmail(string userEmail)
-    {
-        var request = new UserServiceClient.UserEmail
-        {
-            Email = userEmail
-        };
-
-        var response = await _client.getUserByEmailAsync(request);
-        return new User
-        {
-            UserGuid = Guid.Parse(response.UserGuid),
-            Firstname = response.Firstname,
-            Lastname = response.Lastname,
-            Email = response.Email,
-            CreatedDate = response.CreatedDate.ToDateTime()
-        };
-    }
-
     public async Task<IEnumerable<User>> GetAll()
     {
         var request = new Google.Protobuf.WellKnownTypes.Empty();
@@ -64,37 +46,52 @@ public class UserRepository : IUserRepository
         );
     }
 
+    public async Task<User> GetByUserEmail(string userEmail)
+    {
+        var request = new UserServiceClient.UserEmail
+        {
+            Email = userEmail
+        };
+
+        var response = await _client.getUserByEmailAsync(request);
+        return new User
+        {
+            UserGuid = Guid.Parse(response.UserGuid),
+            Firstname = response.Firstname,
+            Lastname = response.Lastname,
+            Email = response.Email,
+            CreatedDate = response.CreatedDate.ToDateTime()
+        };
+    }
+
     public async Task<User> GetByUserGuid(Guid userGuid)
     {
-        var request = new Userid
+        var request = new UserServiceClient.Userid
         {
             UUID = userGuid.ToString()
         };
 
         var response = await _client.getUserByIdAsync(request);
-
-        // Convert the generated User type to your User type
-        var user = new User
+        return new User
         {
-            UserGuid = userGuid,
+            UserGuid = Guid.Parse(response.UserGuid),
             Firstname = response.Firstname,
             Lastname = response.Lastname,
             Email = response.Email,
+            CreatedDate = response.CreatedDate.ToDateTime()
         };
-
-        return user;
     }
 
-    public async Task<User> GetByCredentials(string email, string userPassword)
+    public async Task<UserDTOGuid> GetByCredentials(UserDTOCredentials userCredintials)
     {
-        var request = new UserValidationRequest
+        var request = new UserServiceClient.UserValidationRequest
         {
-            Email = email,
-            Password = userPassword
+            Email = userCredintials.Email,
+            Password = userCredintials.Password
         };
 
         var response = await _client.validateUserAsync(request);
-        return new User
+        return new UserDTOGuid
         {
             UserGuid = Guid.Parse(response.UUID)
         };
@@ -102,23 +99,11 @@ public class UserRepository : IUserRepository
 
     public void Delete(Guid userGuid)
     {
-        var config = new Kafka.ProducerConfig
+        var request = new Userid
         {
-            BootstrapServers = "broker:9092"
+            UUID = userGuid.ToString()
         };
 
-        using (var producer = new Kafka.ProducerBuilder<string, string>(config).Build())
-        {
-            var key = "user-deleted";
-            var value = userGuid.ToString();
-
-            var message = new Kafka.Message<string, string>
-            {
-                Key = key,
-                Value = value
-            };
-
-            producer.ProduceAsync("users", message).Wait();
-        }
+        _client.deleteUser(request);
     }
 }
