@@ -96,12 +96,13 @@ async function createUser(call, callback)
         {
             if(call.request.email == user.email)
             {
+                console.log("Matching email found: " + call.request.email + " match db " + user.email)
                 validUser = false;
             }
         }
         if(validUser)
         {
-            db.createUser(call.request.firstname, call.request.lastname, call.request.email, call.request.password)
+            await db.createUser(call.request.firstname, call.request.lastname, call.request.email, call.request.password)
             userId = (await db.findUserByEmail(call.request.email))[0].id;
             callback(null, {userId})
         }
@@ -143,6 +144,7 @@ async function getUserByEmail(call, callback)
 {
     try{
         let user = (await db.findUserByEmail(call.request.email))[0]
+        console.log(call.request.email)
         let response = 
         {
             userGuid: user.id,
@@ -165,6 +167,7 @@ async function validateUser(call, callback)
     try
     {
         let response = await db.validateUser(call.request.email, call.request.password);
+        console.log(response)
         callback(null, response);
     }
     catch(err){

@@ -22,21 +22,6 @@ public class UserController : ControllerBase
         //Guid userGuid = new Guid("E8E369C0-960B-4584-9A81-F9FF9F98DBD6");
         try
         {
-            User uu = await _userRepository.GetByUserEmail(user.Email);
-            //Console.WriteLine(uu);
-
-            if (uu != null)
-            {
-                return Ok(new
-                {
-                    Success = true,
-                    Message = "User already exists!",
-                    //UserGuid = uu.UserGuid,
-                    //Email = uu.Email
-                });
-
-            }
-
             var userGuid = await _userRepository.Create(user);
 
             return Ok(new

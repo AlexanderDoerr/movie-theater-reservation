@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const crypto = require('crypto');
+const { v4 } = require('uuid');
 const bcrypt = require('bcryptjs');
 
 // Create a connection to the Google Cloud MySQL instance
@@ -28,7 +28,7 @@ function createUser(firstName, lastName, email, password)
     {
         connection.query(`INSERT INTO users (id, firstName, lastName, email, password, created) VALUES (?,?,?,?,?,?)`,
         [
-            crypto.randomUUID(),
+            v4(),
             firstName,
             lastName,
             email,
@@ -108,11 +108,12 @@ function deleteUser(userId)
 
 function createMovie(title, description, runtime, rating, is_showing)
 {
+    console.log(uuidv4())
     return new Promise((resolve, reject) =>
     {
         connection.query(`INSERT INTO movies (id, title, description, runtime, rating, is_showing) VALUES (?,?,?,?,?,?)`,
         [
-            crypto.randomUUID(),
+            v4(),
             title,
             description,
             runtime,
