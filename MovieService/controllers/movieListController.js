@@ -25,7 +25,7 @@ let retryCount = 0;
 const createClient = () => {
     try {
         client = new movielist_proto.MovieList('Sql-gRPC-Service:50052', grpc.credentials.createInsecure());
-        console.log('Successfully connected to gRPC server');
+        console.log('Successfully connected to MovieList gRPC server');
     } catch (error) {
         console.error('Failed to create gRPC client:', error);
         retryCount++;

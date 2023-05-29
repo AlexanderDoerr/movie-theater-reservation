@@ -23,7 +23,7 @@ let retryCount = 0;
 const createClient = () => {
     try {
         client = new movieschedule_proto.MovieScheduleService('Firebase-Service-Python:50051', grpc.credentials.createInsecure());
-        console.log('Successfully connected to gRPC server');
+        console.log('Successfully connected to Scheduler gRPC server');
     } catch (error) {
         console.error('Failed to create gRPC client:', error);
         retryCount++;
