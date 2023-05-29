@@ -31,7 +31,7 @@ message MovieCreate {
   string description = 2;
   string runtime = 3;
   string rating = 4;
-  bool is_showing = 5;
+  bool isShowing = 5;
   //whatever else you need
 }
 
@@ -47,7 +47,7 @@ message MovieId {
 
 message MovieUpdate {
   string uuid = 1;
-  string is_showing = 2;
+  bool isShowing = 2;
 }
 
 message Movies {

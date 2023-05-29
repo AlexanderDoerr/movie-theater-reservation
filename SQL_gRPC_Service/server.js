@@ -47,7 +47,7 @@ async function getMovieInfo(call, callback) {
         description: movie.description,
         runtime: movie.runtime,
         rating: movie.rating,
-        is_showing: movie.is_showing
+        isShowing: movie.is_showing === "true"
         };
         callback(null, response);
     } catch (error) {
@@ -73,7 +73,7 @@ async function getAllShowingMovies(call, callback)
             description: movie.description,
             runtime: movie.runtime,
             rating: movie.rating,
-            is_showing: movie.is_showing
+            isShowing: movie.is_showing === "true"
         });
         }
 
