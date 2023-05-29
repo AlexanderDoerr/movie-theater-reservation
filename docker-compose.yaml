@@ -120,8 +120,8 @@ services:
       - "8070-8073:3000"
     networks:
       - netPRO290
-    deploy:
-      replicas: 3
+    # deploy:
+    #   replicas: 3
     environment:
       - KAFKA_BROKER_SERVER=broker:29092
       - PORT=3000
