@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package seatavailability;
+// package seatavailability;
 
 // import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
@@ -68,9 +68,9 @@ message MovieShowtimesIn {
 }
 
 message MovieShowing {
-    string start_time = 1;
-    string auditorium_uuid = 2; 
-    google.protobuf.Timestamp date = 3;
+    google.protobuf.Timestamp start_time = 1;
+    string auditorium_uuid = 2;
+    string date = 3;
 }
 
 message GetSeatsIn {

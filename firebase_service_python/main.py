@@ -11,6 +11,7 @@ import grpc
 from firebase_admin import firestore, credentials
 from google.cloud.firestore_v1 import DocumentSnapshot
 from google.protobuf import timestamp_pb2
+from google.protobuf.timestamp_pb2 import Timestamp
 from proto.datetime_helpers import DatetimeWithNanoseconds
 
 from Protos import order_pb2, order_pb2_grpc, scheduler_pb2_grpc, scheduler_pb2
@@ -322,6 +323,34 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
             seat_num=seat.to_dict()['seat_num'],
             status=seat.to_dict()['status'],
         )
+
+    def GetShowtimesByDateAndMovieUuid(self, request, context):
+        auditoriums = db.collection('auditorium').stream()
+        if auditoriums is None:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('No auditoriums found!')
+            return scheduler_pb2.MovieShowings()
+        events = []
+        for auditorium in auditoriums:
+            aud_schedule = auditorium.to_dict()['schedules']
+            if not aud_schedule or request.date not in aud_schedule:
+                context.set_code(grpc.StatusCode.NOT_FOUND)
+                context.set_details('No schedules found!')
+                return scheduler_pb2.MovieShowings()
+            if request.date in aud_schedule:
+                for sched in aud_schedule[request.date]:
+                    if sched['movie_uuid'] == request.movie_uuid:
+                        start_timestamp = timestamp_pb2.Timestamp()
+                        start_timestamp.FromDatetime(sched['start_time'])
+                        end_timestamp = timestamp_pb2.Timestamp()
+                        end_timestamp.FromDatetime(sched['end_time'])
+                        logging.debug("Sched: " + str(sched['movie_uuid']))
+                        events.append(scheduler_pb2.MovieShowing(
+                            start_time=start_timestamp,
+                            auditorium_uuid=auditorium.to_dict()['uuid'],
+                            date=request.date,
+                        ))
+        return scheduler_pb2.MovieShowings(movie_showings=events)
 
 
 def serve():
