@@ -12,6 +12,7 @@ start  = async () =>
             eachMessage: async({topic, patition, message, heartbeat, pause}) =>
             {
                 let key = message.key.toString();
+                console.log(key);
                 switch(key)
                 {
                     case "user-updated":
@@ -28,7 +29,7 @@ start  = async () =>
                     case "movie-updated":
                         {
                             let jsonMessage = JSON.parse(message.value.toString());
-                            console.log("\n\n\n\n\n\n\n\n\n" + jsonMessage);
+                            console.log("\n\n\n\n\n\n\n\n\n" + message.value.toString() + "\n\n\n\n\n\n\n\n\n");
                             db.updateMovie(jsonMessage['movieId'], jsonMessage['title'],jsonMessage['description'],jsonMessage['runtime'],jsonMessage['rating'],jsonMessage['is_showing'])
                             break;
                         }

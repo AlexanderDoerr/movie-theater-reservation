@@ -90,7 +90,7 @@ async function createUser(call, callback)
 {
     try
     {
-        let users = db.findAllUsers();
+        let users = await db.findAllUsers();
         let validUser = true;
         for(const user of users)
         {
@@ -232,6 +232,7 @@ function main()
             server.start();
             kafkaServer.start();
             db.createConnection();
+            console.log("Kafka Server Broker " + process.env.KAFKA_BROKER_SERVER)
 
             // db.createMovie("title", "description", "oire[owvn", "ribvipv", "false")
             console.log('Server running at http://localhost:50052');
@@ -239,5 +240,8 @@ function main()
     });
 
 }
+
+exports.getAllMovies = getAllMovies;
+exports.createUser = createUser;
 
 main();

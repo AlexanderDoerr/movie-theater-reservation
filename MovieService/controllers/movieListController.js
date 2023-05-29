@@ -104,9 +104,7 @@ const updateMovie = async (req, res) => {
                     {
                         key: "movie-updated",
                         value: JSON.stringify(
-                            {
-                                movie
-                            }
+                            movie
                         )
                     }
                 ]

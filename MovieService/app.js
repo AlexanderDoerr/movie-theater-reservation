@@ -13,6 +13,7 @@ app.use("/api/schedule", movieScheduleRoutes);
 port = process.env.PORT || 3000;
 app.listen(port, async () => {
     console.log(`Server running on port ${port}`);
+    console.log("Kafka Server Broker " + process.env.KAFKA_BROKER_SERVER)
     console.log(`Waiting for 15 seconds before registering with Eureka...`);
     await sleep(15000);
     console.log(`Registering with Eureka...`);

@@ -52,7 +52,7 @@ services:
       - KAFKA_BROKER_ID=1
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2182
       - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://broker:9092,PLAINTEXT_INTERNAL://broker:29092
       - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
       - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
       - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
@@ -78,10 +78,12 @@ services:
       - "50052:50052"
     networks:
       - netPRO290
+    environment:
+      - KAFKA_BROKER_SERVER=broker:9092
 
   emailservice:
     environment:
-      - KAFKA_BROKER_SERVER=broker:29092
+      - KAFKA_BROKER_SERVER=broker:9092
     build: ./EmailService
     restart: always
 
@@ -123,6 +125,6 @@ services:
     # deploy:
     #   replicas: 3
     environment:
-      - KAFKA_BROKER_SERVER=broker:29092
+      - KAFKA_BROKER_SERVER=broker:9092
       - PORT=3000
       
