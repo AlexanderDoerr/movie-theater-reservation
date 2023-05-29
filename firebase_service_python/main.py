@@ -352,6 +352,45 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
                         ))
         return scheduler_pb2.MovieShowings(movie_showings=events)
 
+    def GetSeats(self, request, context):
+        aud = db.collection('auditorium').where('auditorium_num', '==', request.auditorium_num).get()[0]
+        logging.debug("Aud: " + str(aud))
+        if not aud:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('Auditorium not found!')
+            return scheduler_pb2.Seats()
+        events = aud.to_dict()['schedules'][request.date]
+        if not events:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('No schedules found!')
+            return scheduler_pb2.Seats()
+        event = None
+        for e in events:
+            logging.debug("E: " + str(e['start_time'].timestamp()))
+            logging.debug("request: " + str(request))
+            if int(e['start_time'].timestamp()) == request.time.seconds:
+                event = e
+        if not event:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('No schedules found!')
+            return scheduler_pb2.Seats()
+        seats_gen_raw = event['seats']
+        seats_gen = (seat.get() for seat in seats_gen_raw)
+        seats = list(seats_gen)
+        if not seats:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('No seats found!')
+            return scheduler_pb2.Seats()
+        seat_list = []
+        for seat in seats:
+            seat_list.append(scheduler_pb2.Seat(
+                uuid=seat.to_dict()['uuid'],
+                auditorium_num=seat.to_dict()['auditorium'].get().to_dict()['auditorium_num'],
+                seat_num=seat.to_dict()['seat_num'],
+                status=seat.to_dict()['status'],
+            ))
+        return scheduler_pb2.Seats(seats=seat_list)
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

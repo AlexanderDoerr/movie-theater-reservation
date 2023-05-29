@@ -21,7 +21,7 @@ message SeatId {
 
 message Seat {
     string uuid = 1;
-    string auditorium_uuid = 2;
+    int32 auditorium_num = 2;
     string seat_num = 4;
     Status status = 6; //enum
 }
@@ -42,19 +42,19 @@ enum Status {
 
 message ScheduleMovie {
     string movie_uuid = 1;
-    string auditorium_num = 2;
+    int32 auditorium_num = 2;
     google.protobuf.Timestamp time = 3;
 }
 
 message Schedule {
     string movie_uuid = 1;
-    string auditorium_num = 2;
+    int32 auditorium_num = 2;
     google.protobuf.Timestamp start_time = 3;
     google.protobuf.Timestamp end_time = 4;
 }
 
 message AuditoriumSchedule {
-    string auditorium_num = 1;
+    int32 auditorium_num = 1;
     repeated Schedule schedules = 2;
 }
 
@@ -74,9 +74,9 @@ message MovieShowing {
 }
 
 message GetSeatsIn {
-    string auditorium_uuid = 1;
-    google.protobuf.Timestamp date = 2;
-    string time = 3;
+    int32 auditorium_num = 1;
+    string date = 2;
+    google.protobuf.Timestamp time = 3;
 }
 
 message MovieShowingId {
