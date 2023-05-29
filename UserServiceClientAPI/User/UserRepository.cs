@@ -2,6 +2,9 @@
 using Grpc.Core;
 using UserServiceClient;
 using System.Data;
+using Confluent.Kafka;
+using System.Text;
+using System;
 
 public class UserRepository : IUserRepository
 {
@@ -101,11 +104,24 @@ public class UserRepository : IUserRepository
 
     public void Delete(Guid userGuid)
     {
-        var request = new Userid
+        var config = new ProducerConfig
         {
-            UUID = userGuid.ToString()
+            BootstrapServers = "your_kafka_bootstrap_servers"
         };
 
-        _client.deleteUser(request);
+        using (var producer = new ProducerBuilder<string, string>(config).Build())
+        {
+            var key = "user-deleted";
+            var value = userGuid.ToString();
+
+            var message = new Message<string, string>
+            {
+                Key = key,
+                Value = value
+            };
+
+            producer.ProduceAsync("your_kafka_topic", message).Wait();
+        }
     }
+
 }

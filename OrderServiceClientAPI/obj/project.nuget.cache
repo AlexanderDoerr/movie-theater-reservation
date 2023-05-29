@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "C+5gYKEXFDrICNONAONFSFht9tRs2sKcEXA23HTxEE5R8IQ0y5sHWcg6uyh827xig2FQgIr5BcWMt1aeEpn5Hg==",
+  "dgSpecHash": "imymE33QTpimGR0IwlC9Q+QutX5+TwnYLOVHmYyJGz3w6fJU+lYqhKGsq7ElWYOl95KB1OdWP6zCkb1P9JP/PQ==",
   "success": true,
   "projectFilePath": "C:\\Dev\\PRO300\\EntireProject\\movie-theater-reservation\\OrderServiceClientAPI\\OrderServiceClientAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\choffman\\.nuget\\packages\\confluent.kafka\\2.1.1\\confluent.kafka.2.1.1.nupkg.sha512",
     "C:\\Users\\choffman\\.nuget\\packages\\google.apis\\1.60.0\\google.apis.1.60.0.nupkg.sha512",
     "C:\\Users\\choffman\\.nuget\\packages\\google.apis.core\\1.60.0\\google.apis.core.1.60.0.nupkg.sha512",
     "C:\\Users\\choffman\\.nuget\\packages\\google.protobuf\\3.23.0\\google.protobuf.3.23.0.nupkg.sha512",
@@ -14,6 +15,7 @@
     "C:\\Users\\choffman\\.nuget\\packages\\grpc.net.client\\2.53.0\\grpc.net.client.2.53.0.nupkg.sha512",
     "C:\\Users\\choffman\\.nuget\\packages\\grpc.net.common\\2.53.0\\grpc.net.common.2.53.0.nupkg.sha512",
     "C:\\Users\\choffman\\.nuget\\packages\\grpc.tools\\2.54.0\\grpc.tools.2.54.0.nupkg.sha512",
+    "C:\\Users\\choffman\\.nuget\\packages\\librdkafka.redist\\2.1.1\\librdkafka.redist.2.1.1.nupkg.sha512",
     "C:\\Users\\choffman\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.3\\microsoft.aspnetcore.authentication.jwtbearer.7.0.3.nupkg.sha512",
     "C:\\Users\\choffman\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.4\\microsoft.aspnetcore.openapi.7.0.4.nupkg.sha512",
     "C:\\Users\\choffman\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
