@@ -1,13 +1,13 @@
 // import library
 const {Kafka} = require("kafkajs");
-const{KAFKA_USERNAME: username, KAFKA_PASSWORD: password, KAFKA_BROKER_SERVER: broker} = process.env;
+const{KAFKA_USERNAME: username, KAFKA_PASSWORD: password} = process.env;
 const sasl = username && password ? {username, password, mechanism: 'plain'} : null;
 const ssl = !!sasl
 
-// create a client connection
+// crwate a client connection
 const kafka = new Kafka(
     {
-        brokers:[broker],
+        brokers:[process.env.KAFKA_BROKER_SERVER],
         clientId: "email-consumer",
         ssl,
         sasl

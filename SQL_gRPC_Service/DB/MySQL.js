@@ -198,7 +198,10 @@ function deleteMovie(movieId)
 async function validateUser(email, password)
 {
     user = (await findUserByEmail(email))[0];
-    return bcrypt.compareSync(password, user.password)
+    if(bcrypt.compareSync(password, user.password))
+        return user.id;
+    else    
+        return "Invalid Email or Password"
 }
 
 
