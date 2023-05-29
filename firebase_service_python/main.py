@@ -258,7 +258,7 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
                 return scheduler_pb2.Schedule()
         seats = seat_generator(aud)
         aud_schedule[date].append({
-            'movie_uuid': request.movie.uuid,
+            'movie_uuid': request.movie_uuid,
             'start_time': dt,
             'end_time': dt + timedelta(minutes=180),
             'seats': seats
