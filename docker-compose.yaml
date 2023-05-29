@@ -81,7 +81,7 @@ services:
 
   emailservice:
     environment:
-        - KAFKA_BROKER_SERVER=broker:29092
+      - KAFKA_BROKER_SERVER=broker:29092
     build: ./EmailService
     restart: always
 

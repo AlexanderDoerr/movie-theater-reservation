@@ -28,6 +28,7 @@ start  = async () =>
                     case "movie-updated":
                         {
                             let jsonMessage = JSON.parse(message.value.toString());
+                            console.log("\n\n\n\n\n\n\n\n\n" + jsonMessage);
                             db.updateMovie(jsonMessage['movieId'], jsonMessage['title'],jsonMessage['description'],jsonMessage['runtime'],jsonMessage['rating'],jsonMessage['is_showing'])
                             break;
                         }

@@ -87,7 +87,15 @@ const getAllShowingMovies = (req, res) => {
 const updateMovie = async (req, res) => {
     try {
         await producer.connect()
-
+        let movie =
+        {
+            movieId: req.params.id,
+            title: req.body.title,
+            description: req.body.description,
+            runtime: req.body.runtime,
+            rating: req.body.rating,
+            is_showing: req.body.is_showing
+        }
         await producer.send(
             {
                 topic: "movies",
@@ -97,19 +105,14 @@ const updateMovie = async (req, res) => {
                         key: "movie-updated",
                         value: JSON.stringify(
                             {
-                                movieId: req.params.id,
-                                title: req.body.title,
-                                description: req.body.description,
-                                runtime: req.body.runtime,
-                                rating: req.body.rating,
-                                is_showing: req.body.is_showing
+                                movie
                             }
                         )
                     }
                 ]
             }
         )
-
+            console.log(movie)
         res.send("Movie Updated")
 
     } catch (error) {

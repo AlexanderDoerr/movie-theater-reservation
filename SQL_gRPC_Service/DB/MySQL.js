@@ -168,7 +168,7 @@ function updateMovie(movieId ,title, description, runtime, rating, is_showing)
     return new Promise((resolve, reject) => 
     {
         let sql = `UPDATE movies SET title = "${title}", description = "${description}", runtime = "${runtime}", rating = "${rating}", is_showing = "${is_showing}" WHERE id = "${movieId}"`;
-        console.log(sql)
+        console.log("\n\n\n\n\n\n\n" + sql)
         connection.query(sql, 
         (err, results) => 
         {
