@@ -319,9 +319,10 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
         seat.reference.update({
             'status': scheduler_pb2.Status.Value("Reserved")
         })
+        seat = db.collection('seats').document(request.uuid).get()
         return scheduler_pb2.Seat(
             uuid=seat.to_dict()['uuid'],
-            auditorium_uuid=seat.to_dict()['auditorium'].get().to_dict()['uuid'],
+            auditorium_num=seat.to_dict()['auditorium'].get().to_dict()['auditorium_num'],
             seat_num=seat.to_dict()['seat_num'],
             status=seat.to_dict()['status'],
         )
