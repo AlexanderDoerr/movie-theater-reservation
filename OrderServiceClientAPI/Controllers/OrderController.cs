@@ -30,7 +30,7 @@ public class OrderController : ControllerBase
 
             if (string.IsNullOrEmpty(userGuid)) throw new Exception("it was null...");
 
-            var orderGuid = _ordersRepository.Create(orderDTOCreate, new Guid(userGuid));
+            var orderGuid = _ordersRepository.Create(orderDTOCreate, userGuid);
 
             return Ok(new
             {
@@ -49,7 +49,7 @@ public class OrderController : ControllerBase
     [HttpDelete]
     //[Authorize]
     [Route("{orderid}")]
-    public void Delete(Guid orderGuid)
+    public void Delete(string orderGuid)
     {
         try
         {
@@ -63,7 +63,7 @@ public class OrderController : ControllerBase
     [HttpGet]
     //[Authorize]
     [Route("userid/{userid}")]
-    public async Task<IActionResult> GetOrdersUserid(Guid userGuid)
+    public async Task<IActionResult> GetOrdersUserid(string userGuid)
     {
         try
         {
@@ -86,12 +86,7 @@ public class OrderController : ControllerBase
     //[Authorize]
     public ActionResult<OrderDTO> GetOrderByOrderId(string orderId)
     {
-        if (!Guid.TryParse(orderId, out Guid orderGuid))
-        {
-            return BadRequest("Invalid order ID format.");
-        }
-
-        var order = _ordersRepository.GetOrderById(orderGuid);
+        var order = _ordersRepository.GetOrderById(orderId);
 
         if (order == null)
         {

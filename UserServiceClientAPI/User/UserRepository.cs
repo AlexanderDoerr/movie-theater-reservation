@@ -41,7 +41,7 @@ public class UserRepository : IUserRepository
                 Lastname = user.Lastname,
                 Email = user.Email,
                 Password = user.Password,
-                CreatedDate = user.CreatedDate.ToDateTime()
+                CreatedDate = DateTimeOffset.FromUnixTimeMilliseconds(user.CreatedDate).DateTime
             }
         );
     }
@@ -54,22 +54,27 @@ public class UserRepository : IUserRepository
         };
 
         var response = await _client.getUserByEmailAsync(request);
+
         return new User
         {
             UserGuid = response.UserGuid,
             Firstname = response.Firstname,
             Lastname = response.Lastname,
             Email = response.Email,
-            CreatedDate = response.CreatedDate.ToDateTime()
+            CreatedDate = DateTimeOffset.FromUnixTimeMilliseconds(response.CreatedDate).DateTime
         };
     }
 
     public async Task<User> GetByUserGuid(string userGuid)
     {
+        Console.WriteLine(userGuid);
+
         var request = new UserServiceClient.Userid
         {
-            UUID = userGuid.ToString()
+            UUID = userGuid
         };
+
+        Console.WriteLine(request.UUID);
 
         var response = await _client.getUserByIdAsync(request);
         return new User
@@ -78,7 +83,7 @@ public class UserRepository : IUserRepository
             Firstname = response.Firstname,
             Lastname = response.Lastname,
             Email = response.Email,
-            CreatedDate = response.CreatedDate.ToDateTime()
+            CreatedDate = DateTimeOffset.FromUnixTimeMilliseconds(response.CreatedDate).DateTime
         };
     }
 
@@ -89,6 +94,8 @@ public class UserRepository : IUserRepository
             Email = userCredintials.Email,
             Password = userCredintials.Password
         };
+
+        Console.WriteLine(request.Email);
 
         var response = await _client.validateUserAsync(request);
         return response.UUID;

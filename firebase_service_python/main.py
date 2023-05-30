@@ -132,6 +132,7 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
             return order_pb2.Order()
 
     def CreateOrder(self, request, context):
+        logging.debug("request: " + str(request))
         try:
             date_created = get_current_timestamp()
             orderid = uuid.uuid4().hex

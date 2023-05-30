@@ -1,7 +1,7 @@
 ﻿public interface IOrderRepository
 {
-    public Task<Guid> Create(OrderDTOCreate orderDTOCreate, Guid userGuid);
-    public void Delete(Guid orderGuid);
-    public IEnumerable<OrderDTO> GetOrdersByUserId(Guid userGuid);
-    public OrderDTO GetOrderById(Guid orderGuid);
+    public Task<string> Create(OrderDTOCreate orderDTOCreate, string userGuid);
+    public void Delete(string orderGuid);
+    public IEnumerable<OrderDTO> GetOrdersByUserId(string userGuid);
+    public OrderDTO GetOrderById(string orderGuid);
 }

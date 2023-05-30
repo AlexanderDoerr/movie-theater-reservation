@@ -26,15 +26,22 @@ public class OrderRepository : IOrderRepository
         _client = new OrderService.OrderServiceClient(_channel);
     }
 
-    public async Task<Guid> Create(OrderDTOCreate orderDTOCreate, Guid userGuid)
+    public async Task<string> Create(OrderDTOCreate orderDTOCreate, string userUuid)
     {
-        var movieTimeUtc = orderDTOCreate.MovieTime.ToUniversalTime(); 
-
+        //message OrderCreate {
+        //string user_uuid = 1;
+        //repeated string seat_num = 2;
+        //int32 theater_room = 3;
+        //google.protobuf.Timestamp movie_time = 4;
+        //string movie_date = 5;
+        //IsPaid is_paid = 6;
+    
+        var movieTimeUtc = orderDTOCreate.MovieTime.ToUniversalTime();
         var movieDate = DateTime.ParseExact(orderDTOCreate.MovieDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
         var orderCreate = new OrderCreate
         {
-            UserUuid = userGuid.ToString(),
+            UserUuid = userUuid,
             SeatNum = { orderDTOCreate.Seats },
             TheaterRoom = orderDTOCreate.TheaterRoom,
             MovieTime = Timestamp.FromDateTime(movieTimeUtc),
@@ -46,35 +53,38 @@ public class OrderRepository : IOrderRepository
 
         var response = await _client.CreateOrderAsync(orderCreate);
 
-        if (Guid.TryParse(response.Uuid, out Guid orderGuid))
-        {
-            var config = new Kafka.ProducerConfig
-            {
-                BootstrapServers = "broker:9092"
-            };
+        Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + response.ToString());
 
-            using (var producer = new Kafka.ProducerBuilder<string, string>(config).Build())
-            {
-                var key = "order-created";
-                var value = userGuid.ToString();
+        //if (Guid.TryParse(response.Uuid, out Guid orderGuid))
+        //{
+        //    var config = new Kafka.ProducerConfig
+        //    {
+        //        BootstrapServers = "broker:9092"
+        //    };
 
-                var message = new Kafka.Message<string, string>
-                {
-                    Key = key,
-                    Value = value
-                };
+        //    using (var producer = new Kafka.ProducerBuilder<string, string>(config).Build())
+        //    {
+        //        var key = "order-created";
+        //        //var value = userGuid;
 
-                producer.ProduceAsync("orders", message).Wait();
-            }
+        //        var message = new Kafka.Message<string, string>
+        //        {
+        //            Key = key,
+        //            //Value = value
+        //        };
 
-            // Send email here after the Kafka message sending
-            await SendEmail(orderDTOCreate);
+        //        producer.ProduceAsync("orders", message).Wait();
+        //    }
 
-            return orderGuid;
-        } else
-        {
-            throw new Exception("Invalid GUID format in the response.");
-        }
+        //    // Send email here after the Kafka message sending
+        //    await SendEmail(orderDTOCreate);
+
+        //    return orderGuid.ToString();
+        //} else
+        //{
+        //    throw new Exception("Invalid GUID format in the response.");
+        //}
+        return response.UserUuid.ToString();
     }
 
     private async Task SendEmail(OrderDTOCreate orderDetails)
@@ -127,13 +137,13 @@ public class OrderRepository : IOrderRepository
         //}
     }
 
-    public void Delete(Guid orderGuid)
+    public void Delete(string orderGuid)
     {
         var orderId = new Orderid { Uuid = orderGuid.ToString() };
         _client.DeleteOrder(orderId);
     }
 
-    public IEnumerable<OrderDTO> GetOrdersByUserId(Guid userGuid)
+    public IEnumerable<OrderDTO> GetOrdersByUserId(string userGuid)
     {
         var userId = new Userid { Uuid = userGuid.ToString() };
         var orders = _client.GetOrdersByUserId(userId);
@@ -144,11 +154,11 @@ public class OrderRepository : IOrderRepository
         {
             var orderDto = new OrderDTO
             {
-                OrderGuid = order.Uuid,
-                UserGuid = order.UserUuid,
+                OrderUuid = order.Uuid,
+                UserUuid = order.UserUuid,
                 Tickets = order.Tickets.Select(ticket => new Ticket
                 {
-                    MovieGuid = ticket.MovieUuid,
+                    MovieUuid = ticket.MovieUuid,
                     TheaterRoom = ticket.TheaterRoom,
                     MovieTime = ticket.MovieTime,
                     SeatNum = ticket.SeatNum
@@ -162,17 +172,25 @@ public class OrderRepository : IOrderRepository
         return orderList;
     }
 
-    public OrderDTO GetOrderById(Guid orderGuid)
+    public OrderDTO GetOrderById(string orderGuid)
     {
         var orderId = new Orderid { Uuid = orderGuid.ToString() };
         var response = _client.GetOrder(orderId);
+
+        Console.WriteLine(response.ToString());
+        //{
+            //"uuid": "40c7aa4b-e021-47ff-9ba5-b16471f1fd1a",
+            //"userUuid": "1234----",
+            //"tickets": [ { "movieUuid": "ph", "theaterRoom": 1, "movieTime": "2023-05-19 19:00:00.776000+00:00", "seatNum": "a1" } ],
+            //"isPaid": { }
+        //}
 
         var tickets = new List<Ticket>();
         foreach (var ticket in response.Tickets)
         {
             var ticketStub = new Ticket
             {
-                MovieGuid = ticket.MovieUuid,
+                MovieUuid = ticket.MovieUuid,
                 TheaterRoom = ticket.TheaterRoom,
                 MovieTime = ticket.MovieTime,
                 SeatNum = ticket.SeatNum
@@ -182,8 +200,8 @@ public class OrderRepository : IOrderRepository
 
         var order = new OrderDTO
         {
-            OrderGuid = response.Uuid,
-            UserGuid = response.UserUuid,
+            OrderUuid = response.Uuid,
+            UserUuid = response.UserUuid,
             Tickets = tickets,
             IsPaid = response.IsPaid.IsPaid_,
             CreatedDate = response.DateCreated.ToDateTime()

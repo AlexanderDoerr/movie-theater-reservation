@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using UserServiceClient;
 using UserServiceClientAPI.User;
 
 [ApiController]
@@ -22,12 +23,12 @@ public class UserController : ControllerBase
         //Guid userGuid = new Guid("E8E369C0-960B-4584-9A81-F9FF9F98DBD6");
         try
         {
-            var userGuid = await _userRepository.Create(user);
+            string userGuid = await _userRepository.Create(user);
 
             return Ok(new
             {
-                Success = true,
-                Message = "User created.",
+                //Success = true,
+                //Message = "User created.",
                 UserGuid = userGuid
             });
 
@@ -62,9 +63,11 @@ public class UserController : ControllerBase
     //[Authorize]
     public async Task<IActionResult> GetById(string userGuid)
     {
+        Console.WriteLine($"{userGuid}");
+
         try
         {
-            var user = await _userRepository.GetByUserGuid(userGuid);
+            var user = await _userRepository.GetByUserGuid(userGuid.ToString());
 
             if (user == null)
             {
@@ -95,13 +98,28 @@ public class UserController : ControllerBase
     {
         try
         {
-            var Data = await _userRepository.GetByCredentials(credentials);
-            return Ok(new
+            string Data = await _userRepository.GetByCredentials(credentials);
+
+            if(Data == null)
             {
-                Success = true,
-                Message = "User authenticated",
-                Data
-            });
+                return Ok(new
+                {
+                    Success = false,
+                    Message = "User not authenticaed, email or password is wrong"
+                });
+            }
+
+            else
+            {
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "User authenticated",
+                    Data
+                });
+            }
+
+
         } catch (Exception ex)
         {
             Console.WriteLine(ex.Message);

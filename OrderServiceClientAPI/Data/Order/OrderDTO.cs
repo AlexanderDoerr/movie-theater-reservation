@@ -5,18 +5,18 @@ using OrderServiceClientAPI.Data.Ticket;
 public class OrderDTO
 {
     [Key]
-    public string OrderGuid { get; set; }
+    public string OrderUuid { get; set; }
 
     [Required]
-    public string UserGuid { get; set; }
+    public string UserUuid { get; set; }
 
     [Required]
-    public List<Ticket>? Tickets { get; set; }
+    public List<Ticket> Tickets { get; set; }
 
     [Required]
     public bool IsPaid { get; set; }
 
     [Required]
-    public DateTime CreatedDate { get; set; }
+    public DateTime? CreatedDate { get; set; }
 
 }
