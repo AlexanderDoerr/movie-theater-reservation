@@ -108,7 +108,7 @@ async function createUser(call, callback)
         }
         else
         {
-            let message = "User in database";
+            let message = "User already exists";
             callback(null, {message})
         }
     }
@@ -122,6 +122,7 @@ async function createUser(call, callback)
 async function getUserById(call, callback)
 {
     try{
+        console.log(call.request.uuid)
         let user = (await db.findUserById(call.request.uuid))[0]
         let response = 
         {
@@ -131,6 +132,7 @@ async function getUserById(call, callback)
             email: user.email,
             createdDate: convertToTimestamp(user.created)
         }
+        console.log(response)
         callback(null, response);
     }
     catch(err)
@@ -166,6 +168,7 @@ async function validateUser(call, callback)
 {
     try
     {
+        console.log(call.request.uuid)
         let response = await db.validateUser(call.request.email, call.request.password);
         console.log(response)
         callback(null, response);
