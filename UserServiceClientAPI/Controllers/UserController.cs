@@ -89,7 +89,7 @@ public class UserController : ControllerBase
     }
 
 
-    [HttpGet]
+    [HttpPost]
     [Route("login")]
     public async Task<IActionResult> GetUserByCredentials(UserDTOCredentials credentials)
     {

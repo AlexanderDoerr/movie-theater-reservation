@@ -1,23 +1,23 @@
 function register() {
-    let firstName = document.getElementById('first-name').value;
-    let lastName = document.getElementById('last-name').value;
-    let email = document.getElementById('register-email').value;
-    let password = document.getElementById('register-password').value;
-    let confirmPassword = document.getElementById('confirm-password').value;
+    let Firstname = document.getElementById('first-name').value;
+    let Lastname = document.getElementById('last-name').value;
+    let Email = document.getElementById('register-email').value;
+    let Password = document.getElementById('register-password').value;
+    let ConfirmPassword = document.getElementById('confirm-password').value;
 
-    if(password !== confirmPassword) {
+    if(Password !== ConfirmPassword) {
         alert('Passwords do not match');
         return;
     }
 
     let userDetails = {
-        firstName,
-        lastName,
-        email,
-        password
+        Firstname,
+        Lastname,
+        Email,
+        Password
     }
 
-    fetch('http://yourwebsite.com/api/register', {
+    fetch('http://localhost:5041/usersapi/user', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -38,13 +38,15 @@ function register() {
 function login() {
     let email = document.getElementById('login-email').value;
     let password = document.getElementById('login-password').value;
+    console.log(email);
+    console.log(password);
 
     let userDetails = {
-        email,
-        password
+        email: email,
+        password: password
     }
 
-    fetch('http://yourwebsite.com/api/login', {
+    fetch("http://localhost:5041/usersapi/user/login", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -55,10 +57,12 @@ function login() {
     .then(data => {
         if(data.success) {
             localStorage.setItem('token', data.token);
-            window.location.href = "/newpage.html";  //Redirect to new page
+            window.location.href = "../MoviesList/movieList.html";  //Redirect to new page
         } else {
             alert('Error logging in');
         }
     })
     .catch(error => console.error('Error:', error));
 }
+
+
