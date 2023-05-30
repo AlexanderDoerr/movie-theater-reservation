@@ -271,7 +271,7 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
         # add three hours to dt
         dt = dt + timedelta(minutes=180)
         return scheduler_pb2.Schedule(
-            movie=request.movie_uuid,
+            movie_uuid=request.movie_uuid,
             auditorium_num=request.auditorium_num,
             start_time=request.time,
             end_time=timestamp_pb2.Timestamp(seconds=int(dt.timestamp()))
