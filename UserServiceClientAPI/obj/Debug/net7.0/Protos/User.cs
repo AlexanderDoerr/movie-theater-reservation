@@ -25,27 +25,26 @@ namespace UserServiceClient {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChFQcm90b3MvdXNlci5wcm90bxIFdXNlcnMaH2dvb2dsZS9wcm90b2J1Zi90",
-            "aW1lc3RhbXAucHJvdG8aG2dvb2dsZS9wcm90b2J1Zi9lbXB0eS5wcm90byJ9",
+            "aW1lc3RhbXAucHJvdG8aG2dvb2dsZS9wcm90b2J1Zi9lbXB0eS5wcm90byJh",
             "CgRVc2VyEhAKCHVzZXJHdWlkGAEgASgJEhEKCWZpcnN0bmFtZRgCIAEoCRIQ",
-            "CghsYXN0bmFtZRgDIAEoCRINCgVlbWFpbBgEIAEoCRIvCgtjcmVhdGVkRGF0",
-            "ZRgFIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAikwEKCEZ1bGxV",
-            "c2VyEhAKCHVzZXJHdWlkGAEgASgJEhEKCWZpcnN0bmFtZRgCIAEoCRIQCghs",
-            "YXN0bmFtZRgDIAEoCRINCgVlbWFpbBgEIAEoCRIQCghwYXNzd29yZBgFIAEo",
-            "CRIvCgtjcmVhdGVkRGF0ZRgGIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1l",
-            "c3RhbXAiUgoKVXNlckNyZWF0ZRIRCglmaXJzdG5hbWUYASABKAkSEAoIbGFz",
-            "dG5hbWUYAiABKAkSDQoFZW1haWwYAyABKAkSEAoIcGFzc3dvcmQYBCABKAki",
-            "OAoVVXNlclZhbGlkYXRpb25SZXF1ZXN0Eg0KBWVtYWlsGAEgASgJEhAKCHBh",
-            "c3N3b3JkGAIgASgJIhoKCVVzZXJFbWFpbBINCgVlbWFpbBgBIAEoCSIWCgZV",
-            "c2VyaWQSDAoEVVVJRBgBIAEoCSIrCglGdWxsVXNlcnMSHgoFdXNlcnMYASAD",
-            "KAsyDy51c2Vycy5GdWxsVXNlcjLQAgoLVXNlclNlcnZpY2USKwoLZ2V0VXNl",
-            "ckJ5SWQSDS51c2Vycy5Vc2VyaWQaCy51c2Vycy5Vc2VyIgASMQoOZ2V0VXNl",
-            "ckJ5RW1haWwSEC51c2Vycy5Vc2VyRW1haWwaCy51c2Vycy5Vc2VyIgASPQoM",
-            "dmFsaWRhdGVVc2VyEhwudXNlcnMuVXNlclZhbGlkYXRpb25SZXF1ZXN0Gg0u",
-            "dXNlcnMuVXNlcmlkIgASOQoLZ2V0QWxsVXNlcnMSFi5nb29nbGUucHJvdG9i",
-            "dWYuRW1wdHkaEC51c2Vycy5GdWxsVXNlcnMiABIwCgpjcmVhdGVVc2VyEhEu",
-            "dXNlcnMuVXNlckNyZWF0ZRoNLnVzZXJzLlVzZXJpZCIAEjUKCmRlbGV0ZVVz",
-            "ZXISDS51c2Vycy5Vc2VyaWQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiAEIU",
-            "qgIRVXNlclNlcnZpY2VDbGllbnRiBnByb3RvMw=="));
+            "CghsYXN0bmFtZRgDIAEoCRINCgVlbWFpbBgEIAEoCRITCgtjcmVhdGVkRGF0",
+            "ZRgFIAEoAyJ3CghGdWxsVXNlchIQCgh1c2VyR3VpZBgBIAEoCRIRCglmaXJz",
+            "dG5hbWUYAiABKAkSEAoIbGFzdG5hbWUYAyABKAkSDQoFZW1haWwYBCABKAkS",
+            "EAoIcGFzc3dvcmQYBSABKAkSEwoLY3JlYXRlZERhdGUYBiABKAMiUgoKVXNl",
+            "ckNyZWF0ZRIRCglmaXJzdG5hbWUYASABKAkSEAoIbGFzdG5hbWUYAiABKAkS",
+            "DQoFZW1haWwYAyABKAkSEAoIcGFzc3dvcmQYBCABKAkiOAoVVXNlclZhbGlk",
+            "YXRpb25SZXF1ZXN0Eg0KBWVtYWlsGAEgASgJEhAKCHBhc3N3b3JkGAIgASgJ",
+            "IhoKCVVzZXJFbWFpbBINCgVlbWFpbBgBIAEoCSIWCgZVc2VyaWQSDAoEVVVJ",
+            "RBgBIAEoCSIrCglGdWxsVXNlcnMSHgoFdXNlcnMYASADKAsyDy51c2Vycy5G",
+            "dWxsVXNlcjLQAgoLVXNlclNlcnZpY2USKwoLZ2V0VXNlckJ5SWQSDS51c2Vy",
+            "cy5Vc2VyaWQaCy51c2Vycy5Vc2VyIgASMQoOZ2V0VXNlckJ5RW1haWwSEC51",
+            "c2Vycy5Vc2VyRW1haWwaCy51c2Vycy5Vc2VyIgASPQoMdmFsaWRhdGVVc2Vy",
+            "EhwudXNlcnMuVXNlclZhbGlkYXRpb25SZXF1ZXN0Gg0udXNlcnMuVXNlcmlk",
+            "IgASOQoLZ2V0QWxsVXNlcnMSFi5nb29nbGUucHJvdG9idWYuRW1wdHkaEC51",
+            "c2Vycy5GdWxsVXNlcnMiABIwCgpjcmVhdGVVc2VyEhEudXNlcnMuVXNlckNy",
+            "ZWF0ZRoNLnVzZXJzLlVzZXJpZCIAEjUKCmRlbGV0ZVVzZXISDS51c2Vycy5V",
+            "c2VyaWQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiAEIUqgIRVXNlclNlcnZp",
+            "Y2VDbGllbnRiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -103,7 +102,7 @@ namespace UserServiceClient {
       firstname_ = other.firstname_;
       lastname_ = other.lastname_;
       email_ = other.email_;
-      createdDate_ = other.createdDate_ != null ? other.createdDate_.Clone() : null;
+      createdDate_ = other.createdDate_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -163,10 +162,10 @@ namespace UserServiceClient {
 
     /// <summary>Field number for the "createdDate" field.</summary>
     public const int CreatedDateFieldNumber = 5;
-    private global::Google.Protobuf.WellKnownTypes.Timestamp createdDate_;
+    private long createdDate_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Google.Protobuf.WellKnownTypes.Timestamp CreatedDate {
+    public long CreatedDate {
       get { return createdDate_; }
       set {
         createdDate_ = value;
@@ -192,7 +191,7 @@ namespace UserServiceClient {
       if (Firstname != other.Firstname) return false;
       if (Lastname != other.Lastname) return false;
       if (Email != other.Email) return false;
-      if (!object.Equals(CreatedDate, other.CreatedDate)) return false;
+      if (CreatedDate != other.CreatedDate) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -204,7 +203,7 @@ namespace UserServiceClient {
       if (Firstname.Length != 0) hash ^= Firstname.GetHashCode();
       if (Lastname.Length != 0) hash ^= Lastname.GetHashCode();
       if (Email.Length != 0) hash ^= Email.GetHashCode();
-      if (createdDate_ != null) hash ^= CreatedDate.GetHashCode();
+      if (CreatedDate != 0L) hash ^= CreatedDate.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -239,9 +238,9 @@ namespace UserServiceClient {
         output.WriteRawTag(34);
         output.WriteString(Email);
       }
-      if (createdDate_ != null) {
-        output.WriteRawTag(42);
-        output.WriteMessage(CreatedDate);
+      if (CreatedDate != 0L) {
+        output.WriteRawTag(40);
+        output.WriteInt64(CreatedDate);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -269,9 +268,9 @@ namespace UserServiceClient {
         output.WriteRawTag(34);
         output.WriteString(Email);
       }
-      if (createdDate_ != null) {
-        output.WriteRawTag(42);
-        output.WriteMessage(CreatedDate);
+      if (CreatedDate != 0L) {
+        output.WriteRawTag(40);
+        output.WriteInt64(CreatedDate);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -295,8 +294,8 @@ namespace UserServiceClient {
       if (Email.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Email);
       }
-      if (createdDate_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CreatedDate);
+      if (CreatedDate != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(CreatedDate);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -322,11 +321,8 @@ namespace UserServiceClient {
       if (other.Email.Length != 0) {
         Email = other.Email;
       }
-      if (other.createdDate_ != null) {
-        if (createdDate_ == null) {
-          CreatedDate = new global::Google.Protobuf.WellKnownTypes.Timestamp();
-        }
-        CreatedDate.MergeFrom(other.CreatedDate);
+      if (other.CreatedDate != 0L) {
+        CreatedDate = other.CreatedDate;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -359,11 +355,8 @@ namespace UserServiceClient {
             Email = input.ReadString();
             break;
           }
-          case 42: {
-            if (createdDate_ == null) {
-              CreatedDate = new global::Google.Protobuf.WellKnownTypes.Timestamp();
-            }
-            input.ReadMessage(CreatedDate);
+          case 40: {
+            CreatedDate = input.ReadInt64();
             break;
           }
         }
@@ -397,11 +390,8 @@ namespace UserServiceClient {
             Email = input.ReadString();
             break;
           }
-          case 42: {
-            if (createdDate_ == null) {
-              CreatedDate = new global::Google.Protobuf.WellKnownTypes.Timestamp();
-            }
-            input.ReadMessage(CreatedDate);
+          case 40: {
+            CreatedDate = input.ReadInt64();
             break;
           }
         }
@@ -453,7 +443,7 @@ namespace UserServiceClient {
       lastname_ = other.lastname_;
       email_ = other.email_;
       password_ = other.password_;
-      createdDate_ = other.createdDate_ != null ? other.createdDate_.Clone() : null;
+      createdDate_ = other.createdDate_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -525,10 +515,10 @@ namespace UserServiceClient {
 
     /// <summary>Field number for the "createdDate" field.</summary>
     public const int CreatedDateFieldNumber = 6;
-    private global::Google.Protobuf.WellKnownTypes.Timestamp createdDate_;
+    private long createdDate_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Google.Protobuf.WellKnownTypes.Timestamp CreatedDate {
+    public long CreatedDate {
       get { return createdDate_; }
       set {
         createdDate_ = value;
@@ -555,7 +545,7 @@ namespace UserServiceClient {
       if (Lastname != other.Lastname) return false;
       if (Email != other.Email) return false;
       if (Password != other.Password) return false;
-      if (!object.Equals(CreatedDate, other.CreatedDate)) return false;
+      if (CreatedDate != other.CreatedDate) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -568,7 +558,7 @@ namespace UserServiceClient {
       if (Lastname.Length != 0) hash ^= Lastname.GetHashCode();
       if (Email.Length != 0) hash ^= Email.GetHashCode();
       if (Password.Length != 0) hash ^= Password.GetHashCode();
-      if (createdDate_ != null) hash ^= CreatedDate.GetHashCode();
+      if (CreatedDate != 0L) hash ^= CreatedDate.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -607,9 +597,9 @@ namespace UserServiceClient {
         output.WriteRawTag(42);
         output.WriteString(Password);
       }
-      if (createdDate_ != null) {
-        output.WriteRawTag(50);
-        output.WriteMessage(CreatedDate);
+      if (CreatedDate != 0L) {
+        output.WriteRawTag(48);
+        output.WriteInt64(CreatedDate);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -641,9 +631,9 @@ namespace UserServiceClient {
         output.WriteRawTag(42);
         output.WriteString(Password);
       }
-      if (createdDate_ != null) {
-        output.WriteRawTag(50);
-        output.WriteMessage(CreatedDate);
+      if (CreatedDate != 0L) {
+        output.WriteRawTag(48);
+        output.WriteInt64(CreatedDate);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -670,8 +660,8 @@ namespace UserServiceClient {
       if (Password.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Password);
       }
-      if (createdDate_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CreatedDate);
+      if (CreatedDate != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(CreatedDate);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -700,11 +690,8 @@ namespace UserServiceClient {
       if (other.Password.Length != 0) {
         Password = other.Password;
       }
-      if (other.createdDate_ != null) {
-        if (createdDate_ == null) {
-          CreatedDate = new global::Google.Protobuf.WellKnownTypes.Timestamp();
-        }
-        CreatedDate.MergeFrom(other.CreatedDate);
+      if (other.CreatedDate != 0L) {
+        CreatedDate = other.CreatedDate;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -741,11 +728,8 @@ namespace UserServiceClient {
             Password = input.ReadString();
             break;
           }
-          case 50: {
-            if (createdDate_ == null) {
-              CreatedDate = new global::Google.Protobuf.WellKnownTypes.Timestamp();
-            }
-            input.ReadMessage(CreatedDate);
+          case 48: {
+            CreatedDate = input.ReadInt64();
             break;
           }
         }
@@ -783,11 +767,8 @@ namespace UserServiceClient {
             Password = input.ReadString();
             break;
           }
-          case 50: {
-            if (createdDate_ == null) {
-              CreatedDate = new global::Google.Protobuf.WellKnownTypes.Timestamp();
-            }
-            input.ReadMessage(CreatedDate);
+          case 48: {
+            CreatedDate = input.ReadInt64();
             break;
           }
         }

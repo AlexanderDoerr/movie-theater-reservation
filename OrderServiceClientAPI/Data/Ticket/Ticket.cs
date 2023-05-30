@@ -5,7 +5,7 @@ namespace OrderServiceClientAPI.Data.Ticket
     public class Ticket
     {
         [Required]
-        public string MovieGuid { get; set; }
+        public string MovieUuid { get; set; }
 
         [Required]
         public int TheaterRoom { get; set; }
