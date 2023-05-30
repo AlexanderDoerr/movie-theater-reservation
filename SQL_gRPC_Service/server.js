@@ -104,12 +104,19 @@ async function createUser(call, callback)
         {
             await db.createUser(call.request.firstname, call.request.lastname, call.request.email, call.request.password)
             userId = (await db.findUserByEmail(call.request.email))[0].id;
-            callback(null, {userId})
+            let response =
+            {
+                UUID : userId
+            }
+            callback(null, {response})
         }
         else
         {
-            let message = "User already exists";
-            callback(null, {message})
+            let response = 
+            {
+                UUID: "User already exists"
+            }
+            callback(null, {response})
         }
     }
     catch(err)
@@ -122,8 +129,8 @@ async function createUser(call, callback)
 async function getUserById(call, callback)
 {
     try{
-        console.log(call.request.uuid)
-        let user = (await db.findUserById(call.request.uuid))[0]
+        console.log(call.request)
+        let user = (await db.findUserById(call.request.UUID))[0]
         let response = 
         {
             userGuid: user.id,
@@ -169,8 +176,19 @@ async function validateUser(call, callback)
     try
     {
         console.log(call.request.uuid)
-        let response = await db.validateUser(call.request.email, call.request.password);
-        console.log(response)
+        if(await db.validateUser(call.request.email, call.request.password))
+        {
+            let user = await db.findUserByEmail(call.request.email)
+            let response =
+            {
+                UUID : user.id
+            }
+            callback(null, response)
+        }
+        let response = 
+        {
+            UUID : "Password or Username incorrect"
+        }
         callback(null, response);
     }
     catch(err){
