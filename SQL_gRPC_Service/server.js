@@ -107,15 +107,16 @@ async function createUser(call, callback)
             {
                 UUID : userId
             }
-            callback(null, {response})
+            console.log(response)
+            callback(null, response)
         }
         else
         {
             let response = 
             {
-                UUID: "User already exists"
+                UUID: ""
             }
-            callback(null, {response})
+            callback(null, response)
         }
     }
     catch(err)
@@ -174,21 +175,27 @@ async function validateUser(call, callback)
 {
     try
     {
-        console.log(call.request.uuid)
-        if(await db.validateUser(call.request.email, call.request.password))
+        console.log(call.request.email + " " + call.request.password)
+        let userId = await db.validateUser(call.request.email, call.request.password)
+        if(userId != "Invalid Email or Password")
         {
-            let user = await db.findUserByEmail(call.request.email)
             let response =
             {
-                UUID : user.id
+                UUID : userId
             }
+            console.log("response" + response)
             callback(null, response)
         }
-        let response = 
+        else
         {
-            UUID : "Password or Username incorrect"
+            let response = 
+            {
+                UUID : ""
+            }
+            callback(null, response);
         }
-        callback(null, response);
+        
+        
     }
     catch(err){
         console.log("Error validating user: " + err)
