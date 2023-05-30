@@ -60,12 +60,12 @@ function login() {
             user = {
                 token: data.token,
                 userGuid: data.user.userGuid,
-                email: data.user,
+                email: data.user.email,
                 firstName: data.user.firstname,
                 lastName: data.user.lastname,
                 password: password
             }
-            sessionStorage.setItem('UserInfo', user);
+            sessionStorage.setItem('UserInfo', JSON.stringify(user));
             window.location.href = "../MoviesList/movieList.html";  //Redirect to new page
         } else {
             alert('Error logging in');

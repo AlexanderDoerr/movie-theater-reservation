@@ -1,17 +1,23 @@
 window.onload = function() {
     let selectedSchedule = JSON.parse(sessionStorage.getItem('selectedSchedule'));
-    let selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats'));
-    let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+    let selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeatNumbers'));
+    let selectedSeatUUIDs = JSON.parse(sessionStorage.getItem('selectedSeatUUIDs'));
+    let movieTitle = sessionStorage.getItem('movieTitle');
+    const userString = sessionStorage.getItem('UserInfo');
+    const userInfo = JSON.parse(userString);
 
     console.log(selectedSchedule);
     console.log(selectedSeats);
     console.log(userInfo);
+    console.log(movieTitle);
 
-    // Format and display the movie information
-    let movieDate = new Date(selectedSchedule.start_time.seconds * 1000).toISOString().split('T')[0];
-    let movieTime = new Date(selectedSchedule.start_time.seconds * 1000).toISOString();
+    // Convert the Unix timestamp into date and time
+    let movieDate = new Date(Number(selectedSchedule.time.seconds) * 1000).toISOString().split('T')[0];
+    let movieTime = new Date(Number(selectedSchedule.time.seconds) * 1000).toISOString();
+
+    // Display the movie information
     let movieInfoElement = document.getElementById('movieInfo');
-    movieInfoElement.innerHTML = `<p>Movie: ${selectedSchedule.movieUuid}</p><p>Date: ${movieDate}</p><p>Time: ${movieTime}</p>`;
+    movieInfoElement.innerHTML = `<p>Movie: ${movieTitle}</p><p>Date: ${movieDate}</p><p>Time: ${movieTime}</p>`;
 
     // Display the selected seats
     let seatInfoElement = document.getElementById('seatInfo');
@@ -22,16 +28,17 @@ window.onload = function() {
     confirmOrderButton.onclick = function() {
         // Construct the order payload
         let orderPayload = {
-            "UserUuid": userInfo.uuid,
+            "UserUuid": userInfo.userGuid,
             "Seats": selectedSeats,
             "TheaterRoom": selectedSchedule.auditorium_num,
             "MovieTime": movieTime,
             "MovieDate": movieDate,
             "IsPaid": true,
-            "UserName": userInfo.name,
+            "UserName": userInfo.firstName + ' ' + userInfo.lastName,
             "UserEmail": userInfo.email,
-            "MovieTitle": selectedSchedule.movieUuid // TODO: Replace this with the actual movie title if available
+            "MovieTitle": movieTitle // TODO: Replace this with the actual movie title if available
         };
+        console.log(orderPayload);
 
         // Send the POST request to create the order
         fetch('http://localhost:5041/ordersapi/order', {
@@ -41,9 +48,21 @@ window.onload = function() {
             },
             body: JSON.stringify(orderPayload)
         })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => {
+            console.log(response);
             alert("Thank you for placing your order, we hope you enjoy your movie!");
+
+            // After order is confirmed, reserve the seats
+            selectedSeatUUIDs.forEach(uuid => {
+                fetch('http://localhost:5041/moviesapi/api/schedule/seat', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({uuid: uuid})
+                })
+                .catch(error => console.error('Error:', error));
+            });
         })
         .catch(error => console.error('Error:', error));
     };

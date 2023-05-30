@@ -13,6 +13,7 @@ window.onload = function() {
     .then(movieDetails => {
         // Display the movie details
         document.getElementById('movie-title').textContent = movieDetails.title;
+        sessionStorage.setItem('movieTitle', movieDetails.title);
         document.getElementById('movie-description').textContent = movieDetails.description;
         document.getElementById('movie-runtime').textContent = "Runtime: " + movieDetails.runtime + " minutes";
         document.getElementById('movie-rating').textContent = "Rating: " + movieDetails.rating;

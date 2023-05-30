@@ -37,6 +37,11 @@ body {
     cursor: pointer;
 }
 
+.seat.reserved {
+    background-color: #808080; /* grey */
+    cursor: not-allowed;
+}
+
 .seat:hover {
     background-color: #AAA;
 }

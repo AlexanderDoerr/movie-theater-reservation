@@ -1,4 +1,5 @@
 window.onload = function() {
+
     fetch('http://localhost:5041/moviesapi/api/get/showing', {
         method: 'GET',
         headers: {
