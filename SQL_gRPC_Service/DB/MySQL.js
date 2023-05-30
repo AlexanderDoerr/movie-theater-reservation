@@ -7,7 +7,7 @@ const connection = mysql.createConnection(
 {
     host: '35.184.132.184',
     user: 'root',
-    password: '1234',
+    password: 'Q->SpeKl5<s`;vPK',
     database: 'LuminaryLegendsTheatre',
 });
 
