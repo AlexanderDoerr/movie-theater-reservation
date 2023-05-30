@@ -137,15 +137,15 @@ public class OrderRepository : IOrderRepository
         //}
     }
 
-    public void Delete(string orderGuid)
+    public void Delete(string orderUuid)
     {
-        var orderId = new Orderid { Uuid = orderGuid.ToString() };
+        var orderId = new Orderid { Uuid = orderUuid.ToString() };
         _client.DeleteOrder(orderId);
     }
 
-    public IEnumerable<OrderDTO> GetOrdersByUserId(string userGuid)
+    public IEnumerable<OrderDTO> GetOrdersByUserId(string userUuid)
     {
-        var userId = new Userid { Uuid = userGuid.ToString() };
+        var userId = new Userid { Uuid = userUuid.ToString() };
         var orders = _client.GetOrdersByUserId(userId);
 
         var orderList = new List<OrderDTO>();

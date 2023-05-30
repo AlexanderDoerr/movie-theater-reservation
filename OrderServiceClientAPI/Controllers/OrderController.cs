@@ -49,11 +49,11 @@ public class OrderController : ControllerBase
     [HttpDelete]
     //[Authorize]
     [Route("{orderid}")]
-    public void Delete(string orderGuid)
+    public void Delete(string orderid)
     {
         try
         {
-            _ordersRepository.Delete(orderGuid);
+            _ordersRepository.Delete(orderid);
         } catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
@@ -63,11 +63,11 @@ public class OrderController : ControllerBase
     [HttpGet]
     //[Authorize]
     [Route("userid/{userid}")]
-    public async Task<IActionResult> GetOrdersUserid(string userGuid)
+    public async Task<IActionResult> GetOrdersUserid(string userid)
     {
         try
         {
-            var Data = await Task.Run(() => _ordersRepository.GetOrdersByUserId(userGuid));
+            var Data = await Task.Run(() => _ordersRepository.GetOrdersByUserId(userid));
             // _ordersRepository.GetOrdersByUserId(userGuid);
             return Ok(new
             {
