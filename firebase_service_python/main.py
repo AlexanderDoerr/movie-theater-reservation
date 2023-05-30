@@ -303,7 +303,7 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
                         end_time=end_timestamp
                     ))
             aud_sched = scheduler_pb2.AuditoriumSchedule(
-                auditorium_num=str(auditorium.to_dict()['auditorium_num']),
+                auditorium_num=auditorium.to_dict()['auditorium_num'],
                 schedules=events
             )
             returns.append(aud_sched)
