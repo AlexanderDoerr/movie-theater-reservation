@@ -123,7 +123,7 @@ async function getUserById(call, callback)
 {
     try{
         console.log(call.request)
-        let user = (await db.findUserById(call.request.uuid))[0]
+        let user = (await db.findUserById(call.request.UUID))[0]
         let response = 
         {
             userGuid: user.id,
