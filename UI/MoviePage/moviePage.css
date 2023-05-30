@@ -1,9 +1,31 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     background: #f1f1f1;
+    font-family: Arial, sans-serif;
+    padding: 10px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-top: 1em;
+}
+
+p {
+    color: #666;
+    font-size: 1em;
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+#movie-title {
+    color: #007BFF;
 }
 
 #movie-details-container {
@@ -11,6 +33,7 @@ body {
     flex-direction: column;
     width: 100%;
     max-width: 800px;
+    margin-bottom: 2em;
 }
 
 #movie-schedule-container {
@@ -20,4 +43,18 @@ body {
 #movie-schedule-container div {
     margin-bottom: 1rem;
     cursor: pointer;
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
 }

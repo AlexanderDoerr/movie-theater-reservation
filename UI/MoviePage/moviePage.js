@@ -1,8 +1,9 @@
 window.onload = function() {
     let movieUuid = localStorage.getItem('selectedMovie');
+    console.log(movieUuid);
     
     // Fetch movie details
-    fetch('localhost:5041/moviesapi/api/' + movieUuid, {
+    fetch('http://localhost:5041/moviesapi/api/' + movieUuid, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -23,12 +24,14 @@ window.onload = function() {
 function fetchMovieSchedule() {
     let movieUuid = localStorage.getItem('selectedMovie');
     let movieDate = document.getElementById('movie-date-picker').value;
-
+    
+    movieDate = formatDate(movieDate); // format date to MM/DD/YYYY
+    console.log(movieDate)
     let scheduleRequestBody = {
         date: movieDate
     };
 
-    fetch('localhost:5041/moviesapi/api/schedule/aud-schedules', {
+    fetch('http://localhost:5041/moviesapi/api/schedule/aud-schedules', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -49,8 +52,14 @@ function fetchMovieSchedule() {
                     scheduleElement.textContent = `Showing in Auditorium ${schedule.auditorium_num} from ${startTime.toLocaleTimeString()} to ${endTime.toLocaleTimeString()}`;
 
                     scheduleElement.onclick = function() {
-                        localStorage.setItem('selectedSchedule', JSON.stringify(schedule));
+                        sessionStorage.setItem('selectedSchedule', JSON.stringify({
+                            "auditorium_num": schedule.auditorium_num,
+                            "date": movieDate,
+                            "time": schedule.start_time
+                        }));
+                        
                         //Redirect to next page
+                        window.location.href = '../AudSeats/audSeats.html';
                     };
 
                     movieScheduleContainer.appendChild(scheduleElement);
@@ -59,4 +68,18 @@ function fetchMovieSchedule() {
         });
     })
     .catch(error => console.error('Error:', error));
+}
+
+
+function formatDate(date) {
+    const [year, month, day] = date.split('-');
+
+    // Create a new Date object with the year, month, and day components
+    const d = new Date(year, month - 1, day);  // months are 0-indexed in JavaScript
+
+    const formattedMonth = ('0' + (d.getMonth() + 1)).slice(-2);
+    const formattedDay = ('0' + d.getDate()).slice(-2);
+    const formattedYear = d.getFullYear();
+
+    return `${formattedMonth}/${formattedDay}/${formattedYear}`;
 }

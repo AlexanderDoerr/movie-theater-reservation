@@ -56,7 +56,16 @@ function login() {
     .then(response => response.json())
     .then(data => {
         if(data.success) {
-            localStorage.setItem('token', data.token);
+            console.log(data);
+            user = {
+                token: data.token,
+                userGuid: data.user.userGuid,
+                email: data.user,
+                firstName: data.user.firstname,
+                lastName: data.user.lastname,
+                password: password
+            }
+            sessionStorage.setItem('UserInfo', user);
             window.location.href = "../MoviesList/movieList.html";  //Redirect to new page
         } else {
             alert('Error logging in');

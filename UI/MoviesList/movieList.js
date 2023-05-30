@@ -20,7 +20,7 @@ window.onload = function() {
             movieDiv.classList.add('movie');
             movieDiv.onclick = function() {
                 localStorage.setItem('selectedMovie', movie.uuid);
-                window.location.href = "/movie.html"; //Redirect to movie page
+                window.location.href = "../MoviePage/moviePage.html"; //Redirect to movie page
             };
 
             let title = document.createElement('h2');

@@ -3,10 +3,10 @@ const router = express.Router();
 const movieScheduleController = require('../controllers/schedulerController');
 
 router.post('/', movieScheduleController.addMovieToSchedule);
-router.get('/aud-schedules', movieScheduleController.getAudSchedulesByDate);
+router.post('/aud-schedules', movieScheduleController.getAudSchedulesByDate);
 router.put('/seat', movieScheduleController.reserveSeat);
-router.get('/showtimes', movieScheduleController.getShowtimesByDateAndMovieUuid);
-router.get('/seats', movieScheduleController.getSeats);
+router.post('/showtimes', movieScheduleController.getShowtimesByDateAndMovieUuid);
+router.post('/seats', movieScheduleController.getSeats);
 
 module.exports = router;
 
