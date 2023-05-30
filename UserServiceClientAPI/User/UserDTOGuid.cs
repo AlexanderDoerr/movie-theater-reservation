@@ -5,6 +5,6 @@
     public class UserDTOGuid
     {
         [Required]
-        public String UserGuid { get; set; }
+        public Guid UserGuid { get; set; }
     }
 }

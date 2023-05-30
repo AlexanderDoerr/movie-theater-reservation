@@ -3,7 +3,7 @@
 public class User
 {
     [Key]
-    public String UserGuid { get; set; }
+    public Guid UserGuid { get; set; }
 
     [Required]
     public String Firstname { get; set; }
@@ -19,8 +19,8 @@ public class User
     [Required]
     public DateTime CreatedDate { get; set; }
 
-    //string toString()
-    //{
-    //    return this.UserGuid.ToString();
-    //}
+    string toString()
+    {
+        return this.UserGuid.ToString();
+    }
 }

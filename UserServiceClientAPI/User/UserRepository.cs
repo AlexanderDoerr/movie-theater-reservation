@@ -14,21 +14,18 @@ public class UserRepository : IUserRepository
         _client = new UserService.UserServiceClient(channel);
     }
 
-    public async Task<UserDTOGuid> Create(UserDTOCreate user)
+    public async Task<Guid> Create(UserDTOCreate user)
     {
         var request = new UserCreate
         {
-            Firstname = user.Firstname.ToString(),
-            Lastname = user.Lastname.ToString(),
-            Email = user.Email.ToString(),
-            Password = user.Password.ToString(),
+            Firstname = user.Firstname,
+            Lastname = user.Lastname,
+            Email = user.Email,
+            Password = user.Password
         };
 
         var response = await _client.createUserAsync(request);
-        return new UserDTOGuid
-        {
-            UserGuid = response.UUID.ToString(),
-        };
+        return Guid.Parse(response.UUID);
     }
 
     public async Task<IEnumerable<User>> GetAll()
@@ -39,7 +36,7 @@ public class UserRepository : IUserRepository
         return response.Users.Select(user =>
             new User
             {
-                UserGuid = user.UserGuid,
+                UserGuid = Guid.Parse(user.UserGuid),
                 Firstname = user.Firstname,
                 Lastname = user.Lastname,
                 Email = user.Email,
@@ -59,7 +56,7 @@ public class UserRepository : IUserRepository
         var response = await _client.getUserByEmailAsync(request);
         return new User
         {
-            UserGuid = response.UserGuid,
+            UserGuid = Guid.Parse(response.UserGuid),
             Firstname = response.Firstname,
             Lastname = response.Lastname,
             Email = response.Email,
@@ -67,20 +64,20 @@ public class UserRepository : IUserRepository
         };
     }
 
-    public async Task<User> GetByUserGuid(string userGuid)
+    public async Task<User> GetByUserGuid(Guid userGuid)
     {
         var request = new UserServiceClient.Userid
         {
-            UUID = userGuid.ToString(),
+            UUID = userGuid.ToString()
         };
 
         var response = await _client.getUserByIdAsync(request);
         return new User
         {
-            UserGuid = response.UserGuid.ToString(),
-            Firstname = response.Firstname.ToString(),
-            Lastname = response.Lastname.ToString(),
-            Email = response.Email.ToString(),
+            UserGuid = Guid.Parse(response.UserGuid),
+            Firstname = response.Firstname,
+            Lastname = response.Lastname,
+            Email = response.Email,
             CreatedDate = response.CreatedDate.ToDateTime()
         };
     }
@@ -96,7 +93,7 @@ public class UserRepository : IUserRepository
         var response = await _client.validateUserAsync(request);
         return new UserDTOGuid
         {
-            UserGuid = response.UUID
+            UserGuid = Guid.Parse(response.UUID)
         };
     }
 
@@ -104,7 +101,7 @@ public class UserRepository : IUserRepository
     {
         var request = new Userid
         {
-            Uuid = userGuid.ToString()
+            UUID = userGuid.ToString()
         };
 
         _client.deleteUser(request);
