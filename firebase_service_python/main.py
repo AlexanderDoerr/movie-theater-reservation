@@ -245,6 +245,7 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
         aud = db.collection('auditorium').where("auditorium_num", "==", aud_num).get()[0]
         date = request.time
         dt = date.ToDatetime(tzinfo=None)
+        logging.debug("Date: " + str(dt))
         # format date mm/dd/yyyy
         date = dt.strftime("%m/%d/%Y")
 
@@ -270,7 +271,7 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
         # add three hours to dt
         dt = dt + timedelta(minutes=180)
         return scheduler_pb2.Schedule(
-            movie=request.movie,
+            movie=request.movie_uuid,
             auditorium_num=request.auditorium_num,
             start_time=request.time,
             end_time=timestamp_pb2.Timestamp(seconds=int(dt.timestamp()))
