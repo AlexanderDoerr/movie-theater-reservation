@@ -84,6 +84,8 @@ services:
   emailservice:
     environment:
       - KAFKA_BROKER_SERVER=broker:9092
+    networks:
+      - netPRO290
     build: ./EmailService
     restart: always
 
