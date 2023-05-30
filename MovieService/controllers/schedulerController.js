@@ -42,6 +42,8 @@ const addMovieToSchedule = (req, res) => {
     if (client) {
         const timestamp = new Timestamp();
         timestamp.fromDate(new Date(req.body.time));
+        console.log("Here is the time in AddMovieToschedule: " + timestamp);
+        console.log("Here is the time in AddMovieToschedule from the body: " + req.body.time)
 
         client.AddMovieToSchedule({
             movie_uuid: req.body.movie_uuid, 
@@ -62,6 +64,7 @@ const addMovieToSchedule = (req, res) => {
 
 const getAudSchedulesByDate = (req, res) => {
     if (client) {
+        console.log(`Here is the date in getAudSchedulesByDate: ${req.body.date}`)
         client.GetAudSchedulesByDate({date: req.body.date}, function(err, response) {
             if (err) {
                 res.status(500).send(err);
