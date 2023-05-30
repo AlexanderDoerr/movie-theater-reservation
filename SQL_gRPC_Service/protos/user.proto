@@ -23,7 +23,7 @@ message User {
     string firstname = 2;
     string lastname = 3;
     string email = 4;
-    google.protobuf.Timestamp createdDate = 5;
+    int64 createdDate = 5;
 }
 
 // Full user return object
@@ -33,7 +33,7 @@ message FullUser {
     string lastname = 3;
     string email = 4;
     string password = 5;
-    google.protobuf.Timestamp createdDate = 6;
+    int64 createdDate = 6;
 }
 
 // User create object
