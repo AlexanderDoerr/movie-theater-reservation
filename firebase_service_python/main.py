@@ -117,9 +117,8 @@ class GreeterServicer(order_pb2_grpc.OrderServiceServicer):
                                                                                                    12:16] + '-' + \
                              doc.to_dict()['uuid'][16:20] + '-' + doc.to_dict()['uuid'][20:]
             logging.debug("Order time obj" + str(doc.to_dict()['date_created']))
-            dt = datetime.fromtimestamp(doc.to_dict()['date_created'].timestamp())
             timestamp = timestamp_pb2.Timestamp()
-            timestamp = timestamp.FromDatetime(dt)
+            timestamp.FromDatetime(doc.to_dict()['date_created'])
             return order_pb2.Order(
                 uuid=formatted_guid,
                 user_uuid=formatted_user_guid,
