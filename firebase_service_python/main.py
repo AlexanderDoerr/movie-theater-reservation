@@ -293,9 +293,10 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
                 return scheduler_pb2.Schedules()
             if request.date in aud_schedule:
                 for sched in aud_schedule[request.date]:
-                    start_timestamp = timestamp_pb2.Timestamp().FromDatetime(sched['start_time'])
-                    end_timestamp = timestamp_pb2.Timestamp().FromDatetime(sched['end_time'])
-                    logging.debug("Sched: " + str(sched))
+                    start_timestamp = timestamp_pb2.Timestamp()
+                    start_timestamp.FromDatetime(sched['start_time'])
+                    end_timestamp = timestamp_pb2.Timestamp()
+                    end_timestamp.FromDatetime(sched['end_time'])
                     events.append(scheduler_pb2.Schedule(
                         movie_uuid=sched['movie_uuid'],
                         auditorium_num=auditorium.to_dict()['auditorium_num'],
