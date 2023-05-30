@@ -297,7 +297,7 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
                     logging.debug("Sched: " + str(sched))
                     events.append(scheduler_pb2.Schedule(
                         movie_uuid=sched['movie_uuid'],
-                        auditorium_num=str(auditorium.to_dict()['auditorium_num']),
+                        auditorium_num=auditorium.to_dict()['auditorium_num'],
                         start_time=start_timestamp,
                         end_time=end_timestamp
                     ))
