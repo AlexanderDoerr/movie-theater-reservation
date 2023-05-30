@@ -186,6 +186,8 @@ public class UserController : ControllerBase
                 });
             } else
             {
+                var user = await _userRepository.GetByUserGuid(userId);
+
                 var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, userId.ToString()),
@@ -209,7 +211,7 @@ public class UserController : ControllerBase
                     Success = true,
                     Message = "User authenticated",
                     Token = finalToken,
-                    UserId = userId.ToString()
+                    User = user
                 });
             }
         } catch (Exception ex)

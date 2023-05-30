@@ -3,12 +3,12 @@
     public class UserDTOAuth
     {
         string base64JWT;
-        string userGuid;
+        string userUuid;
 
-        public UserDTOAuth(string base64JWT, string userGuid)
+        public UserDTOAuth(string base64JWT, string userUuid)
         {
             this.base64JWT = base64JWT;
-            this.userGuid = userGuid;
+            this.userUuid = userUuid;
         }
     }
 }

@@ -3,14 +3,19 @@ using Grpc.Core;
 using UserServiceClient;
 using System.Data;
 using UserServiceClientAPI.User;
+using Microsoft.Extensions.Configuration;
 
 public class UserRepository : IUserRepository
 {
     private readonly UserService.UserServiceClient _client;
+    private readonly IConfiguration _configuration;
 
-    public UserRepository()
+    public UserRepository(IConfiguration configuration)
     {
-        var channel = new Channel("Sql-gRPC-Service:50052", ChannelCredentials.Insecure);
+        _configuration = configuration;
+        var host = _configuration["GrpcService:Host"];
+        var port = _configuration["GrpcService:Port"];
+        var channel = new Channel($"{host}:{port}", ChannelCredentials.Insecure);
         _client = new UserService.UserServiceClient(channel);
     }
 
@@ -28,13 +33,13 @@ public class UserRepository : IUserRepository
         return response.UUID;
     }
 
-    public async Task<IEnumerable<User>> GetAll()
+    public async Task<IEnumerable<UserDTO>> GetAll()
     {
         var request = new Google.Protobuf.WellKnownTypes.Empty();
 
         var response = await _client.getAllUsersAsync(request);
         return response.Users.Select(user =>
-            new User
+            new UserDTO
             {
                 UserGuid = user.UserGuid,
                 Firstname = user.Firstname,
@@ -46,7 +51,7 @@ public class UserRepository : IUserRepository
         );
     }
 
-    public async Task<User> GetByUserEmail(string userEmail)
+    public async Task<UserDTO> GetByUserEmail(string userEmail)
     {
         var request = new UserServiceClient.UserEmail
         {
@@ -55,7 +60,7 @@ public class UserRepository : IUserRepository
 
         var response = await _client.getUserByEmailAsync(request);
 
-        return new User
+        return new UserDTO
         {
             UserGuid = response.UserGuid,
             Firstname = response.Firstname,
@@ -65,7 +70,7 @@ public class UserRepository : IUserRepository
         };
     }
 
-    public async Task<User> GetByUserGuid(string userGuid)
+    public async Task<UserDTO> GetByUserGuid(string userGuid)
     {
         Console.WriteLine(userGuid);
 
@@ -77,7 +82,7 @@ public class UserRepository : IUserRepository
         Console.WriteLine(request.UUID);
 
         var response = await _client.getUserByIdAsync(request);
-        return new User
+        return new UserDTO
         {
             UserGuid = response.UserGuid,
             Firstname = response.Firstname,
