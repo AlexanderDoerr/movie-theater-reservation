@@ -25,17 +25,62 @@ public class UserController : ControllerBase
         {
             string userGuid = await _userRepository.Create(user);
 
-            return Ok(new
+            if(userGuid == "")
             {
-                //Success = true,
-                //Message = "User created.",
-                UserGuid = userGuid
-            });
+                return Ok(new
+                {
+                    Success = false,
+                    Message = "User already exists"
+                });
+            } else
+            {
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "User created.",
+                    UserGuid = userGuid
+                });
+            }
+
+
 
         } catch (Exception e)
         {
             //return Ok("something happened");
             return Ok(e.Message);
+        }
+    }
+
+    [HttpPost]
+    [Route("login")]
+    public async Task<IActionResult> GetUserByCredentials(UserDTOCredentials credentials)
+    {
+        try
+        {
+            string Data = await _userRepository.GetByCredentials(credentials);
+
+            if (Data == "")
+            {
+                return Ok(new
+                {
+                    Success = false,
+                    Message = "User not authenticated, email or password is wrong"
+                });
+            } else
+            {
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "User authenticated",
+                    Data
+                });
+            }
+
+
+        } catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return StatusCode(500, ex.Message);
         }
     }
 
@@ -84,42 +129,6 @@ public class UserController : ControllerBase
                 Message = "User fetched successfully.",
                 Data = user
             });
-        } catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-            return StatusCode(500, ex.Message);
-        }
-    }
-
-
-    [HttpPost]
-    [Route("login")]
-    public async Task<IActionResult> GetUserByCredentials(UserDTOCredentials credentials)
-    {
-        try
-        {
-            string Data = await _userRepository.GetByCredentials(credentials);
-
-            if(Data == null)
-            {
-                return Ok(new
-                {
-                    Success = false,
-                    Message = "User not authenticaed, email or password is wrong"
-                });
-            }
-
-            else
-            {
-                return Ok(new
-                {
-                    Success = true,
-                    Message = "User authenticated",
-                    Data
-                });
-            }
-
-
         } catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
