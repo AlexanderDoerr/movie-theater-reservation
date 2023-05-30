@@ -40,15 +40,15 @@ createClient();
 
 const addMovieToSchedule = (req, res) => {
     if (client) {
-        const timestamp = new Timestamp();
-        timestamp.fromDate(new Date(req.body.time));
-        console.log("Here is the time in AddMovieToschedule: " + timestamp);
-        console.log("Here is the time in AddMovieToschedule from the body: " + req.body.time)
+        // const timestamp = new Timestamp();
+        // timestamp.fromDate(new Date(req.body.time));
+        // console.log("Here is the time in AddMovieToschedule: " + timestamp);
+        // console.log("Here is the time in AddMovieToschedule from the body: " + req.body.time)
 
         client.AddMovieToSchedule({
             movie_uuid: req.body.movie_uuid, 
             auditorium_num: req.body.auditorium_num, 
-            time: timestamp
+            time: req.body.time,
         }, function(err, response) {
             if (err) {
                 res.status(500).send(err);
@@ -113,12 +113,12 @@ const getShowtimesByDateAndMovieUuid = (req, res) => {
 
 const getSeats = (req, res) => {
     if (client) {
-        const timestamp = new Timestamp();
-        timestamp.fromDate(new Date(req.body.date));
+        // const timestamp = new Timestamp();
+        // timestamp.fromDate(new Date(req.body.date));
         
         client.GetSeats({
-            auditorium_uuid: req.body.auditorium_uuid, 
-            date: timestamp, 
+            auditorium_num: req.body.auditorium_num, 
+            date: req.body.date, 
             time: req.body.time
         }, function(err, response) {
             if (err) {
