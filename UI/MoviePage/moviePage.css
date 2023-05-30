@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f1f1f1;
+}
+
+#movie-details-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+}
+
+#movie-schedule-container {
+    margin-top: 1rem;
+}
+
+#movie-schedule-container div {
+    margin-bottom: 1rem;
+    cursor: pointer;
+}

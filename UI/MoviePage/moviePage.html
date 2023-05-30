@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Details</title>
+    <link rel="stylesheet" type="text/css" href="moviePage.css">
+</head>
+<body>
+    <h1 id="movie-title"></h1>
+    <p id="movie-description"></p>
+    <p id="movie-runtime"></p>
+    <p id="movie-rating"></p>
+    <p id="movie-showing"></p>
+
+    <h2>Movie Schedule:</h2>
+    <input type="date" id="movie-date-picker">
+    <button onclick="fetchMovieSchedule()">Fetch Schedule</button>
+    <div id="movie-schedule-container"></div>
+
+    <script src="moviePage.js"></script>
+</body>
+</html>
