@@ -316,6 +316,10 @@ class SchedulerServicer(scheduler_pb2_grpc.MovieScheduleServiceServicer):
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details('Seat not found!')
             return scheduler_pb2.Seat()
+        if seat.to_dict()['status'] == scheduler_pb2.Status.Value("Reserved"):
+            context.set_code(grpc.StatusCode.ALREADY_EXISTS)
+            context.set_details('Seat already reserved!')
+            return scheduler_pb2.Seat()
         seat.reference.update({
             'status': scheduler_pb2.Status.Value("Reserved")
         })
