@@ -2,7 +2,6 @@ const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const db = require("./DB/MySQL")
 const kafkaServer = require("./kafkaConsumer");
-const { Timestamp } = require('google-protobuf/google/protobuf/timestamp_pb');
 
 const USER_PROTO_PATH = './protos/user.proto';
 const userPackageDefinition = protoLoader.loadSync(USER_PROTO_PATH);
@@ -137,7 +136,7 @@ async function getUserById(call, callback)
             firstname: user.firstName,
             lastname: user.lastName,
             email: user.email,
-            createdDate: convertToTimestamp(user.created)
+            createdDate: user.created
         }
         console.log(response)
         callback(null, response);
@@ -160,7 +159,7 @@ async function getUserByEmail(call, callback)
             firstname: user.firstName,
             lastname: user.lastName,
             email: user.email,
-            createdDate: convertToTimestamp(user.created)
+            createdDate: user.created
         }
         callback(null, response);
     }
@@ -209,7 +208,7 @@ async function getAllUsers(call, callback) {
                 lastname: user.lastName,
                 email: user.email,
                 password: user.password,
-                createdDate: convertToTimestamp(user.created)
+                createdDate: user.created
             });
         }
         callback(null, response);
@@ -217,17 +216,6 @@ async function getAllUsers(call, callback) {
         console.error('Error fetching users:', error);
         callback(error);
     }
-}
-
-
-function convertToTimestamp(millisecs)
-{
-    const timestamp = new Timestamp();
-
-    timestamp.setSeconds(millisecs / 1000);
-    timestamp.setNanos((millisecs % 1000) * 1000000);
-
-    return timestamp;
 }
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
