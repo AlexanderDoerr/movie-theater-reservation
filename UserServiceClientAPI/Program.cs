@@ -75,7 +75,7 @@ internal class Program
             credentials.Email = user.Email;
 
             //if (user.Email == "ccantera@yahoo.com" && user.Password == "pwd123")
-            UserDTOGuid uu = await _userRepository.GetByCredentials(credentials);
+            string uu = await _userRepository.GetByCredentials(credentials);
 
 
             if (uu != null)

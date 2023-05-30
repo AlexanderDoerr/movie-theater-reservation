@@ -3,18 +3,18 @@
 public class User
 {
     [Key]
-    public Guid UserGuid { get; set; }
+    public string UserGuid { get; set; }
 
     [Required]
-    public String Firstname { get; set; }
+    public string Firstname { get; set; }
 
     [Required]
-    public String Lastname { get; set; }
+    public string Lastname { get; set; }
 
     [Required]
-    public String Email { get; set; }
+    public string Email { get; set; }
 
-    public String Password { get; set; }
+    public string Password { get; set; }
 
     [Required]
     public DateTime CreatedDate { get; set; }

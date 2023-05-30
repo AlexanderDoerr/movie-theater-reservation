@@ -60,7 +60,7 @@ public class UserController : ControllerBase
 
     [HttpGet("id/{userGuid}")]
     //[Authorize]
-    public async Task<IActionResult> GetById(Guid userGuid)
+    public async Task<IActionResult> GetById(string userGuid)
     {
         try
         {

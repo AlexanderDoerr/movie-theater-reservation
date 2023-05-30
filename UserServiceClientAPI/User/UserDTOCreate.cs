@@ -3,15 +3,15 @@
 public class UserDTOCreate
 {
     [Required]
-    public String Firstname { get; set; }
+    public string Firstname { get; set; }
+
+    [Required]  
+    public string Lastname { get; set; }
 
     [Required]
-    public String Lastname { get; set; }
+    public string Email { get; set; }
 
     [Required]
-    public String Email { get; set; }
-
-    [Required]
-    public String Password { get; set; }
+    public string Password { get; set; }
 }
 
