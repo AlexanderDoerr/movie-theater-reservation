@@ -229,7 +229,7 @@ def seat_generator(auditorium):
             seat_uuid = uuid.uuid4().hex
             seat_doc_ref = db.collection('seats').document(seat_uuid)
             seat_doc_ref.set({
-                'seat_num': str(alphabet[col]) + str(col),
+                'seat_num': str(alphabet[row]) + str(col),
                 'auditorium': auditorium.reference,
                 'status': scheduler_pb2.Status.Value("Available"),
                 'user': None,
