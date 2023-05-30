@@ -100,7 +100,7 @@ services:
       - netPRO290
     deploy:
       mode: replicas
-      replicas: 3
+      replicas: 1
 
   UserServiceClientAPI:
     build:
@@ -112,7 +112,7 @@ services:
       - netPRO290
     deploy:
       mode: replicas
-      replicas: 3
+      replicas: 1
 
   MovieServiceClientAPI:
     build:

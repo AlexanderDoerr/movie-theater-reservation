@@ -6,7 +6,7 @@ using OrderServiceClientAPI;
 public class OrderDTOCreate
 {
     [Required]
-    public Guid UserGuid { get; set; }
+    public string UserUuid { get; set; }
 
     [Required]
     public List<string> Seats { get; set; }

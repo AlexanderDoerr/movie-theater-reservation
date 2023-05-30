@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using UserServiceClient;
 using UserServiceClientAPI.User;
 
 [ApiController]
@@ -22,19 +23,64 @@ public class UserController : ControllerBase
         //Guid userGuid = new Guid("E8E369C0-960B-4584-9A81-F9FF9F98DBD6");
         try
         {
-            var userGuid = await _userRepository.Create(user);
+            string userGuid = await _userRepository.Create(user);
 
-            return Ok(new
+            if(userGuid == "")
             {
-                Success = true,
-                Message = "User created.",
-                UserGuid = userGuid
-            });
+                return Ok(new
+                {
+                    Success = false,
+                    Message = "User already exists"
+                });
+            } else
+            {
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "User created.",
+                    UserGuid = userGuid
+                });
+            }
+
+
 
         } catch (Exception e)
         {
             //return Ok("something happened");
             return Ok(e.Message);
+        }
+    }
+
+    [HttpPost]
+    [Route("login")]
+    public async Task<IActionResult> GetUserByCredentials(UserDTOCredentials credentials)
+    {
+        try
+        {
+            string Data = await _userRepository.GetByCredentials(credentials);
+
+            if (Data == "")
+            {
+                return Ok(new
+                {
+                    Success = false,
+                    Message = "User not authenticated, email or password is wrong"
+                });
+            } else
+            {
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "User authenticated",
+                    Data
+                });
+            }
+
+
+        } catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return StatusCode(500, ex.Message);
         }
     }
 
@@ -62,9 +108,11 @@ public class UserController : ControllerBase
     //[Authorize]
     public async Task<IActionResult> GetById(string userGuid)
     {
+        Console.WriteLine($"{userGuid}");
+
         try
         {
-            var user = await _userRepository.GetByUserGuid(userGuid);
+            var user = await _userRepository.GetByUserGuid(userGuid.ToString());
 
             if (user == null)
             {
@@ -80,27 +128,6 @@ public class UserController : ControllerBase
                 Success = true,
                 Message = "User fetched successfully.",
                 Data = user
-            });
-        } catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-            return StatusCode(500, ex.Message);
-        }
-    }
-
-
-    [HttpGet]
-    [Route("login")]
-    public async Task<IActionResult> GetUserByCredentials(UserDTOCredentials credentials)
-    {
-        try
-        {
-            var Data = await _userRepository.GetByCredentials(credentials);
-            return Ok(new
-            {
-                Success = true,
-                Message = "User authenticated",
-                Data
             });
         } catch (Exception ex)
         {
