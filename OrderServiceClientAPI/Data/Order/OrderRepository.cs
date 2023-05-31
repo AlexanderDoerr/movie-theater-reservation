@@ -26,16 +26,8 @@ public class OrderRepository : IOrderRepository
         _client = new OrderService.OrderServiceClient(_channel);
     }
 
-    public async Task<string> Create(OrderDTOCreate orderDTOCreate, string userUuid)
+    public async Task<OrderDTO> Create(OrderDTOCreate orderDTOCreate, string userUuid)
     {
-        //message OrderCreate {
-        //string user_uuid = 1;
-        //repeated string seat_num = 2;
-        //int32 theater_room = 3;
-        //google.protobuf.Timestamp movie_time = 4;
-        //string movie_date = 5;
-        //IsPaid is_paid = 6;
-    
         var movieTimeUtc = orderDTOCreate.MovieTime.ToUniversalTime();
         var movieDate = DateTime.ParseExact(orderDTOCreate.MovieDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
@@ -49,92 +41,32 @@ public class OrderRepository : IOrderRepository
             IsPaid = new IsPaid { IsPaid_ = orderDTOCreate.IsPaid }
         };
 
-        // orderCreate.SeatNum.AddRange(orderDTOCreate.Seats);
+        OrderServiceClient.Order response = await _client.CreateOrderAsync(orderCreate);
 
-        var response = await _client.CreateOrderAsync(orderCreate);
-
-        Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + response.ToString());
-
-        //if (Guid.TryParse(response.Uuid, out Guid orderGuid))
-        //{
-        //    var config = new Kafka.ProducerConfig
-        //    {
-        //        BootstrapServers = "broker:9092"
-        //    };
-
-        //    using (var producer = new Kafka.ProducerBuilder<string, string>(config).Build())
-        //    {
-        //        var key = "order-created";
-        //        //var value = userGuid;
-
-        //        var message = new Kafka.Message<string, string>
-        //        {
-        //            Key = key,
-        //            //Value = value
-        //        };
-
-        //        producer.ProduceAsync("orders", message).Wait();
-        //    }
-
-        //    // Send email here after the Kafka message sending
-        //    await SendEmail(orderDTOCreate);
-
-        //    return orderGuid.ToString();
-        //} else
-        //{
-        //    throw new Exception("Invalid GUID format in the response.");
-        //}
-        return response.UserUuid.ToString();
-    }
-
-    private async Task SendEmail(OrderDTOCreate orderDetails)
-    {
-        // Code to send the email using SmtpClient
-        // Replace the placeholders with your actual email sending logic
-
-
-        var config = new Kafka.ProducerConfig
+        var tickets = new List<Ticket>();
+        foreach (var ticket in response.Tickets)
         {
-            BootstrapServers = "broker:9092"
-        };
-
-        using (var producer = new Kafka.ProducerBuilder<string, string>(config).Build())
-        {
-            var key = "order-created";
-            var value = JsonConvert.SerializeObject(orderDetails);
-
-            var message = new Kafka.Message<string, string>
+            var ticketStub = new Ticket
             {
-                Key = key,
-                Value = value
+                MovieUuid = ticket.MovieUuid,
+                TheaterRoom = ticket.TheaterRoom,
+                MovieTime = ticket.MovieTime,
+                SeatNum = ticket.SeatNum
             };
-
-            producer.ProduceAsync("users", message).Wait();
+            tickets.Add(ticketStub);
         }
 
+        // Convert OrderServiceClient.Order to Order
+        var order = new OrderDTO
+        {
+            OrderUuid = response.Uuid,
+            UserUuid = response.UserUuid,
+            Tickets = tickets,
+            IsPaid = response.IsPaid.IsPaid_,
+            CreatedDate = response.DateCreated.ToDateTime()
+        };
 
-        //using (var client = new SmtpClient("smtp.example.com", 587))
-        //{
-        //    client.UseDefaultCredentials = false;
-        //    client.Credentials = new NetworkCredential("username", "password");
-        //    client.EnableSsl = true;
-
-        //    var message = new MailMessage
-        //    {
-        //        From = new MailAddress("from@example.com"),
-        //        To = { new MailAddress(orderDetails.UserEmail) },
-        //        Subject = "Order Created at SilverScreenCinema",
-        //        Body = $"Order created for user: {orderDetails.UserName}\n\n" +
-        //           $"Order Details:\n" +
-        //           $"Movie: {orderDetails.MovieTitle}\n" +
-        //           $"Date: {orderDetails.MovieDate}\n" +
-        //           $"Time: {orderDetails.MovieTime}\n" +
-        //           $"Seats: {string.Join(", ", orderDetails.Seats)}\n" +
-        //           $"Paid: {orderDetails.IsPaid}\n"
-        //    };
-
-        //    client.Send(message);
-        //}
+        return order;
     }
 
     public void Delete(string orderUuid)

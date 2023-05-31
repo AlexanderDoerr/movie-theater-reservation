@@ -17,6 +17,6 @@ public class OrderDTO
     public bool IsPaid { get; set; }
 
     [Required]
-    public DateTime? CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
 }

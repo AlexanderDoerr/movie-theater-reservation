@@ -30,13 +30,13 @@ public class OrderController : ControllerBase
 
             if (string.IsNullOrEmpty(userGuid)) throw new Exception("it was null...");
 
-            var orderGuid = _ordersRepository.Create(orderDTOCreate, userGuid);
+            var order = _ordersRepository.Create(orderDTOCreate, userGuid);
 
             return Ok(new
             {
                 Success = true,
                 Message = "Order created.",
-                OrderGuid = orderGuid
+                Order = order
             });
 
         } catch (Exception ex)
